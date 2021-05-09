@@ -1,0 +1,4 @@
+#!/bin/sh
+tmux new-session -d
+tmux send-keys "conda activate $USER" Enter
+tmux attach
