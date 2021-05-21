@@ -1,0 +1,16 @@
+[/]
+default='e827ef9f-7d74-44c8-9752-0c314d7fb0ba'
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', 'e827ef9f-7d74-44c8-9752-0c314d7fb0ba']
+
+[:e827ef9f-7d74-44c8-9752-0c314d7fb0ba]
+background-color='rgb(0,0,0)'
+bold-is-bright=false
+cursor-background-color='rgb(255,255,255)'
+cursor-blink-mode='off'
+cursor-foreground-color='rgb(0,0,0)'
+cursor-shape='ibeam'
+foreground-color='rgb(255,255,255)'
+highlight-background-color='rgb(170,170,170)'
+highlight-foreground-color='rgb(0,0,0)'
+palette=['rgb(0,0,0)', 'rgb(255,17,51)', 'rgb(0,170,0)', 'rgb(170,85,0)', 'rgb(17,85,255)', 'rgb(170,0,170)', 'rgb(0,170,170)', 'rgb(170,170,170)', 'rgb(85,85,85)', 'rgb(255,85,85)', 'rgb(85,255,85)', 'rgb(255,255,85)', 'rgb(85,85,255)', 'rgb(255,85,255)', 'rgb(85,255,255)', 'rgb(255,255,255)']
+visible-name='Base'
