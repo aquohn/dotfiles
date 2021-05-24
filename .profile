@@ -18,7 +18,10 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/.local/bin" ] ; then
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # source the user's environment file, if it exists
@@ -31,3 +34,30 @@ test -f /var/run/login_hooks/$USER || (test -f "$HOME/.login_hook" && sudo ~/.lo
 setxkbmap -option 'numpad:microsoft'
 # fix mousepad scrolling on xfce
 synclient VertScrollDelta=-77 HorizScrollDelta=-77
+
+export EDITOR=vim
+export VISUAL=vim
+# export USE_PISTOL=1
+export NNN_PLUG='p:preview-tabbed'
+
+# emacs
+PATH="$HOME/.emacs.d/bin:$PATH"
+
+# go
+PATH="$HOME/go/bin:$PATH"
+
+# provers
+PATH="$HOME/.elan/bin:$HOME/.opam/default/bin:$PATH"
+
+# eclipse
+PATH="$HOME/Downloads/eclipse:$PATH"
+
+# opam
+test -r /home/aquohn/.opam/opam-init/init.sh && . /home/aquohn/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+# haskell
+[ -f "/home/aquohn/.ghcup/env" ] && source "/home/aquohn/.ghcup/env"
+
+export PATH
+
+# run the login hook (sudo stuff in here)
+test -f /var/run/login_hooks/$USER || (test -f "$HOME/.login_hook" && sudo ~/.login_hook $USER)
