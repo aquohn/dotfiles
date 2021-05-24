@@ -21,6 +21,7 @@ Plug 'junegunn/fzf.vim'
 " Files
 Plug 'universal-ctags/ctags'
 Plug 'preservim/nerdtree'
+Plug 'mcchrish/nnn.vim'
 
 " Languages
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
