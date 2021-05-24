@@ -31,8 +31,8 @@ chmod u=rwx,g=r,o=r ~/.login_hook
 
 test -f ~/.profile || (touch ~/.profile && printf "#!/bin/sh\n" >> ~/.profile)
 cat << END >> ~/.profile
-# run the login hook (script runs as sudo)
-test -f "$HOME/.login_hook" && sudo ~/.login_hook $USER
+# run the login hook, if it has not yet been run (script runs as sudo)
+test -f /var/run/login_hooks/$USER || (test -f "$HOME/.login_hook" && sudo ~/.login_hook $USER)
 
 END
 
