@@ -117,6 +117,7 @@ alias fucking='sudo'
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
+# Device-specific aliases go here; this is not under version control
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -140,9 +141,11 @@ fi
 export VISUAL=vim
 export EDITOR=vim
 
+# universal aliases
 whichdir() {
   cd "$(dirname "$(which $1)")"
 }
+alias gloga='git log --all --oneline --graph --decorate'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -161,4 +164,4 @@ unset __conda_setup
 
 # enter user conda enviroment
 conda activate aquohn
-echo -e -n "\x1b[\x36 q" # steady bar
+echo -e -n "\x1b[\x36 q" # ibeam cursor
