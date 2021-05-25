@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-panel" version="1.0">
+  <property name="panels" type="array">
+    <value type="int" value="0"/>
+    <value type="int" value="1"/>
+    <property name="panel-0" type="empty">
+      <property name="position" type="string" value="p=6;x=0;y=0"/>
+      <property name="length" type="uint" value="100"/>
+      <property name="position-locked" type="bool" value="true"/>
+      <property name="plugin-ids" type="array">
+        <value type="int" value="22"/>
+        <value type="int" value="6"/>
+        <value type="int" value="3"/>
+        <value type="int" value="19"/>
+        <value type="int" value="5"/>
+        <value type="int" value="20"/>
+        <value type="int" value="4"/>
+        <value type="int" value="9"/>
+      </property>
+      <property name="background-style" type="uint" value="1"/>
+      <property name="background-color" type="array">
+        <value type="uint" value="0"/>
+        <value type="uint" value="17438"/>
+        <value type="uint" value="16893"/>
+        <value type="uint" value="65535"/>
+      </property>
+      <property name="background-alpha" type="uint" value="42"/>
+      <property name="leave-opacity" type="uint" value="85"/>
+      <property name="mode" type="uint" value="0"/>
+      <property name="size" type="uint" value="32"/>
+      <property name="autohide-behavior" type="uint" value="0"/>
+      <property name="disable-struts" type="bool" value="false"/>
+    </property>
+    <property name="panel-1" type="empty">
+      <property name="position" type="string" value="p=10;x=0;y=0"/>
+      <property name="size" type="uint" value="32"/>
+      <property name="position-locked" type="bool" value="true"/>
+      <property name="plugin-ids" type="array">
+        <value type="int" value="15"/>
+        <value type="int" value="8"/>
+        <value type="int" value="16"/>
+        <value type="int" value="18"/>
+        <value type="int" value="17"/>
+        <value type="int" value="2"/>
+      </property>
+      <property name="length" type="uint" value="100"/>
+      <property name="background-style" type="uint" value="0"/>
+      <property name="background-color" type="array">
+        <value type="uint" value="499"/>
+        <value type="uint" value="11646"/>
+        <value type="uint" value="11298"/>
+        <value type="uint" value="65535"/>
+      </property>
+      <property name="background-alpha" type="uint" value="52"/>
+      <property name="leave-opacity" type="uint" value="57"/>
+      <property name="enter-opacity" type="uint" value="86"/>
+      <property name="mode" type="uint" value="0"/>
+      <property name="autohide-behavior" type="uint" value="0"/>
+    </property>
+  </property>
+  <property name="plugins" type="empty">
+    <property name="plugin-5" type="string" value="clock"/>
+    <property name="plugin-6" type="string" value="systray">
+      <property name="names-visible" type="array">
+        <value type="string" value="applet networkmanager"/>
+        <value type="string" value="wicd-client.py"/>
+      </property>
+      <property name="names-ordered" type="array">
+        <value type="string" value="remmina"/>
+        <value type="string" value="task manager"/>
+        <value type="string" value="blueman-tray"/>
+        <value type="string" value="networkmanager applet"/>
+      </property>
+      <property name="known-legacy-items" type="array">
+        <value type="string" value="task manager"/>
+        <value type="string" value="networkmanager applet"/>
+        <value type="string" value="redshift-gtk"/>
+        <value type="string" value="ibus panel"/>
+      </property>
+      <property name="known-items" type="array">
+        <value type="string" value="dropbox-client-1901"/>
+        <value type="string" value="dropbox-client-2157"/>
+        <value type="string" value="dropbox-client-1833"/>
+        <value type="string" value="dropbox-client-1986"/>
+        <value type="string" value="dropbox-client-1732"/>
+        <value type="string" value="dropbox-client-1907"/>
+        <value type="string" value="dropbox-client-12364"/>
+        <value type="string" value="dropbox-client-2193"/>
+        <value type="string" value="dropbox-client-51313"/>
+        <value type="string" value="dropbox-client-17282"/>
+        <value type="string" value="TelegramDesktop"/>
+        <value type="string" value="ksnip"/>
+        <value type="string" value="blueman"/>
+        <value type="string" value="redshift"/>
+      </property>
+    </property>
+    <property name="plugin-8" type="string" value="separator">
+      <property name="style" type="uint" value="1"/>
+      <property name="expand" type="bool" value="false"/>
+    </property>
+    <property name="plugin-15" type="string" value="whiskermenu"/>
+    <property name="plugin-16" type="string" value="tasklist">
+      <property name="include-all-monitors" type="bool" value="false"/>
+      <property name="show-handle" type="bool" value="true"/>
+      <property name="include-all-workspaces" type="bool" value="false"/>
+      <property name="flat-buttons" type="bool" value="false"/>
+      <property name="sort-order" type="uint" value="4"/>
+      <property name="show-labels" type="bool" value="true"/>
+      <property name="switch-workspace-on-unminimize" type="bool" value="true"/>
+      <property name="show-wireframes" type="bool" value="false"/>
+      <property name="grouping" type="uint" value="0"/>
+      <property name="show-only-minimized" type="bool" value="false"/>
+    </property>
+    <property name="plugin-17" type="string" value="pager">
+      <property name="rows" type="uint" value="1"/>
+    </property>
+    <property name="plugin-18" type="string" value="separator">
+      <property name="expand" type="bool" value="true"/>
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-19" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+      <property name="expand" type="bool" value="true"/>
+    </property>
+    <property name="plugin-20" type="string" value="separator">
+      <property name="expand" type="bool" value="true"/>
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-22" type="string" value="notification-plugin"/>
+    <property name="plugin-3" type="string" value="pulseaudio">
+      <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
+      <property name="mpris-players" type="string" value="chromium.instance2013;chromium.instance2140;chromium.instance2216;chromium.instance2289;chromium.instance2375;chromium.instance2461;chromium.instance2554;chromium.instance36015;chromium.instance7411;spotify"/>
+    </property>
+    <property name="plugin-2" type="string" value="clock"/>
+    <property name="plugin-4" type="string" value="power-manager-plugin"/>
+    <property name="plugin-9" type="string" value="systemload"/>
+  </property>
+  <property name="configver" type="int" value="2"/>
+</channel>

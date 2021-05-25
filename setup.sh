@@ -9,4 +9,7 @@ shtool mkshadow ~/home ~
 # Reading: qpdfview, okular
 # Hardware: ghdl, verilator, gtkwave, yosys
 
+opam repo add coq-released https://coq.inria.fr/opam/released
 opam install coq coq-vst merlin ocp-indent utop
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh

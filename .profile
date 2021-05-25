@@ -42,22 +42,23 @@ export NNN_PLUG='p:preview-tabbed'
 
 # emacs
 PATH="$HOME/.emacs.d/bin:$PATH"
-
-# go
-PATH="$HOME/go/bin:$PATH"
+# eclipse
+PATH="$HOME/Downloads/eclipse:$PATH"
 
 # provers
 PATH="$HOME/.elan/bin:$HOME/.opam/default/bin:$PATH"
 
-# eclipse
-PATH="$HOME/Downloads/eclipse:$PATH"
-
-# opam
+# go
+PATH="$HOME/go/bin:$PATH"
+# ocaml
 test -r /home/aquohn/.opam/opam-init/init.sh && . /home/aquohn/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 # haskell
 [ -f "/home/aquohn/.ghcup/env" ] && source "/home/aquohn/.ghcup/env"
+# rust
+. "$HOME/.cargo/env"
 
 export PATH
 
 # run the login hook (sudo stuff in here)
 test -f /var/run/login_hooks/$USER || (test -f "$HOME/.login_hook" && sudo ~/.login_hook $USER)
+
