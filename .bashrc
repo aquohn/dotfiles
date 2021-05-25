@@ -145,7 +145,21 @@ export EDITOR=vim
 whichdir() {
   cd "$(dirname "$(which $1)")"
 }
+
 alias gloga='git log --all --oneline --graph --decorate'
+gsadd ()
+{
+  if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
+    printf "Usage: gsadd NAME URL REF [PREFIX]\n"
+    return
+  fi
+
+  local prefix=${4:-$1}
+  git remote add "$1" "$2"
+  git subtree add --prefix "$prefix" $1 $3
+}
+alias gspush='git subtree push --prefix'
+alias gspull='git subtree pull --prefix'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -166,3 +180,31 @@ unset __conda_setup
 conda activate aquohn
 echo -e -n "\x1b[\x36 q" # ibeam cursor
 . "$HOME/.cargo/env"
+
+n ()
+{
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # To cd on quit only on ^G, remove the "export" as in:
+    NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    # NOTE: NNN_TMPFILE is fixed, should not be modified
+    # export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
+
+    nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}

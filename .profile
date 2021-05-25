@@ -38,7 +38,7 @@ synclient VertScrollDelta=-77 HorizScrollDelta=-77
 export EDITOR=vim
 export VISUAL=vim
 # export USE_PISTOL=1
-export NNN_PLUG='p:preview-tabbed'
+export NNN_PLUG='p:preview-tabbed,o:fzopen,d:fzcd,h:fzhist'
 
 # emacs
 PATH="$HOME/.emacs.d/bin:$PATH"
