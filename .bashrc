@@ -181,6 +181,7 @@ conda activate aquohn
 echo -e -n "\x1b[\x36 q" # ibeam cursor
 . "$HOME/.cargo/env"
 
+alias nnn='nnn -a'
 n ()
 {
     # Block nesting of nnn in subshells
@@ -201,7 +202,7 @@ n ()
     # stty lwrap undef
     # stty lnext undef
 
-    nnn "$@"
+    nnn -a "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
