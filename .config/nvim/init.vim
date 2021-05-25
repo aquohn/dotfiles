@@ -21,6 +21,7 @@ Plug 'junegunn/fzf.vim'
 " Files
 Plug 'universal-ctags/ctags'
 Plug 'preservim/nerdtree'
+Plug 'mcchrish/nnn.vim'
 
 " Languages
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -113,6 +114,7 @@ let g:vimtex_quickfix_ignore_filters = [
           \ '[Oo]verfull',
           \ '[Uu]nderfull',
           \]
+let g:vimtex_compiler_progname = 'nvr'
 
 " Spacing
 set autoindent
@@ -156,3 +158,8 @@ let g:firenvim_config = {
         \ }
       \ },
     \ }
+
+" OCaml config
+let g:opamshare = substitute(system('opam var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+set rtp^="/home/aquohn/.opam/default/share/ocp-indent/vim"
