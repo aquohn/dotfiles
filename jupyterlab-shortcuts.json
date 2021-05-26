@@ -1,0 +1,26 @@
+{
+    "shortcuts": 
+    [
+        {
+            "command": "notebook:run-all-below",
+            "keys": [
+                "Ctrl Shift Enter"
+            ],
+            "selector": ".jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:run-all-below",
+            "keys": [
+                "Ctrl Shift Enter"
+            ],
+            "selector": ".jp-Notebook.jp-mod-editMode"
+        },
+        {
+            "command": "docmanager:reload",
+            "keys": [
+                "F6"
+            ],
+            "selector": "body"
+        }
+    ]
+}
