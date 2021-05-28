@@ -57,9 +57,13 @@ set nottimeout
 
 " Appearance
 set ruler
-set number
-set showmatch
-set incsearch
+set number relativenumber
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+set showmatch incsearch
 set inccommand=nosplit
 set background=dark
 "See invisible characters

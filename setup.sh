@@ -22,9 +22,11 @@ conda install jill
 # cp -r ~/.local/share/jupyter/kernels/julia-<version> ~/.conda/envs/aquohn/share/jupyter/kernels
 
 # Haskell: ghc
+
 # golang, guile
 
 # Terminal: nnn + preview-tabbed (change to st), tmux, fzf, rg, fd[find]
 # Media: mpv, sxiv, zathura
 # Reading: qpdfview, okular
 # Hardware: ghdl, verilator, gtkwave, yosys
+# Flatpak: Spotify, Zoom
