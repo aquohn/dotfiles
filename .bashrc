@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-source ~/.git-prompt.sh
+. ~/.git-prompt.sh
 if [ "$color_prompt" = yes ]; then
     PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\342\234\227]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274\[\033[0m\]\[\033[36m\]"'`__git_ps1 " (%s) "`\[\033[00m\]\[\e[01;33m\]$ \[\e[0m\]'
 else
@@ -143,23 +143,31 @@ export EDITOR=vim
 
 # universal aliases
 whichdir() {
-  cd "$(dirname "$(which $1)")"
+  cd "$(dirname "$(which "$1")")" || return
 }
 
 alias gloga='git log --all --oneline --graph --decorate'
+## remove files that should be gitignored
+alias gitignoresync='git ls-files -i -c --exclude-from=.gitignore -z | xargs -0 git rm --cached'
+
+## shorter aliases for git subtree
 gsadd ()
 {
-  if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
+  if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
     printf "Usage: gsadd NAME URL REF [PREFIX]\n"
     return
   fi
 
   local prefix=${4:-$1}
   git remote add "$1" "$2"
-  git subtree add --prefix "$prefix" $1 $3
+  git subtree add --prefix "$prefix" "$1" "$3"
 }
 alias gspush='git subtree push --prefix'
 alias gspull='git subtree pull --prefix'
+
+## macro hacks for file clipboard on cmdline
+alias cpclip="cp -t ~/.cpbd"
+alias clclip="rm ~/.cpbd/*"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -177,6 +185,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # enter user conda enviroment
+conda deactivate
 conda activate aquohn
 echo -e -n "\x1b[\x36 q" # ibeam cursor
 . "$HOME/.cargo/env"
@@ -185,7 +194,7 @@ alias nnn='nnn -a'
 n ()
 {
     # Block nesting of nnn in subshells
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+    if [ -n "$NNNLVL" ] && [ "${NNNLVL:-0}" -ge 1 ]; then
         echo "nnn is already running"
         return
     fi
@@ -209,3 +218,8 @@ n ()
             rm -f "$NNN_TMPFILE" > /dev/null
     fi
 }
+
+# spral
+export OMP_CANCELLATION=TRUE
+export OMP_NESTED=TRUE
+export OMP_PROC_BIND=TRUE

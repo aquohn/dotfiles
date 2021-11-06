@@ -28,13 +28,14 @@ fi
 test -f "$HOME/.env" && . "$HOME/.env"
 
 # run the login hook (sudo stuff in here)
-test -f /var/run/login_hooks/$USER || (test -f "$HOME/.login_hook" && sudo ~/.login_hook $USER)
+test -f "/var/run/login_hooks/$USER" || (test -f "$HOME/.login_hook" && sudo "$HOME/.login_hook" "$USER")
 
 # fix the annoying numlock stuff
 setxkbmap -option 'numpad:microsoft'
 # fix mousepad scrolling on xfce
 synclient VertScrollDelta=-77 HorizScrollDelta=-77
 
+export NVIM_LISTEN_ADDRESS=~/.nvimsocket
 export EDITOR=vim
 export VISUAL=vim
 # export USE_PISTOL=1
@@ -53,12 +54,15 @@ PATH="$HOME/go/bin:$PATH"
 # ocaml
 test -r /home/aquohn/.opam/opam-init/init.sh && . /home/aquohn/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 # haskell
-[ -f "/home/aquohn/.ghcup/env" ] && source "/home/aquohn/.ghcup/env"
+[ -f "/home/aquohn/.ghcup/env" ] && . "/home/aquohn/.ghcup/env"
 # rust
 . "$HOME/.cargo/env"
+# julia
+export JULIA_NUM_THREADS=4
+# racket
+PATH="$HOME/.local/share/racket/$(racket --version | sed 's/.*v\([0-9.]*\).*/\1/')/bin:$PATH"
 
 export PATH
 
 # run the login hook (sudo stuff in here)
-test -f /var/run/login_hooks/$USER || (test -f "$HOME/.login_hook" && sudo ~/.login_hook $USER)
-
+test -f "/var/run/login_hooks/$USER" || (test -f "$HOME/.login_hook" && sudo "$HOME/.login_hook" "$USER")

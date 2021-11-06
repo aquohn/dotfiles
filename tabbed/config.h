@@ -33,7 +33,7 @@ static Bool npisrelative  = False;
         } \
 }
 
-#define MODKEY ControlMask
+#define MODKEY Mod1Mask
 static Key keys[] = {
 	/* modifier             key        function     argument */
 	{ MODKEY|ShiftMask,     XK_Return, focusonce,   { 0 } },
