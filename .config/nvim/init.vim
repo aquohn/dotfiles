@@ -17,6 +17,7 @@ Plug 'tpope/vim-repeat'
 Plug 'Iron-E/nvim-libmodal'
 
 " Files
+" Plug 'nathom/filetype.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdtree'
 Plug 'mcchrish/nnn.vim'
@@ -33,6 +34,7 @@ Plug 'lervag/vimtex'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'habamax/vim-asciidoctor'
 Plug 'axvr/org.vim'
+Plug 'derekwyatt/vim-scala'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -177,6 +179,10 @@ noremap <silent> k gk
 noremap <silent> j gj
 noremap <silent> $ g$
 noremap <silent> ^ g^
+noremap <silent> gk k
+noremap <silent> gj j
+noremap <silent> g$ $
+noremap <silent> g^ ^
 
 " Do not clear visual mode on shift
 vnoremap > >gv

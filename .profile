@@ -39,7 +39,7 @@ export NVIM_LISTEN_ADDRESS=~/.nvimsocket
 export EDITOR=vim
 export VISUAL=vim
 # export USE_PISTOL=1
-export NNN_PLUG='p:preview-tabbed;o:fzopen;d:fzcd;h:fzhist'
+export NNN_PLUG='p:preview-tabbed;d:diffs;o:fzopen;r:fzcd;h:fzhist'
 
 # emacs
 PATH="$HOME/.emacs.d/bin:$PATH"
