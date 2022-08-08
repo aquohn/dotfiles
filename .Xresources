@@ -1,3 +1,4 @@
+! Nsxiv.window.background: white
 Nsxiv.window.background: black
 
 xterm*VT100.Translations: #override \

@@ -219,6 +219,24 @@ n ()
     fi
 }
 
+p () {
+    fdfind -e pdf \
+    | fast-p \
+    | fzf --read0 --reverse -e -d $'\t'  \
+        --preview-window down:80% --preview '
+            v=$(echo {q} | tr " " "|"); 
+            echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
+        ' \
+    | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
+}
+
+reboot_to_windows ()
+{
+    windows_title=$(grep -i windows /boot/grub/grub.cfg | cut -d "'" -f 2)
+    sudo grub-reboot "$windows_title" && sudo reboot
+}
+alias winreboot='reboot_to_windows'
+
 # spral
 export OMP_CANCELLATION=TRUE
 export OMP_NESTED=TRUE

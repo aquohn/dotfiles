@@ -15,6 +15,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
 Plug 'Iron-E/nvim-libmodal'
+Plug 'vim-airline/vim-airline'
 
 " Files
 " Plug 'nathom/filetype.nvim'
@@ -29,6 +30,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'universal-ctags/ctags'
+Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
 Plug 'lervag/vimtex'
 Plug 'JuliaEditorSupport/julia-vim'
@@ -49,6 +51,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 
