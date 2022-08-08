@@ -165,31 +165,6 @@ gsadd ()
 alias gspush='git subtree push --prefix'
 alias gspull='git subtree pull --prefix'
 
-## macro hacks for file clipboard on cmdline
-alias cpclip="cp -t ~/.cpbd"
-alias clclip="rm ~/.cpbd/*"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/conda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
-        . "/opt/conda/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/conda/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# enter user conda enviroment
-conda deactivate
-conda activate aquohn
-echo -e -n "\x1b[\x36 q" # ibeam cursor
-. "$HOME/.cargo/env"
-
 alias nnn='nnn -a'
 n ()
 {
@@ -230,14 +205,29 @@ p () {
     | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
 }
 
-reboot_to_windows ()
-{
-    windows_title=$(grep -i windows /boot/grub/grub.cfg | cut -d "'" -f 2)
-    sudo grub-reboot "$windows_title" && sudo reboot
-}
-alias winreboot='reboot_to_windows'
+## macro hacks for file clipboard on cmdline
+alias cpclip="cp -t ~/.cpbd"
+alias clclip="rm ~/.cpbd/*"
 
-# spral
-export OMP_CANCELLATION=TRUE
-export OMP_NESTED=TRUE
-export OMP_PROC_BIND=TRUE
+# default to ibeam cursor
+echo -e -n "\x1b[\x36 q"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/conda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
+        . "/opt/conda/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/conda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# enter user conda enviroment
+conda deactivate
+conda activate aquohn
+

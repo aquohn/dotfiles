@@ -54,6 +54,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
+Plug 'jasonccox/vim-wayland-clipboard'
 
 " Vim in your browser!
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -197,7 +198,6 @@ command WQ wa|tabclose
 command Vimrc tabnew $HOME/.config/nvim/init.vim
 
 " Firenvim config
-
 let g:firenvim_config = {
     \ 'localSettings': {
       \ '.*': {
@@ -207,6 +207,8 @@ let g:firenvim_config = {
     \ }
 
 " OCaml config
-let g:opamshare = substitute(system('opam var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
-set rtp^="/home/aquohn/.opam/default/share/ocp-indent/vim"
+if executable('opam')
+  let g:opamshare = substitute(system('opam var share'),'\n$','','''')
+  execute "set rtp+=" . g:opamshare . "/merlin/vim"
+  set rtp^="/home/aquohn/.opam/default/share/ocp-indent/vim"
+endif
