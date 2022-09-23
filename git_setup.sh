@@ -27,10 +27,4 @@ echo $posthook > "$githookdir/hooks/post-merge"
 echo $posthook > "$githookdir/hooks/post-checkout"
 echo $postrewrite > "$githookdir/hooks/post-rewrite"
 
-git config --global init.templatedir '~/.git_template'
-git config --global user.name "John Khoo"
-git config --global user.email "john_khoo@u.nus.edu"
-git config --global core.editor vim
-git config --global core.autocrlf false
-
 ssh-keygen -t ed25519
