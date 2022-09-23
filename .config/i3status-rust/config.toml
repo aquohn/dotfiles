@@ -21,6 +21,10 @@ interval = 5
 format = "{percentage} ({time})"
 
 [[block]]
+block = "backlight"
+root_scaling = 2.4
+
+[[block]]
 block = "sound"
 
 [[block]]
