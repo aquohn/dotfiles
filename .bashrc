@@ -194,9 +194,23 @@ n ()
     fi
 }
 
+p () {
+    fdfind -e pdf \
+    | fast-p \
+    | fzf --read0 --reverse -e -d $'\t'  \
+        --preview-window down:80% --preview '
+            v=$(echo {q} | tr " " "|"); 
+            echo -e {1}"\n"{2} | grep -E "^|$v" -i --color=always;
+        ' \
+    | cut -z -f 1 -d $'\t' | tr -d '\n' | xargs -r --null $open > /dev/null 2> /dev/null
+}
+
 ## macro hacks for file clipboard on cmdline
 alias cpclip="cp -t ~/.cpbd"
 alias clclip="rm ~/.cpbd/*"
+
+# default to ibeam cursor
+echo -e -n "\x1b[\x36 q"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -216,10 +230,4 @@ unset __conda_setup
 # enter user conda enviroment
 conda deactivate
 conda activate aquohn
-echo -e -n "\x1b[\x36 q" # ibeam cursor
-. "$HOME/.cargo/env"
 
-# spral
-export OMP_CANCELLATION=TRUE
-export OMP_NESTED=TRUE
-export OMP_PROC_BIND=TRUE

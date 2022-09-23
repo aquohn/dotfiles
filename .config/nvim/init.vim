@@ -14,45 +14,51 @@ call plug#begin('~/.config/nvim/plugged')
 " Core/Meta
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
-Plug 'Iron-E/nvim-libmodal'
+Plug 'vim-airline/vim-airline'
+if has('nvim')
+  Plug 'Iron-E/nvim-libmodal'
+else
+  Plug 'Iron-E/vim-libmodal'
+endif
 
 " Files
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdtree'
 Plug 'mcchrish/nnn.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+if has('nvim')
+  Plug 'nathom/filetype.nvim'
+endif
 
 " Languages
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'universal-ctags/ctags'
+Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
+Plug 'sheerun/vim-polyglot'
 Plug 'lervag/vimtex'
-Plug 'JuliaEditorSupport/julia-vim'
-Plug 'habamax/vim-asciidoctor'
-Plug 'axvr/org.vim'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'jeffkreeftmeijer/vim-dim'
-Plug 'noahfrederick/vim-noctu'
-Plug 'glepnir/oceanic-material'
-Plug 'altercation/vim-colors-solarized'
-" Plug 'Soares/base16.nvim'
+Plug 'chriskempson/base16-vim'
 
 " Editing
 Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'jasonccox/vim-wayland-clipboard'
 
-" Vim in your browser!
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Nvim only
+if has('nvim')
+  " Vim in your browser!
+  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+endif
 
 call plug#end()
 
@@ -70,11 +76,16 @@ set number relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
 set showmatch incsearch
-set inccommand=nosplit
+if has('nvim')
+  set inccommand=nosplit
+endif
 set background=dark
 "See invisible characters
 set list listchars=tab:>\ ,trail:+,eol:$
-colorscheme martial
+try
+  colorscheme martial
+catch
+endtry
 
 " Buffers
 set hidden " editing other files will hide the current buffer
@@ -137,23 +148,31 @@ autocmd FileType c,cpp setlocal equalprg=clang-format
 
 " Org
 autocmd FileType org setlocal fo-=t
-" PlantUML
-let g:plantuml_set_mkprg = '$HOME/winhome/Software/plantuml.jar'
 
 " LaTeX
 let g:tex_flavor = "latex"
 " https://castel.dev/post/lecture-notes-1/#sympy-and-mathematica - something to consider
-let g:vimtex_view_method = 'general'
-let g:vimtex_view_general_viewer = 'zathura'
+if executable('sioyek')
+  let g:vimtex_view_method = 'sioyek'
+else
+  let g:vimtex_view_method = 'general'
+  if executable('zathura')
+    let g:vimtex_view_general_viewer = 'zathura'
+  else
+    let g:vimtex_view_general_viewer = 'mupdf'
+  endif
+endif
 let g:vimtex_view_automatic = 1
-" let g:vimtex_compiler_method = 'tectonic'
-let g:vimtex_compiler_method = 'latexmk'
+if executable('tectonic')
+  let g:vimtex_compiler_method = 'tectonic'
+else
+  let g:vimtex_compiler_method = 'latexmk'
+endif
 let g:vimtex_quickfix_ignore_filters = [
-          \ '[Oo]verfull',
-          \ '[Uu]nderfull',
-          \ 'dash',
-          \]
-let g:vimtex_compiler_progname = 'nvr'
+      \ '[Oo]verfull',
+      \ '[Uu]nderfull',
+      \ 'dash',
+      \]
 
 " Spacing
 set autoindent
@@ -178,6 +197,10 @@ noremap <silent> k gk
 noremap <silent> j gj
 noremap <silent> $ g$
 noremap <silent> ^ g^
+noremap <silent> gk k
+noremap <silent> gj j
+noremap <silent> g$ $
+noremap <silent> g^ ^
 
 " Do not clear visual mode on shift
 vnoremap > >gv
@@ -186,16 +209,18 @@ vnoremap < <gv
 " Faster tab commands
 command Q tabclose
 command WQ wa|tabclose
-command Vimrc tabnew $HOME/.config/nvim/init.vim
+command Vimrc tabnew $MYVIMRC
 
 " Firenvim config
-let g:firenvim_config = {
-    \ 'localSettings': {
-      \ '.*': {
-        \ 'takeover': 'never',
-        \ }
-      \ },
-    \ }
+if has('nvim')
+  let g:firenvim_config = {
+        \ 'localSettings': {
+          \ '.*': {
+            \ 'takeover': 'never',
+            \ }
+            \ },
+            \ }
+endif
 
 " OCaml config
 if executable('opam')
