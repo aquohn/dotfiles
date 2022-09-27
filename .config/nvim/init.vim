@@ -32,6 +32,7 @@ Plug 'junegunn/fzf.vim'
 
 " Languages
 Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim'
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
