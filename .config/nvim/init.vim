@@ -229,5 +229,5 @@ endif
 if executable('opam')
   let g:opamshare = substitute(system('opam var share'),'\n$','','''')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
-  set rtp^="/home/aquohn/.opam/default/share/ocp-indent/vim"
+  execute "set rtp^=" . g:opamshare . "/ocp-indent/vim"
 endif

@@ -1,0 +1,35 @@
+[theme]
+name = "solarized-dark"
+[icons]
+name = "awesome"
+[icons.overrides]
+
+[[block]]
+block = "cpu"
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{mem_used}/{mem_total}"
+
+[[block]]
+block = "networkmanager"
+
+[[block]]
+block = "battery"
+interval = 5
+format = "{percentage} ({time})"
+
+[[block]]
+block = "backlight"
+root_scaling = 2.4
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "time"
+interval = 5
+format = "%a %d/%m %R"
+[block.icons_overrides]
+time = ""

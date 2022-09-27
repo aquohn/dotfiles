@@ -1,0 +1,10 @@
+[user]
+	name = John Khoo
+	email = john_khoo@u.nus.edu
+[core]
+	editor = nvim
+	autocrlf = false
+[pull]
+	rebase = false
+[init]
+	templatedir = ~/.git_template

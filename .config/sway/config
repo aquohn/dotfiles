@@ -19,12 +19,13 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term foot
+set $floatterm foot -a "floating" -T
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-# Note: change -a to --class and quote the command if changing the terminal
-set $menu foot -a 'floating' -T "launch" -e ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/plugins/launch 0 | xargs swaymsg exec --
-#set $menu $term -a "floating" -T "launcher" -e ls -H 2>/dev/null | fzf --info=inline --print-query --bind=ctrl-space:print-query,tab:replace-query | tail -1 | xargs swaymsg exec --
+# Adapted from https://erfur.github.io/2021/11/20/fzf_as_dmenu.html and https://github.com/jarun/nnn/blob/master/plugins/launch
+set $menu $floatterm "launcher" -e sh -c 'IFS=":"; ls -Hp $PATH | grep -v "/" | sort | uniq | fzf --info=inline --print-query --bind=ctrl-space:print-query | tail -1 | xargs swaymsg exec --'
 
 ### Output configuration
 #
@@ -47,12 +48,20 @@ exec swayidle -w \
        timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
 
        bindswitch --reload --locked lid:on exec swaylock -f -c 000000 && echo mem > /sys/power/state
+
+# TODO figure out presentation mode toggle
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
        bindsym $mod+Escape exec swaylock -f -c 000000
+
+# brightness control
+exec light -N 5
+exec light -I
+bindsym XF86MonBrightnessUp   exec "light -A 5 && light -O"
+bindsym XF86MonBrightnessDown exec "light -U 5 && light -O"
 
 ### Input configuration
 #
@@ -79,13 +88,13 @@ exec swayidle -w \
 #
 # Start a terminal
 bindsym $mod+Return exec $term
-bindsym $mod+T exec $term -e tmux
+bindsym $mod+t exec $term -e tmux
 
 # Kill focused window
 bindsym $mod+F4 kill
 
 # Start your launcher
-bindsym $mod+d exec $menu
+bindsym $mod+r exec $menu
 
 # Start browser
 bindsym $mod+i exec qutebrowser
@@ -99,6 +108,8 @@ bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ to
 # Clipboard setup
 exec wl-paste    --watch cliphist store
 exec wl-paste -p --watch cliphist store
+bindsym $mod+v exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist decode | wl-copy"
+bindsym $mod+d exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist delete"
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -168,12 +179,6 @@ bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
 # Layout stuff:
-#
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
-bindsym $mod+b splith
-bindsym $mod+v splitv
 
 # Switch the current container between different layout styles
 bindsym $mod+s layout stacking
@@ -226,7 +231,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym $mod+z mode "resize"
 
 #
 # Status Bar:
@@ -239,7 +244,8 @@ bar {
 # The default just shows the current date and time.
 # status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
 
-    status_command i3blocks
+    font pango:DejaVu Sans Mono, FontAwesome 12
+    status_command i3status-rs
 
     colors {
       statusline #ffffff
