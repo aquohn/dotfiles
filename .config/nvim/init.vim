@@ -5,11 +5,13 @@ let maplocalleader = " " " map localleader to <Space><Space>
 noremap <Leader>e <Plug>(easymotion-prefix)
 
 " auto-install vim-plug
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-  autocmd VimEnter * PlugInstall
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-call plug#begin('~/.config/nvim/plugged')
+
+call plug#begin(data_dir . '/plugged')
 
 " Core/Meta
 Plug 'tpope/vim-sensible'
@@ -27,9 +29,6 @@ Plug 'preservim/nerdtree'
 Plug 'mcchrish/nnn.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-if has('nvim')
-  Plug 'nathom/filetype.nvim'
-endif
 
 " Languages
 Plug 'dense-analysis/ale'
@@ -54,7 +53,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'jasonccox/vim-wayland-clipboard'
 
-" Nvim only
 if has('nvim')
   " Vim in your browser!
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -114,10 +112,13 @@ set nofoldenable " open files unfolded
 " Statusline
 " set statusline+=%{FugitiveStatusline()}
 
-"Enable mouse click for nvim
+" Enable mouse click
 " set mouse=a
-"Fix cursor replacement after closing nvim
+" Fix cursor replacement after closing nvim
 " set guicursor=
+" Set cursor to block 
+let &t_SI = "\e[6 q" 
+let &t_EI = "\e[2 q" 
 au VimLeave * set guicursor=a:ver25
 "Shift + Tab does inverse tab
 inoremap <S-Tab> <C-d>
@@ -149,20 +150,30 @@ autocmd FileType c,cpp setlocal equalprg=clang-format
 " Org
 autocmd FileType org setlocal fo-=t
 
-" PlantUML
-let g:plantuml_set_mkprg = '$HOME/winhome/Software/plantuml.jar'
-
 " LaTeX
 let g:tex_flavor = "latex"
 " https://castel.dev/post/lecture-notes-1/#sympy-and-mathematica - something to consider
-let g:vimtex_view_method = 'general'
-let g:vimtex_view_general_viewer = 'zathura'
+if executable('sioyek')
+  let g:vimtex_view_method = 'sioyek'
+else
+  let g:vimtex_view_method = 'general'
+  if executable('zathura')
+    let g:vimtex_view_general_viewer = 'zathura'
+  else
+    let g:vimtex_view_general_viewer = 'mupdf'
+  endif
+endif
 let g:vimtex_view_automatic = 1
-" let g:vimtex_compiler_method = 'tectonic'
+" if executable('tectonic')
+"   let g:vimtex_compiler_method = 'tectonic'
+" else
+"   let g:vimtex_compiler_method = 'latexmk'
+" endif
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_quickfix_ignore_filters = [
       \ '[Oo]verfull',
       \ '[Uu]nderfull',
+      \ '[Ww]arning',
       \ 'dash',
       \]
 
