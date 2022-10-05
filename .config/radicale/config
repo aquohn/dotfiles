@@ -1,6 +1,6 @@
 [storage]
 type = radicale_storage_decsync
-filesystem_folder = ~/Decsync/radicale
+filesystem_folder = ~/.var/lib/radicale/collections
 decsync_dir = ~/Decsync
 
 # default port: 5232
