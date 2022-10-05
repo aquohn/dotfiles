@@ -154,23 +154,22 @@ autocmd FileType org setlocal fo-=t
 " LaTeX
 let g:tex_flavor = "latex"
 " https://castel.dev/post/lecture-notes-1/#sympy-and-mathematica - something to consider
-if executable('sioyek')
-  let g:vimtex_view_method = 'sioyek'
-else
+" if executable('sioyek')
+"   let g:vimtex_view_method = 'sioyek'
+" else
   let g:vimtex_view_method = 'general'
   if executable('zathura')
     let g:vimtex_view_general_viewer = 'zathura'
   else
     let g:vimtex_view_general_viewer = 'mupdf'
   endif
-endif
+" endif
 let g:vimtex_view_automatic = 1
 " if executable('tectonic')
 "   let g:vimtex_compiler_method = 'tectonic'
 " else
-"   let g:vimtex_compiler_method = 'latexmk'
+  let g:vimtex_compiler_method = 'latexmk'
 " endif
-let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_quickfix_ignore_filters = [
       \ '[Oo]verfull',
       \ '[Uu]nderfull',
