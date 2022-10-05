@@ -194,6 +194,7 @@ n ()
     fi
 }
 
+# Search pdfs
 p () {
     fdfind -e pdf \
     | fast-p \

@@ -61,6 +61,9 @@ endif
 
 call plug#end()
 
+" Whose idea was this...
+let g:coc_disable_startup_warning = 1
+
 syntax on
 filetype on
 set notimeout
@@ -232,3 +235,4 @@ if executable('opam')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
   execute "set rtp^=" . g:opamshare . "/ocp-indent/vim"
 endif
+
