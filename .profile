@@ -19,10 +19,12 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.local/cache"
 
-# execute tmux by default, so we can spy on the login shell
-if command -v tmux >/dev/null 2>/dev/null && [ -n "$PS1" ] && [ "$TERM" != screen ] && [ "$TERM" != tmux ] && [ -z "$TMUX" ]; then
-  exec tmux
-fi
+## execute tmux by default
+## may cause some trouble with graphical login
+## so copy to local .profile if desired
+#if command -v tmux >/dev/null 2>/dev/null && [ -n "$PS1" ] && [ "$TERM" != screen ] && [ "$TERM" != tmux ] && [ -z "$TMUX" ]; then
+#  exec tmux
+#fi
 
 prepath() {
   if [ -d "$1" ] ; then
@@ -60,7 +62,7 @@ postpath "$HOME/.emacs.d/bin"
 postpath "$HOME/.elan/bin"
 postpath "${GOPATH:-$HOME/go}/bin"
 [ "`command -v racket`" ] && postpath "${PLTADDONDIR:-$XDG_DATA_HOME/racket}/`racket --version | sed 's/.*v\([0-9.]*\).*/\1/'`/bin"
-[ "`command -v yarn`" ] && postpath "`yarn global dir`"
+[ "`command -v npm`" ] && postpath "`npm -g bin 2>/dev/null`"
 checksource "${GHCUP_INSTALL_BASE_PREFIX:-$HOME}/.ghcup/env"
 checksource "${CARGO_HOME:-$HOME/.cargo}/env"
 
