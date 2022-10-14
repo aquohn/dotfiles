@@ -8,73 +8,83 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+# non-login shells will execute $ENV
+export ENV="$HOME/.env"
+# some non-compliant shells look for $SHINIT instead
+export SHINIT="$HOME/.env"
+
+# make sure our XDG dirs are set
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.local/cache"
+
+# execute tmux by default, so we can spy on the login shell
+if command -v tmux >/dev/null 2>/dev/null && [ -n "$PS1" ] && [ "$TERM" != screen ] && [ "$TERM" != tmux ] && [ -z "$TMUX" ]; then
+  exec tmux
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    export PATH="$HOME/bin:$PATH"
-fi
-if [ -d "$HOME/.local/bin" ] ; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
+prepath() {
+  if [ -d "$1" ] ; then
+    PATH="$1:$PATH"
+  fi
+}
 
-# source the user's environment file, if it exists
-test -f "$HOME/.env" && . "$HOME/.env"
+postpath() {
+  if [ -d "$1" ] ; then
+    PATH="$PATH:$1"
+  fi
+}
 
-# run the login hook (sudo stuff in here)
-test -f "/var/run/login_hooks/$USER" || (test -f "$HOME/.login_hook" && sudo "$HOME/.login_hook" "$USER")
+checksource() {
+  if [ -r "$1" ] ; then
+    . "$1" >/dev/null 2>&1 || true
+  fi
+}
 
-# fix the annoying numlock stuff
-setxkbmap -option 'numpad:microsoft'
-# fix mousepad scrolling on xfce
-synclient VertScrollDelta=-77 HorizScrollDelta=-77
+# add various directories to PATH if they exist
+prepath "$HOME/bin"
+prepath "$HOME/.local/bin"
+postpath "/usr/sandbox"
+postpath "/usr/local/bin"
+postpath "/usr/bin"
+postpath "/bin"
+postpath "/usr/local/games"
+postpath "/usr/games"
+postpath "/usr/share/games"
+postpath "/usr/local/sbin"
+postpath "/usr/sbin"
+postpath "/sbin"
 
-# Program settings
-
-# nvim
-export NVIM_LISTEN_ADDRESS=~/.nvimsocket
-export EDITOR=vim
-export VISUAL=vim
-
-# nnn
-export NNN_PLUG='t:preview-tabbed;d:diffs;o:fzopen;r:fzcd;h:fzhist;p:rsynccp'
-
-# emacs
-PATH="$HOME/.emacs.d/bin:$PATH"
-
-# eclipse
-PATH="$HOME/Downloads/eclipse:$PATH"
-
-# provers
-PATH="$HOME/.elan/bin:$HOME/.opam/default/bin:$PATH"
-
-# go
-PATH="$HOME/go/bin:$PATH"
-
-# ocaml
-test -r /home/aquohn/.opam/opam-init/init.sh && . /home/aquohn/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-
-# haskell
-[ -f "/home/aquohn/.ghcup/env" ] && . "/home/aquohn/.ghcup/env"
-
-# rust
-. "$HOME/.cargo/env"
-
-# julia
-export JULIA_NUM_THREADS=4
-
-# racket
-PATH="$HOME/.local/share/racket/$(racket --version | sed 's/.*v\([0-9.]*\).*/\1/')/bin:$PATH"
-
-# spral
-export OMP_CANCELLATION=TRUE
-export OMP_NESTED=TRUE
-export OMP_PROC_BIND=TRUE
+postpath "$HOME/.emacs.d/bin"
+postpath "$HOME/.elan/bin"
+postpath "${GOPATH:-$HOME/go}/bin"
+[ "`command -v racket`" ] && postpath "${PLTADDONDIR:-$XDG_DATA_HOME/racket}/`racket --version | sed 's/.*v\([0-9.]*\).*/\1/'`/bin"
+[ "`command -v yarn`" ] && postpath "`yarn global dir`"
+checksource "${GHCUP_INSTALL_BASE_PREFIX:-$HOME}/.ghcup/env"
+checksource "${CARGO_HOME:-$HOME/.cargo}/env"
 
 export PATH
+
+export EDITOR=ex
+export VISUAL=vim
+export PAGER=less
+
+export NVIM_LISTEN_ADDRESS="$HOME/.nvimsocket"
+export NNN_PLUG='p:preview-tabbed;o:fzopen;d:fzcd;h:fzhist;v:rsynccp'
+
+# Guix
+if [ "`command -v guix`" ]; then
+  export GUIX_PROFILE="$HOME/.guix-profile"
+  export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
+  checksource "$GUIX_PROFILE/etc/profile"
+fi
+
+if [ -n "${BASH_VERSINFO+x}" ]; then
+    checksource "$HOME/.bashrc"
+elif [ -n "${ZSH_VERSION+x}" ]; then
+    checksource "$HOME/.zshrc"
+else
+    checksource "$ENV"
+fi
+
