@@ -73,6 +73,11 @@ export PAGER=less
 export NVIM_LISTEN_ADDRESS="$HOME/.nvimsocket"
 export NNN_PLUG='p:preview-tabbed;o:fzopen;d:fzcd;h:fzhist;v:rsynccp'
 
+# make less more friendly for non-text input files
+if [ "`command -v lesspipe`" ] || [ "`command -v lesspipe.sh`" ]; then
+  eval "`SHELL=/bin/sh lesspipe`"
+fi
+
 # Guix
 if [ "`command -v guix`" ]; then
   export GUIX_PROFILE="$HOME/.guix-profile"
