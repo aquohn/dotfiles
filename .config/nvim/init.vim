@@ -115,14 +115,15 @@ set nofoldenable " open files unfolded
 
 " Statusline
 " set statusline+=%{FugitiveStatusline()}
+let g:airline#extensions#whitespace#enabled = 0 " not that helpful
 
 " Enable mouse click
 " set mouse=a
 " Fix cursor replacement after closing nvim
 " set guicursor=
-" Set cursor to block 
-let &t_SI = "\e[6 q" 
-let &t_EI = "\e[2 q" 
+" Set cursor to block
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 au VimLeave * set guicursor=a:ver25
 "Shift + Tab does inverse tab
 inoremap <S-Tab> <C-d>
@@ -190,7 +191,7 @@ set linebreak
 set tabstop=2
 set shiftwidth=2
 
-" Shortcuts 
+" Shortcuts
 " Clearing highlighting and refereshing
 nnoremap <esc> :noh<return><esc>
 nnoremap <F5> <Esc>:e<CR>
