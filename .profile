@@ -19,10 +19,10 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.local/cache"
 
-## execute tmux by default
-#if command -v tmux >/dev/null 2>/dev/null && [ -n "$PS1" ] && [ "$TERM" != screen ] && [ "$TERM" != tmux ] && [ -z "$TMUX" ]; then
-#  exec tmux
-#fi
+# execute tmux by default, so we can spy on the login shell
+if command -v tmux >/dev/null 2>/dev/null && [ -n "$PS1" ] && [ "$TERM" != screen ] && [ "$TERM" != tmux ] && [ -z "$TMUX" ]; then
+  exec tmux
+fi
 
 prepath() {
   if [ -d "$1" ] ; then
