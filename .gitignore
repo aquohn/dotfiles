@@ -1,3 +1,21 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+### Above combination will ignore all files without extension ###
+
+# Ignore object files
+*.class
+*.o
+
+# Ignore `bin` dir
+*/bin/* 
+
 # Swap
 [._]*.s[a-v][a-z]
 !*.svg  # comment out if you don't need vector files
