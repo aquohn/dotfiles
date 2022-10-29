@@ -8,7 +8,7 @@
 *.msi
 
 # Ignore `bin` dir
-*/bin/* 
+*/bin/*
 
 # Swap
 [._]*.s[a-v][a-z]
@@ -30,3 +30,6 @@ tags
 # Persistent undo
 [._]*.un~
 
+# Plugins
+.config/nnn/plugins
+.config/*/plugged

@@ -9,15 +9,15 @@
 #umask 022
 
 # non-login shells will execute $ENV
-export ENV="$HOME/.env"
+ENV="$HOME/.env"; export ENV
 # some non-compliant shells look for $SHINIT instead
-export SHINIT="$HOME/.env"
+SHINIT="$HOME/.env"; export SHINIT
 
 # make sure our XDG dirs are set
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.local/cache"
+XDG_CONFIG_HOME="$HOME/.config"; export XDG_CONFIG_HOME
+XDG_DATA_HOME="$HOME/.local/share"; export XDG_DATA_HOME
+XDG_STATE_HOME="$HOME/.local/state"; export XDG_STATE_HOME
+XDG_CACHE_HOME="$HOME/.local/cache"; export XDG_CACHE_HOME
 
 ## execute tmux by default
 ## may cause some trouble with graphical login
@@ -68,12 +68,12 @@ checksource "${CARGO_HOME:-$HOME/.cargo}/env"
 
 export PATH
 
-export EDITOR=ex
-export VISUAL=vim
-export PAGER=less
+EDITOR=ex; export EDITOR
+VISUAL=vim; export VISUAL
+PAGER=less; export PAGER
 
-export NVIM_LISTEN_ADDRESS="$HOME/.nvimsocket"
-export NNN_PLUG='p:preview-tabbed;o:fzopen;d:fzcd;h:fzhist;v:rsynccp'
+NVIM_LISTEN_ADDRESS="$HOME/.nvimsocket"; export NVIM_LISTEN_ADDRESS
+NNN_PLUG='p:preview-tabbed;o:fzopen;d:fzcd;h:fzhist;v:rsynccp'; export NNN_PLUG
 
 # make less more friendly for non-text input files
 if [ "`command -v lesspipe`" ]; then
@@ -84,8 +84,8 @@ fi
 
 # Guix
 if [ "`command -v guix`" ]; then
-  export GUIX_PROFILE="$HOME/.guix-profile"
-  export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
+  GUIX_PROFILE="$HOME/.guix-profile"; export GUIX_PROFILE
+  GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"; export GUIX_LOCPATH
   checksource "$GUIX_PROFILE/etc/profile"
 fi
 
