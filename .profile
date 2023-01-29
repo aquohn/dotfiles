@@ -58,6 +58,8 @@ postpath "/usr/local/sbin"
 postpath "/usr/sbin"
 postpath "/sbin"
 
+postpath "$HOME/.local/share/flatpak/exports/bin"
+postpath "/var/lib/flatpak/exports/bin"
 postpath "$HOME/.emacs.d/bin"
 postpath "$HOME/.elan/bin"
 postpath "${GOPATH:-$HOME/go}/bin"
