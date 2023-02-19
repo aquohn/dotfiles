@@ -32,7 +32,7 @@ Plug 'junegunn/fzf.vim'
 
 " Languages
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
@@ -142,18 +142,17 @@ set completeopt=menu
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
 let g:ale_fixers = {
-      \ 'python': ['black']
+      \ 'python': ['black'],
+      \ 'html': ['prettier'],
+      \ 'javascript': ['prettier'],
       \ }
 let g:ale_linters_ignore = {
-      \ 'python': ['pylint']
+      \ 'python': ['pylint'],
       \ }
 
 " C
 let g:ale_c_build_dir_names=['build', 'bin', 'Debug', 'debug']
 autocmd FileType c,cpp setlocal equalprg=clang-format
-
-" Org
-autocmd FileType org setlocal fo-=t
 
 " LaTeX
 let g:tex_flavor = "latex"
@@ -185,8 +184,7 @@ let g:vimtex_quickfix_ignore_filters = [
 set autoindent
 set smartindent
 set expandtab
-set fo-=t
-set textwidth=80
+set textwidth=0
 set linebreak
 set tabstop=2
 set shiftwidth=2
