@@ -61,6 +61,9 @@ endif
 
 call plug#end()
 
+" Whose idea was this...
+let g:coc_disable_startup_warning = 1
+
 syntax on
 filetype on
 set notimeout
@@ -112,14 +115,15 @@ set nofoldenable " open files unfolded
 
 " Statusline
 " set statusline+=%{FugitiveStatusline()}
+let g:airline#extensions#whitespace#enabled = 0 " not that helpful
 
 " Enable mouse click
 " set mouse=a
 " Fix cursor replacement after closing nvim
 " set guicursor=
-" Set cursor to block 
-let &t_SI = "\e[6 q" 
-let &t_EI = "\e[2 q" 
+" Set cursor to block
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 au VimLeave * set guicursor=a:ver25
 "Shift + Tab does inverse tab
 inoremap <S-Tab> <C-d>
@@ -154,23 +158,22 @@ autocmd FileType org setlocal fo-=t
 " LaTeX
 let g:tex_flavor = "latex"
 " https://castel.dev/post/lecture-notes-1/#sympy-and-mathematica - something to consider
-if executable('sioyek')
-  let g:vimtex_view_method = 'sioyek'
-else
+" if executable('sioyek')
+"   let g:vimtex_view_method = 'sioyek'
+" else
   let g:vimtex_view_method = 'general'
   if executable('zathura')
     let g:vimtex_view_general_viewer = 'zathura'
   else
     let g:vimtex_view_general_viewer = 'mupdf'
   endif
-endif
+" endif
 let g:vimtex_view_automatic = 1
 " if executable('tectonic')
 "   let g:vimtex_compiler_method = 'tectonic'
 " else
-"   let g:vimtex_compiler_method = 'latexmk'
+  let g:vimtex_compiler_method = 'latexmk'
 " endif
-let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_quickfix_ignore_filters = [
       \ '[Oo]verfull',
       \ '[Uu]nderfull',
@@ -188,7 +191,7 @@ set linebreak
 set tabstop=2
 set shiftwidth=2
 
-" Shortcuts 
+" Shortcuts
 " Clearing highlighting and refereshing
 nnoremap <esc> :noh<return><esc>
 nnoremap <F5> <Esc>:e<CR>
@@ -232,3 +235,4 @@ if executable('opam')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
   execute "set rtp^=" . g:opamshare . "/ocp-indent/vim"
 endif
+
