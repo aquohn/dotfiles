@@ -16,7 +16,7 @@ call plug#begin(data_dir . '/plugged')
 " Core/Meta
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
 if has('nvim')
   Plug 'Iron-E/nvim-libmodal'
 else
