@@ -258,3 +258,7 @@ include /etc/sway/config.d/*
 
 # Start pipewire for audio
 exec /usr/libexec/pipewire-launcher
+
+# Start portal
+exec /usr/libexec/xdg-desktop-portal-wlr
+# exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
