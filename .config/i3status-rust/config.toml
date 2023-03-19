@@ -1,24 +1,30 @@
 [theme]
-name = "solarized-dark"
+theme = "solarized-dark"
 [icons]
-name = "awesome"
+icons = "awesome6"
 [icons.overrides]
 
 [[block]]
 block = "cpu"
+format = "$icon $barchart $boost"
 
 [[block]]
 block = "memory"
-display_type = "memory"
-format_mem = "{mem_used}/{mem_total}"
+format = "$icon $mem_used_percents"
+format_alt = "$icon $mem_used.eng(w:3) / $mem_total.eng(w:3)"
 
 [[block]]
-block = "networkmanager"
+block = "net"
+format = "$icon {$signal_strength $ssid|Wired connection}"
+format_alt = "$icon {$signal_strength $ssid|Wired connection} ($device) ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K)"
 
 [[block]]
 block = "battery"
-interval = 5
-format = "{percentage} ({time})"
+full_format = " $icon $percentage"
+empty_format = " $icon $percentage"
+not_charging_format = " $icon $percentage"
+driver = "upower"
+# format = "$icon $percentage ($time) $power"
 
 [[block]]
 block = "backlight"
@@ -30,6 +36,3 @@ block = "sound"
 [[block]]
 block = "time"
 interval = 5
-format = "%a %d/%m %R"
-[block.icons_overrides]
-time = ""
