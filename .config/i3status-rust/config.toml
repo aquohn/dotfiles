@@ -20,11 +20,11 @@ format_alt = "$icon {$signal_strength $ssid|Wired connection} ($device) ^icon_ne
 
 [[block]]
 block = "battery"
-full_format = " $icon $percentage"
-empty_format = " $icon $percentage"
-not_charging_format = " $icon $percentage"
+format = " $icon $percentage ($time) $power.eng(w:4)"
+full_format = " $icon $percentage ($time) $power.eng(w:4)"
+empty_format = " $icon $percentage ($time) $power.eng(w:4)"
+not_charging_format = " $icon $percentage (Not Charging) $power.eng(w:4)"
 driver = "upower"
-# format = "$icon $percentage ($time) $power"
 
 [[block]]
 block = "backlight"
