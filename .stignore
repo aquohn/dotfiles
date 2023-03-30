@@ -1,0 +1,7 @@
+conda_env
+.CondaPkg
+node_modules
+.git
+bin
+obj
+build
