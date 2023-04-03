@@ -1,7 +1,7 @@
 # Core: syncthing, git
-cd shtool* && ./configure && make && make test
-# modify mkshadow to ln -fs
-shtool mkshadow ~/home ~
+
+cp -as "$PWD/home/." ~
+cp template/.* -t ~
 
 # conda: miniconda
 conda config --add channels conda-forge
