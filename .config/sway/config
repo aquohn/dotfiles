@@ -110,6 +110,7 @@ exec wl-paste    --watch cliphist store
 exec wl-paste -p --watch cliphist store
 bindsym $mod+v exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist decode | wl-copy"
 bindsym $mod+d exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist delete"
+bindsym $mod+Shift+s exec grimshot copy area
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.

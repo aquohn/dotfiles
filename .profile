@@ -75,7 +75,7 @@ VISUAL=vim; export VISUAL
 PAGER=less; export PAGER
 
 NVIM_LISTEN_ADDRESS="$HOME/.nvimsocket"; export NVIM_LISTEN_ADDRESS
-NNN_PLUG='p:preview-tabbed;o:fzopen;d:fzcd;h:fzhist;v:rsynccp'; export NNN_PLUG
+NNN_PLUG='p:preview-tui;o:fzopen;d:fzcd;h:fzhist;v:rsynccp'; export NNN_PLUG
 
 # make less more friendly for non-text input files
 if [ "`command -v lesspipe`" ]; then
