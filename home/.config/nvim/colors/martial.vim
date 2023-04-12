@@ -26,6 +26,7 @@ let colors_name = "martial"
 
 " First set Normal to regular white on black text colors:
 hi Normal ctermfg=LightGray ctermbg=Black guifg=#dddddd	guibg=Black
+hi Visual ctermfg=Black ctermbg=LightGray guifg=Black	guibg=#dddddd
 
 " Syntax highlighting (other color-groups using default, see :help group-name):
 hi Comment    cterm=NONE ctermfg=DarkCyan    	gui=NONE guifg=#00aaaa   	 
