@@ -108,6 +108,9 @@ nnoremap <Leader>d :diff
 
 " Editing
 nnoremap <Leader>u :UndotreeToggle<CR>
+if has('wsl')
+  vnoremap <C-c> y:!echo <C-r>=escape(substitute(shellescape(getreg('"')), '\n', '\r', 'g'), '%!')<CR> <Bar> clip.exe<CR><CR>
+endif
 
 " Folding
 set foldmethod=syntax
