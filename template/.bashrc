@@ -1,3 +1,3 @@
 #!/bin/bash
 
-[ -r "$HOME/.bashrc" ] && . "$HOME/.bashrc"
+[ -r "$HOME/home/.bashrc" ] && . "$HOME/home/.bashrc"

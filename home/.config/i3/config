@@ -104,7 +104,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # exec wl-paste -p --watch cliphist store
 # bindsym $mod+v exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist decode | wl-copy"
 # bindsym $mod+d exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist delete"
-bindsym $mod+Shift+s exec flameshot
+bindsym $mod+Shift+s exec flameshot gui
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
