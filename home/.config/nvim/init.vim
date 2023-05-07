@@ -16,7 +16,6 @@ call plug#begin(data_dir . '/plugged')
 " Core/Meta
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
-" Plug 'vim-airline/vim-airline'
 if has('nvim')
   Plug 'Iron-E/nvim-libmodal'
 else
@@ -117,8 +116,7 @@ set foldmethod=syntax
 set nofoldenable " open files unfolded
 
 " Statusline
-" set statusline+=%{FugitiveStatusline()}
-let g:airline#extensions#whitespace#enabled = 0 " not that helpful
+set statusline=%f\ %h%w%q[%{&ff}]%y\ %m%r\ %{FugitiveStatusline()}%=%{tagbar#currenttag('%s','','f')}%=%04l/%04L\ (%p%%)\ \|\ %03v
 
 " Enable mouse click
 " set mouse=a
