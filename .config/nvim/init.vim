@@ -16,7 +16,6 @@ call plug#begin(data_dir . '/plugged')
 " Core/Meta
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
-" Plug 'vim-airline/vim-airline'
 if has('nvim')
   Plug 'Iron-E/nvim-libmodal'
 else
@@ -32,7 +31,7 @@ Plug 'junegunn/fzf.vim'
 
 " Languages
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim'
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
@@ -108,14 +107,16 @@ nnoremap <Leader>d :diff
 
 " Editing
 nnoremap <Leader>u :UndotreeToggle<CR>
+if has('wsl')
+  vnoremap <C-c> y:!echo <C-r>=escape(substitute(shellescape(getreg('"')), '\n', '\r', 'g'), '%!')<CR> <Bar> clip.exe<CR><CR>
+endif
 
 " Folding
 set foldmethod=syntax
 set nofoldenable " open files unfolded
 
 " Statusline
-" set statusline+=%{FugitiveStatusline()}
-let g:airline#extensions#whitespace#enabled = 0 " not that helpful
+set statusline=%f\ %h%w%q[%{&ff}]%y\ %m%r\ %{FugitiveStatusline()}%=%{tagbar#currenttag('%s','','f')}%=%04l/%04L\ (%p%%)\ \|\ %03v
 
 " Enable mouse click
 " set mouse=a
@@ -142,17 +143,18 @@ set completeopt=menu
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
 let g:ale_fixers = {
-      \ 'python': ['black'],
-      \ 'html': ['prettier'],
-      \ 'javascript': ['prettier'],
+      \ 'python': ['black']
       \ }
 let g:ale_linters_ignore = {
-      \ 'python': ['pylint'],
+      \ 'python': ['pylint']
       \ }
 
 " C
 let g:ale_c_build_dir_names=['build', 'bin', 'Debug', 'debug']
 autocmd FileType c,cpp setlocal equalprg=clang-format
+
+" Org
+autocmd FileType org setlocal fo-=t
 
 " LaTeX
 let g:tex_flavor = "latex"
@@ -184,7 +186,8 @@ let g:vimtex_quickfix_ignore_filters = [
 set autoindent
 set smartindent
 set expandtab
-set textwidth=0
+set fo-=t
+set textwidth=80
 set linebreak
 set tabstop=2
 set shiftwidth=2
