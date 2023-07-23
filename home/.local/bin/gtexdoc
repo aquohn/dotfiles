@@ -1,0 +1,6 @@
+#!/bin/sh
+
+docdir="`which latexmk | xargs readlink | xargs dirname`/../share/texmf-dist/doc"
+result=`find "$docdir" -name $1.pdf -print0 | head -z -n 1`
+[ -n "$result" ] || (echo "$1 not found!" && exit)
+open "$result" > /dev/null 2>&1 &
