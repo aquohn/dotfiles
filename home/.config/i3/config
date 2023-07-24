@@ -19,7 +19,6 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term st
-set $floatterm st -c "floating" -T
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -29,7 +28,7 @@ font pango:DejaVu Sans Mono, FontAwesome 10
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # Adapted from https://erfur.github.io/2021/11/20/fzf_as_dmenu.html and https://github.com/jarun/nnn/blob/master/plugins/launch
-set $menu $floatterm "launcher" -e sh -c 'IFS=":"; ls -Hp $PATH | grep -v "/" | sort | uniq | fzf --info=inline --print-query --bind=ctrl-space:print-query | tail -1 | xargs i3-msg exec --'
+set $menu i3runner
 
 ### Output configuration
 #
@@ -63,10 +62,8 @@ set $menu $floatterm "launcher" -e sh -c 'IFS=":"; ls -Hp $PATH | grep -v "/" | 
        # bindsym $mod+Escape exec swaylock -f -c 000000
 
 # brightness control
-exec light -N 5
-exec light -I
-bindsym XF86MonBrightnessUp   exec "light -A 5 && light -O"
-bindsym XF86MonBrightnessDown exec "light -U 5 && light -O"
+bindsym XF86MonBrightnessUp   exec "brightnessctl set +5%"
+bindsym XF86MonBrightnessDown exec "brightnessctl set 5%-"
 
 ### Input configuration
 # input type:touchpad {
@@ -88,8 +85,7 @@ bindsym $mod+t exec $term -e tmux
 bindsym $mod+F4 kill
 
 # Start your launcher
-# bindsym $mod+r exec $menu
-bindsym $mod+r exec $floatterm "launcher" -e sh -c 'IFS=":"; ls -Hp $PATH | grep -v "/" | sort | uniq | fzf --info=inline --print-query --bind=ctrl-space:print-query | tail -1 | xargs i3-msg exec --'
+bindsym $mod+r exec $menu
 # Start browser
 bindsym $mod+i exec qutebrowser
 
@@ -104,7 +100,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # exec wl-paste -p --watch cliphist store
 # bindsym $mod+v exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist decode | wl-copy"
 # bindsym $mod+d exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist delete"
-bindsym $mod+Shift+s exec flameshot
+bindsym $mod+Shift+s exec flameshot gui
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -241,7 +237,7 @@ bar {
 # status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
 
     font pango:DejaVu Sans Mono, FontAwesome 10
-    status_command i3status-rs
+    status_command i3status
 
     colors {
       statusline #ffffff
