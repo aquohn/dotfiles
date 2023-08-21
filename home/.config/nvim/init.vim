@@ -11,6 +11,8 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" let g:polyglot_disabled = ['org']
+
 call plug#begin(data_dir . '/plugged')
 
 " Core/Meta
@@ -35,8 +37,12 @@ Plug 'neoclide/coc.nvim'
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
+Plug 'inkarkat/vim-SyntaxRange'
+Plug 'vim-scripts/utl.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'lervag/vimtex'
+Plug 'jceb/vim-orgmode'
+Plug 'JuliaEditorSupport/julia-vim'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -49,6 +55,7 @@ Plug 'tommcdo/vim-lion'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-speeddating'
 Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'jasonccox/vim-wayland-clipboard'
@@ -116,7 +123,7 @@ set foldmethod=syntax
 set nofoldenable " open files unfolded
 
 " Statusline
-set statusline=%f\ %h%w%q[%{&ff}]%y\ %m%r\ %{FugitiveStatusline()}%=%{tagbar#currenttag('%s','','f')}%=%04l/%04L\ (%p%%)\ \|\ %03v
+set statusline=%f\ %h%w%q[%{&ff}]%y\ %m%r\ %{FugitiveStatusline()}%=%{tagbar#currenttag('%s','','f')}%=%l/%L\ (%p%%)\ \|\ %3v
 
 " Enable mouse click
 " set mouse=a
@@ -170,11 +177,9 @@ let g:tex_flavor = "latex"
   endif
 " endif
 let g:vimtex_view_automatic = 1
-" if executable('tectonic')
-"   let g:vimtex_compiler_method = 'tectonic'
-" else
-  let g:vimtex_compiler_method = 'latexmk'
-" endif
+if executable('latexmk') != 1 " default compiler is latexmk
+  let g:vimtex_compiler_method = 'tectonic'
+endif
 let g:vimtex_quickfix_ignore_filters = [
       \ '[Oo]verfull',
       \ '[Uu]nderfull',
@@ -185,7 +190,6 @@ let g:vimtex_quickfix_ignore_filters = [
 " Spacing
 set autoindent
 set smartindent
-set expandtab
 set fo-=t
 set textwidth=80
 set linebreak
