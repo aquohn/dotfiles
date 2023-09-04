@@ -41,7 +41,7 @@ Plug 'inkarkat/vim-SyntaxRange'
 Plug 'vim-scripts/utl.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'lervag/vimtex'
-Plug 'jceb/vim-orgmode'
+" Plug 'jceb/vim-orgmode'
 Plug 'JuliaEditorSupport/julia-vim'
 
 " Colours
@@ -159,9 +159,6 @@ let g:ale_linters_ignore = {
 " C
 let g:ale_c_build_dir_names=['build', 'bin', 'Debug', 'debug']
 autocmd FileType c,cpp setlocal equalprg=clang-format
-
-" Org
-autocmd FileType org setlocal fo-=t
 
 " LaTeX
 let g:tex_flavor = "latex"
