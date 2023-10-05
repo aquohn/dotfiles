@@ -30,8 +30,9 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 " Languages
+Plug 'tpope/vim-sleuth'
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
@@ -116,7 +117,7 @@ set foldmethod=syntax
 set nofoldenable " open files unfolded
 
 " Statusline
-set statusline=%f\ %h%w%q[%{&ff}]%y\ %m%r\ %{FugitiveStatusline()}%=%{tagbar#currenttag('%s','','f')}%=%04l/%04L\ (%p%%)\ \|\ %03v
+set statusline=%f\ %h%w%q[%{&ff}]%y\ %m%r\ %{FugitiveStatusline()}%=%{tagbar#currenttag('%s','','f')}%=%l/%L\ (%p%%)\ \|\ %3v
 
 " Enable mouse click
 " set mouse=a
@@ -170,11 +171,9 @@ let g:tex_flavor = "latex"
   endif
 " endif
 let g:vimtex_view_automatic = 1
-" if executable('tectonic')
-"   let g:vimtex_compiler_method = 'tectonic'
-" else
-  let g:vimtex_compiler_method = 'latexmk'
-" endif
+if executable('latexmk') != 1 " default compiler is latexmk
+  let g:vimtex_compiler_method = 'tectonic'
+endif
 let g:vimtex_quickfix_ignore_filters = [
       \ '[Oo]verfull',
       \ '[Uu]nderfull',
@@ -185,7 +184,7 @@ let g:vimtex_quickfix_ignore_filters = [
 " Spacing
 set autoindent
 set smartindent
-set expandtab
+set noexpandtab
 set fo-=t
 set textwidth=80
 set linebreak
