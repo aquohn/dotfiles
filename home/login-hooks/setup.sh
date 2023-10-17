@@ -8,7 +8,7 @@
 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-if [ $# -ne 1 ] || [ `id -u` -ne 0 ]; then
+if [ $# -ne 1 ] || [ `id -u` -ne 0 ] || [ `id $1` ]; then
     printf "Usage: sudo $0 <username>\n"
     exit 1
 fi
@@ -17,7 +17,7 @@ test -f /etc/sudoers.d/login_hook || touch /etc/sudoers.d/login_hook
 printf "$1 ALL=(root) NOPASSWD: /home/$1/.login_hook\n\n" >> /etc/sudoers.d/login_hook
 chmod 0440 /etc/sudoers.d/login_hook
 
-test -f ~/.login_hook || (touch ~/.login_hook && cat << END >> ~/.login_hook)
+test -f ~$1/.login_hook || (touch ~$1/.login_hook && cat << END >> ~$1/.login_hook)
 #!/bin/sh
 # your instructions here
 
@@ -27,14 +27,14 @@ test -f /var/run/login_hooks/$1 || touch /var/run/login_hooks/$1
 
 END
 
-chmod u=rwx,g=r,o=r ~/.login_hook
+chmod u=rwx,g=r,o=r ~$1/.login_hook
 
-test -f ~/.profile || (touch ~/.profile && printf "#!/bin/sh\n" >> ~/.profile)
-cat << END >> ~/.profile
+test -f ~$1/.profile || (touch ~$1/.profile && printf "#!/bin/sh\n" >> ~$1/.profile)
+cat << END >> ~$1/.profile
 # run the login hook, if it has not yet been run (script runs as sudo)
-test -f /var/run/login_hooks/$USER || (test -f "$HOME/.login_hook" && sudo ~/.login_hook $USER)
+test -f /var/run/login_hooks/$1 || (test -f "~$1/.login_hook" && sudo ~$1/.login_hook $1)
 
 END
 
-chown $1: ~/.profile
+chown $1: ~$1/.profile
 
