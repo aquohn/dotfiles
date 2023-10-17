@@ -43,6 +43,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'lervag/vimtex'
 " Plug 'jceb/vim-orgmode'
 Plug 'JuliaEditorSupport/julia-vim'
+" Plug 'https://gitlab.com/HiPhish/guile.vim.git'
+Plug 'pseewald/vim-anyfold'
+Plug 'Konfekt/FastFold'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -183,6 +186,9 @@ let g:vimtex_quickfix_ignore_filters = [
       \ '[Ww]arning',
       \ 'dash',
       \]
+
+" anyfold
+autocmd FileType scheme AnyFoldActivate
 
 " Spacing
 set autoindent
