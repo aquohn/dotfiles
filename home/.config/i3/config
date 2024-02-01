@@ -61,6 +61,8 @@ set $menu i3runner
        # TODO
        # bindsym $mod+Escape exec swaylock -f -c 000000
 
+bindsym $mod+Escape exec xscreensaver
+
 # brightness control
 bindsym XF86MonBrightnessUp   exec "brightnessctl set +5%"
 bindsym XF86MonBrightnessDown exec "brightnessctl set 5%-"
