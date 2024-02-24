@@ -11,7 +11,8 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" let g:polyglot_disabled = ['org']
+" Custom language packs
+let g:polyglot_disabled = [ 'pandoc', ]
 
 call plug#begin(data_dir . '/plugged')
 
@@ -33,7 +34,7 @@ Plug 'junegunn/fzf.vim'
 
 " Languages
 Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim'
+Plug 'lifepillar/vim-mucomplete'
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
@@ -46,6 +47,8 @@ Plug 'JuliaEditorSupport/julia-vim'
 " Plug 'https://gitlab.com/HiPhish/guile.vim.git'
 Plug 'pseewald/vim-anyfold'
 Plug 'Konfekt/FastFold'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -147,8 +150,14 @@ augroup admon
 augroup END
 hi! def link Admon Todo
 
-" Show completion menu only if there's more than one match
-set completeopt=menu
+" Completion
+let g:mucomplete#no_mappings = 1
+let g:mucomplete#enable_auto_at_startup = 1
+set completeopt+=menuone,noinsert,preview
+inoremap <silent> <plug>(MUcompleteFwdKey) <C-m>
+imap <C-m> <plug>(MUcompleteCycFwd)
+inoremap <silent> <plug>(MUcompleteBwdKey) <C-b>
+imap <C-b> <plug>(MUcompleteCycBwd)
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
@@ -180,6 +189,10 @@ let g:vimtex_view_automatic = 1
 if executable('latexmk') != 1 " default compiler is latexmk
   let g:vimtex_compiler_method = 'tectonic'
 endif
+let g:vimtex_compiler_latexmk = {
+      \ 'aux_dir': {-> "latexmk/" . expand("%:t:r")},
+      \ 'out_dir': {-> "latexmk/" . expand("%:t:r")},
+      \}
 let g:vimtex_quickfix_ignore_filters = [
       \ '[Oo]verfull',
       \ '[Uu]nderfull',
