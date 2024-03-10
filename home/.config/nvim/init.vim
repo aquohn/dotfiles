@@ -27,6 +27,7 @@ endif
 
 " Files
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
 Plug 'preservim/nerdtree'
 Plug 'mcchrish/nnn.vim'
 Plug 'junegunn/fzf'
@@ -35,6 +36,7 @@ Plug 'junegunn/fzf.vim'
 " Languages
 Plug 'dense-analysis/ale'
 Plug 'lifepillar/vim-mucomplete'
+" Plug 'prabirshrestha/vim-lsp'
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
@@ -65,10 +67,16 @@ Plug 'tpope/vim-speeddating'
 Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'jasonccox/vim-wayland-clipboard'
+Plug 'AndrewRadev/switch.vim'
 
 if has('nvim')
   " Vim in your browser!
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
+  " Lean support
+  Plug 'Julian/lean.nvim'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/plenary.nvim'
 endif
 
 call plug#end()
@@ -153,11 +161,10 @@ hi! def link Admon Todo
 " Completion
 let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#completion_delay = 100
 set completeopt+=menuone,noinsert,preview
-inoremap <silent> <plug>(MUcompleteFwdKey) <C-m>
-imap <C-m> <plug>(MUcompleteCycFwd)
-inoremap <silent> <plug>(MUcompleteBwdKey) <C-b>
-imap <C-b> <plug>(MUcompleteCycBwd)
+inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
+imap <C-b> <plug>(MUcompleteCycFwd)
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
