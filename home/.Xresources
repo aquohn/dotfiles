@@ -10,3 +10,5 @@ XtDefaultFont:  -misc-*-medium-r-*-*-15-*-75-75-c-90-iso10646-1
 XTerm*font:     -misc-*-medium-r-*-*-15-*-75-75-c-90-iso10646-1
 XTerm*boldFont: -misc-*-bold-r-*-*-15-*-75-75-c-90-iso10646-1
 
+XTerm*utf8: always
+XTerm*metaSendsEscape: true

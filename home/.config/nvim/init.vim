@@ -1,8 +1,7 @@
 scriptencoding utf-8
 
 let mapleader = " " " map leader to <Space>
-let maplocalleader = " " " map localleader to <Space><Space>
-noremap <Leader>e <Plug>(easymotion-prefix)
+let maplocalleader = "  " " map localleader to <Space><Space>
 
 " auto-install vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -83,6 +82,10 @@ call plug#end()
 
 " Whose idea was this...
 let g:coc_disable_startup_warning = 1
+
+noremap <Leader>e <Plug>(easymotion-prefix)
+" Open nnn in buffer's dir
+nnoremap <LocalLeader>n :NnnPicker %:p:h<CR> 
 
 syntax on
 filetype on
