@@ -154,10 +154,8 @@ hi! def link Admon Todo
 let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
 set completeopt+=menuone,noinsert,preview
-inoremap <silent> <plug>(MUcompleteFwdKey) <C-m>
-imap <C-m> <plug>(MUcompleteCycFwd)
-inoremap <silent> <plug>(MUcompleteBwdKey) <C-b>
-imap <C-b> <plug>(MUcompleteCycBwd)
+inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
+imap <C-b> <plug>(MUcompleteCycFwd)
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
