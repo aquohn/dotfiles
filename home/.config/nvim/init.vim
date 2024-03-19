@@ -11,7 +11,12 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 " Custom language packs
-let g:polyglot_disabled = [ 'pandoc', ]
+let g:polyglot_disabled = [ 'pandoc', 'ftdetect' ]
+
+" Nvim vs Vim specific plugins, before load
+if has('nvim')
+  let g:polyglot_disabled += [ 'lean' ]
+endif
 
 call plug#begin(data_dir . '/plugged')
 
@@ -32,10 +37,21 @@ Plug 'mcchrish/nnn.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
+" Completion
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+else
+  Plug 'lifepillar/vim-mucomplete'
+  Plug 'prabirshrestha/vim-lsp'
+endif
+
 " Languages
 Plug 'dense-analysis/ale'
-Plug 'lifepillar/vim-mucomplete'
-" Plug 'prabirshrestha/vim-lsp'
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
@@ -68,15 +84,16 @@ Plug 'mbbill/undotree'
 Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'AndrewRadev/switch.vim'
 
+" Purely for Nvim
 if has('nvim')
   " Vim in your browser!
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
   " Lean support
   Plug 'Julian/lean.nvim'
-  Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/plenary.nvim'
 endif
+
 
 call plug#end()
 
@@ -85,7 +102,7 @@ let g:coc_disable_startup_warning = 1
 
 noremap <Leader>e <Plug>(easymotion-prefix)
 " Open nnn in buffer's dir
-nnoremap <LocalLeader>n :NnnPicker %:p:h<CR> 
+nnoremap <LocalLeader>n :NnnPicker %:p:h<CR>
 
 syntax on
 filetype on
@@ -166,8 +183,6 @@ let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 100
 set completeopt+=menuone,noinsert,preview
-inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
-imap <C-b> <plug>(MUcompleteCycFwd)
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
@@ -249,7 +264,7 @@ command Q tabclose
 command WQ wa|tabclose
 command Vimrc tabnew $MYVIMRC
 
-" Firenvim config
+" Nvim vs Vim specific plugins
 if has('nvim')
   let g:firenvim_config = {
         \ 'localSettings': {
@@ -258,6 +273,9 @@ if has('nvim')
             \ }
             \ },
             \ }
+else
+  inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
+  imap <C-b> <plug>(MUcompleteCycFwd)
 endif
 
 " OCaml config
