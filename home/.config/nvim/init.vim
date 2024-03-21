@@ -40,18 +40,16 @@ Plug 'junegunn/fzf.vim'
 " Completion
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'lifepillar/vim-mucomplete'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
 else
-  Plug 'lifepillar/vim-mucomplete'
   Plug 'prabirshrestha/vim-lsp'
 endif
 
 " Languages
 Plug 'dense-analysis/ale'
+Plug 'kana/vim-textobj-user'
 Plug 'universal-ctags/ctags'
 Plug 'craigemery/vim-autotag'
 Plug 'preservim/tagbar'
@@ -89,9 +87,12 @@ if has('nvim')
   " Vim in your browser!
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
+  " LSP plugins
+  Plug 'williamboman/mason.nvim'
+
   " Lean support
-  Plug 'Julian/lean.nvim'
   Plug 'nvim-lua/plenary.nvim'
+  Plug 'Julian/lean.nvim'
 endif
 
 
@@ -184,6 +185,13 @@ let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 100
 set completeopt+=menuone,noinsert,preview
 
+inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
+imap <C-b> <plug>(MUcompleteCycFwd)
+let g:mucomplete#chains = {
+      \ 'vim': ['path', 'cmd', 'keyn'],
+      \ 'default': ['path', 'keyn', 'dict', 'uspl', 'omni']
+      \ }
+
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
 let g:ale_fixers = {
@@ -273,9 +281,7 @@ if has('nvim')
             \ }
             \ },
             \ }
-else
-  inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
-  imap <C-b> <plug>(MUcompleteCycFwd)
+
 endif
 
 " OCaml config
