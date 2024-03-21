@@ -93,6 +93,10 @@ if has('nvim')
   " Lean support
   Plug 'nvim-lua/plenary.nvim'
   Plug 'Julian/lean.nvim'
+
+  " Agda support
+  Plug 'neovimhaskell/nvim-hs.vim'
+  Plug 'isovector/cornelis', { 'do': 'stack build' }
 endif
 
 
@@ -282,6 +286,37 @@ if has('nvim')
             \ },
             \ }
 
+  " Agda
+
+  let g:cornelis_agda_prefix = "<Bslash>"
+  au BufRead,BufNewFile *.agda call AgdaFiletype()
+  au QuitPre *.agda :CornelisCloseInfoWindows
+  function! AgdaFiletype()
+      nnoremap <buffer> <leader>cl :CornelisLoad<CR>
+      nnoremap <buffer> <leader>cr :CornelisRefine<CR>
+      nnoremap <buffer> <leader>cc :CornelisMakeCase<CR>
+      nnoremap <buffer> <leader>c, :CornelisTypeContext<CR>
+      nnoremap <buffer> <leader>c. :CornelisTypeContextInfer<CR>
+      nnoremap <buffer> <leader>cs :CornelisSolve<CR>
+      nnoremap <buffer> <leader>cn :CornelisNormalize<CR>
+      nnoremap <buffer> <leader>ca :CornelisAuto<CR>
+      nnoremap <buffer> <leader>c<Space> :CornelisGive<CR>
+      nnoremap <buffer> gd        :CornelisGoToDefinition<CR>
+      nnoremap <buffer> [/        :CornelisPrevGoal<CR>
+      nnoremap <buffer> ]/        :CornelisNextGoal<CR>
+      nnoremap <buffer> <C-A>     :CornelisInc<CR>
+      nnoremap <buffer> <C-X>     :CornelisDec<CR>
+  endfunction
+
+  au BufWritePost *.agda execute "normal! :CornelisLoad\<CR>"
+  function! CornelisLoadWrapper()
+    if exists(":CornelisLoad") ==# 2
+      CornelisLoad
+    endif
+  endfunction
+
+  au BufReadPre *.agda call CornelisLoadWrapper()
+  au BufReadPre *.lagda* call CornelisLoadWrapper()
 endif
 
 " OCaml config
