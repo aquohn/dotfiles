@@ -7,8 +7,16 @@
 *.exe
 *.msi
 
-# Ignore `bin` dir
-*/bin/*
+# Ignore builds
+bin/
+build/
+obj/
+
+# Ignore Vivado generated
+*.hw/
+*.sims/
+*.runs/
+*.cache/
 
 # Swap
 [._]*.s[a-v][a-z]
@@ -27,9 +35,14 @@ Sessionx.vim
 *~
 # Auto-generated tag files
 tags
+*.tags
 # Persistent undo
 [._]*.un~
 
 # Plugins
-.config/nnn/plugins
-.config/*/plugged
+.config/nnn/plugins/
+
+# Package data
+__pycache__/
+Manifest.toml
+.CondaPkg/
