@@ -64,6 +64,7 @@ Plug 'pseewald/vim-anyfold'
 Plug 'Konfekt/FastFold'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'whonore/Coqtail'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -287,7 +288,6 @@ if has('nvim')
             \ }
 
   " Agda
-
   let g:cornelis_agda_prefix = "<Bslash>"
   au BufRead,BufNewFile *.agda call AgdaFiletype()
   au QuitPre *.agda :CornelisCloseInfoWindows
@@ -325,4 +325,7 @@ if executable('opam')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
   execute "set rtp^=" . g:opamshare . "/ocp-indent/vim"
 endif
+
+" Coqtail
+let g:coqtail_noimap = 1
 
