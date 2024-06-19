@@ -88,8 +88,12 @@ if has('nvim')
   " Vim in your browser!
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
-  " LSP plugins
+  " LSP manager
   Plug 'williamboman/mason.nvim'
+
+  " LSP support
+  Plug 'kosayoda/nvim-lightbulb'
+  Plug 'rmagatti/goto-preview'
 
   " Lean support
   Plug 'nvim-lua/plenary.nvim'
@@ -99,7 +103,6 @@ if has('nvim')
   Plug 'neovimhaskell/nvim-hs.vim'
   Plug 'isovector/cornelis', { 'do': 'stack build' }
 endif
-
 
 call plug#end()
 
@@ -128,8 +131,10 @@ if has('nvim')
   set inccommand=nosplit
 endif
 set background=dark
-"See invisible characters
+" See invisible characters
 set list listchars=tab:>\ ,trail:+,eol:$
+" Conceal when available
+set conceallevel=2
 try
   colorscheme martial
 catch
@@ -161,6 +166,7 @@ endif
 " Folding
 set foldmethod=syntax
 set nofoldenable " open files unfolded
+set foldopen-=block " do not open folds with }, etc.
 
 " Statusline
 set statusline=%f\ %h%w%q[%{&ff}]%y\ %m%r\ %{FugitiveStatusline()}%=%{tagbar#currenttag('%s','','f')}%=%l/%L\ (%p%%)\ \|\ %3v
@@ -317,6 +323,28 @@ if has('nvim')
 
   au BufReadPre *.agda call CornelisLoadWrapper()
   au BufReadPre *.lagda* call CornelisLoadWrapper()
+
+  " LSP
+  nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
+  nnoremap <leader>h <cmd>lua vim.lsp.buf.hover()<CR>
+
+  function! LSPGoto()
+    echo "Preview d:defn/t:type/i:impl/D:decl/r:ref "
+    let inkey = getcharstr()
+    if inkey ==? "d"
+      lua require('goto-preview').goto_preview_definition()
+    elseif inkey ==? "t"
+      lua require('goto-preview').goto_preview_type_definition()
+    elseif inkey ==? "i"
+      lua require('goto-preview').goto_preview_implementation()
+    elseif inkey ==? "D"
+      lua require('goto-preview').goto_preview_declaration()
+    elseif inkey ==? "r"
+      lua require('goto-preview').goto_preview_references()
+    endif
+  endfunction
+  nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
+  nnoremap gp :call LSPGoto()<CR>
 endif
 
 " OCaml config
