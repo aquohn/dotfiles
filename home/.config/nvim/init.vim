@@ -30,7 +30,7 @@ else
 endif
 
 " Files
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'preservim/nerdtree'
 Plug 'mcchrish/nnn.vim'
@@ -177,6 +177,7 @@ set statusline=%f\ %h%w%q[%{&ff}]%y\ %m%r\ %{FugitiveStatusline()}%=%{tagbar#cur
 " Set cursor to block
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
+set guicursor=n-v-o-sm:block,i-r-c-ci-cr:ver25
 au VimLeave * set guicursor=a:ver25
 "Shift + Tab does inverse tab
 inoremap <S-Tab> <C-d>
