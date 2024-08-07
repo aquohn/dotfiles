@@ -30,7 +30,7 @@ else
 endif
 
 " Files
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'preservim/nerdtree'
 Plug 'mcchrish/nnn.vim'
@@ -93,7 +93,6 @@ if has('nvim')
 
   " LSP support
   Plug 'kosayoda/nvim-lightbulb'
-  Plug 'rmagatti/goto-preview'
 
   " Lean support
   Plug 'nvim-lua/plenary.nvim'
@@ -189,6 +188,51 @@ augroup admon
         \ containedin=.*Comment.*
 augroup END
 hi! def link Admon Todo
+
+" Scratchspaces
+
+" redirect the output of a Vim or external command into a scratch buffer
+" https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
+function! Redir(cmd, rng, start, end)
+	for win in range(1, winnr('$'))
+		if getwinvar(win, 'scratch')
+			execute win . 'windo close'
+		endif
+	endfor
+	if a:cmd =~ '^!'
+		let cmd = a:cmd =~' %'
+			\ ? matchstr(substitute(a:cmd, ' %', ' ' . shellescape(escape(expand('%:p'), '\')), ''), '^!\zs.*')
+			\ : matchstr(a:cmd, '^!\zs.*')
+		if a:rng == 0
+			let output = systemlist(cmd)
+		else
+			let joined_lines = join(getline(a:start, a:end), '\n')
+			let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
+			let output = systemlist(cmd . " <<< $" . cleaned_lines)
+		endif
+	else
+		redir => output
+		execute a:cmd
+		redir END
+		let output = split(output, "\n")
+	endif
+	vnew
+	let w:scratch = 1
+	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+	call setline(1, output)
+endfunction
+
+" This command definition includes -bar, so that it is possible to "chain" Vim commands.
+" Side effect: double quotes can't be used in external commands
+command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
+
+" This command definition doesn't include -bar, so that it is possible to use double quotes in external commands.
+" Side effect: Vim commands can't be "chained".
+command! -nargs=1 -complete=command -range RedirQ silent call Redir(<q-args>, <range>, <line1>, <line2>)
+
+" Put search results in location list and show it
+nnoremap <leader>f :lvimgrep // % \| lwindow<CR>
+" Use :cw/:lw to open and close qf/loclist
 
 " Completion
 let g:mucomplete#no_mappings = 1
@@ -329,21 +373,21 @@ if has('nvim')
   nnoremap <leader>h <cmd>lua vim.lsp.buf.hover()<CR>
 
   function! LSPGoto()
-    echo "Preview d:defn/t:type/i:impl/D:decl/r:ref "
+    echo "Go to d:defn/t:type/i:impl/D:decl/r:ref "
     let inkey = getcharstr()
     if inkey ==? "d"
-      lua require('goto-preview').goto_preview_definition()
+      lua vim.lsp.buf.definition()
     elseif inkey ==? "t"
-      lua require('goto-preview').goto_preview_type_definition()
+      lua vim.lsp.buf.type_definition()
     elseif inkey ==? "i"
-      lua require('goto-preview').goto_preview_implementation()
+      lua vim.lsp.buf.implementation()
     elseif inkey ==? "D"
-      lua require('goto-preview').goto_preview_declaration()
+      lua vim.lsp.buf.declaration()
     elseif inkey ==? "r"
-      lua require('goto-preview').goto_preview_references()
+      lua vim.lsp.buf.references()
     endif
+    messages clear
   endfunction
-  nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
   nnoremap gp :call LSPGoto()<CR>
 endif
 
