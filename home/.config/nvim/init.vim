@@ -275,12 +275,13 @@ let g:tex_flavor = "latex"
   endif
 " endif
 let g:vimtex_view_automatic = 1
+let g:vimtex_fold_enabled = 1
 if executable('latexmk') != 1 " default compiler is latexmk
   let g:vimtex_compiler_method = 'tectonic'
 endif
 let g:vimtex_compiler_latexmk = {
-      \ 'aux_dir': {-> "latexmk/" . expand("%:t:r")},
-      \ 'out_dir': {-> "latexmk/" . expand("%:t:r")},
+      \ 'aux_dir': 'latexmk',
+      \ 'out_dir': 'latexmk',
       \}
 let g:vimtex_quickfix_ignore_filters = [
       \ '[Oo]verfull',
