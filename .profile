@@ -91,6 +91,8 @@ if [ "`command -v guix`" ]; then
   checksource "$GUIX_PROFILE/etc/profile"
 fi
 
+TEXINPUTS="$HOME/.local/share/latex:$TEXINPUTS"; export TEXINPUTS
+
 if [ -n "${BASH_VERSINFO+x}" ]; then
     checksource "$HOME/.bashrc"
 elif [ -n "${ZSH_VERSION+x}" ]; then
