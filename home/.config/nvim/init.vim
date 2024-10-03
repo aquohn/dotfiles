@@ -131,12 +131,17 @@ if has('nvim')
 endif
 set background=dark
 " See invisible characters
-set list listchars=tab:>\ ,trail:+,eol:$
+set list listchars=tab:>\ ,trail:+
 " Conceal when available
 set conceallevel=2
 try
   colorscheme martial
 catch
+  try
+    colorscheme lunaperche
+  catch
+    colorscheme industry
+  endtry
 endtry
 
 " Buffers
@@ -161,6 +166,15 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 if has('wsl')
   vnoremap <C-c> y:!echo <C-r>=escape(substitute(shellescape(getreg('"')), '\n', '\r', 'g'), '%!')<CR> <Bar> clip.exe<CR><CR>
 endif
+function Remws()
+  let remws = 1
+  " filetypes where trailing whitespace cannot be nuked
+  for t in ["vim"]
+    if &ft ==? t | let remws = 0 | endif
+  endfor
+  if remws | :%s/\s\+$//e | endif
+endfunction
+autocmd FileType * call Remws()
 
 " Folding
 set foldmethod=syntax
@@ -290,6 +304,16 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'dash',
       \]
 
+" OCaml config
+if executable('opam')
+  let g:opamshare = substitute(system('opam var share'),'\n$','','''')
+  execute "set rtp+=" . g:opamshare . "/merlin/vim"
+  execute "set rtp^=" . g:opamshare . "/ocp-indent/vim"
+endif
+
+" Coqtail
+let g:coqtail_noimap = 1
+
 " anyfold
 autocmd FileType scheme AnyFoldActivate
 
@@ -392,14 +416,3 @@ if has('nvim')
   endfunction
   nnoremap gp :call LSPGoto()<CR>
 endif
-
-" OCaml config
-if executable('opam')
-  let g:opamshare = substitute(system('opam var share'),'\n$','','''')
-  execute "set rtp+=" . g:opamshare . "/merlin/vim"
-  execute "set rtp^=" . g:opamshare . "/ocp-indent/vim"
-endif
-
-" Coqtail
-let g:coqtail_noimap = 1
-
