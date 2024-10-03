@@ -3,6 +3,23 @@
 cp -as "$PWD/home/." ~
 cp template/.* -t ~
 
+XDG_DATA_HOME=${XDG_DATA_HOME:-"$HOME/.local/share"}
+mkdir -p "$XDG_DATA_HOME"
+mkdir -p "$HOME/.local/bin"
+
+# Github: dra
+mkdir /tmp/dra 2>/dev/null
+libc=`ldd /bin/ls | grep 'musl' | head -1 | cut -d ' ' -f1`
+([ -z libc ] && libcname=musl) || libcname=gnu
+dradir=`curl -s https://api.github.com/repos/devmatteini/dra/releases/latest \
+| grep "browser_download_url.*x86_64.*linux-$libcname" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qO- -i - \
+| tar xvz -C /tmp/dra \
+| grep "^[^/]*/$"`
+cp "/tmp/dra/$dradir/dra" ~/.local/bin/dra
+
 # conda: miniconda
 conda config --add channels conda-forge
 conda config --add channels aquohn
@@ -27,6 +44,5 @@ conda install jill
 
 # Terminal: nnn + preview-tabbed (change to st), tmux, fzf, rg, fd[find]
 # Media: mpv, sxiv, zathura
-# Reading: qpdfview, okular
-# Hardware: ghdl, verilator, gtkwave, yosys
+# Reading: sioyek
 # Flatpak: Spotify, Zoom
