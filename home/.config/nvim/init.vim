@@ -174,7 +174,7 @@ function Remws()
   endfor
   if remws | :%s/\s\+$//e | endif
 endfunction
-autocmd FileType * call Remws()
+autocmd BufWrite * call Remws()
 
 " Folding
 set foldmethod=syntax
