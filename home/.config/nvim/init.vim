@@ -64,7 +64,7 @@ Plug 'pseewald/vim-anyfold'
 Plug 'Konfekt/FastFold'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'whonore/Coqtail'
+" Plug 'whonore/Coqtail'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -275,6 +275,9 @@ let g:ale_linters_ignore = {
 let g:ale_c_build_dir_names=['build', 'bin', 'Debug', 'debug']
 autocmd FileType c,cpp setlocal equalprg=clang-format
 
+" Verilog/SystemVerilog
+autocmd FileType verilog let g:ale_verilog_verilator_options='--default-language "1364-2005"'
+
 " LaTeX
 let g:tex_flavor = "latex"
 " https://castel.dev/post/lecture-notes-1/#sympy-and-mathematica - something to consider
@@ -302,6 +305,7 @@ let g:vimtex_quickfix_ignore_filters = [
       \ '[Uu]nderfull',
       \ '[Ww]arning',
       \ 'dash',
+      \ 'punctuation in front of quotes',
       \]
 
 " OCaml config
