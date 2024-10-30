@@ -401,6 +401,7 @@ if has('nvim')
   " LSP
   nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
   nnoremap <leader>h <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <leader>? <cmd>lua vim.diagnostic.open_float()<CR>
 
   function! LSPGoto()
     echo "Go to d:defn/t:type/i:impl/D:decl/r:ref "
