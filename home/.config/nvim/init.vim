@@ -101,6 +101,8 @@ if has('nvim')
   " Agda support
   Plug 'neovimhaskell/nvim-hs.vim'
   Plug 'isovector/cornelis', { 'do': 'stack build' }
+
+  Plug 'nvim-treesitter/nvim-treesitter'
 endif
 
 call plug#end()
@@ -253,7 +255,7 @@ nnoremap <leader>f :lvimgrep // % \| lwindow<CR>
 let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 100
-set completeopt+=menuone,noinsert,preview
+set completeopt=menuone,noinsert,noselect,popup
 
 inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
 imap <C-b> <plug>(MUcompleteCycFwd)
