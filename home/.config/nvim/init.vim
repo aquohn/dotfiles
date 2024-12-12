@@ -1,3 +1,4 @@
+set nocompatible
 scriptencoding utf-8
 
 let mapleader = " " " map leader to <Space>
@@ -96,7 +97,11 @@ if has('nvim')
 
   " Lean support
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'Julian/lean.nvim'
+  if has('nvim-0.10')
+    Plug 'Julian/lean.nvim'
+  else
+    Plug 'Julian/lean.nvim', { 'tag': 'nvim-0.9' }
+  endif
 
   " Agda support
   Plug 'neovimhaskell/nvim-hs.vim'
@@ -255,7 +260,10 @@ nnoremap <leader>f :lvimgrep // % \| lwindow<CR>
 let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 100
-set completeopt=menuone,noinsert,noselect,popup
+set completeopt=menuone,noinsert,noselect
+if has('patch-8.1.1880') || has('nvim-10.2')
+	set completeopt+=popup
+endif
 
 inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
 imap <C-b> <plug>(MUcompleteCycFwd)
