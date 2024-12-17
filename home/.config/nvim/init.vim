@@ -316,6 +316,7 @@ let g:vimtex_quickfix_ignore_filters = [
       \ '[Ww]arning',
       \ 'dash',
       \ 'punctuation in front of quotes',
+      \ 'Missing character: There is no .* in font nullfont!',
       \]
 
 " OCaml config

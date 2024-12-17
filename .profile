@@ -91,6 +91,11 @@ if [ "`command -v guix`" ]; then
   checksource "$GUIX_PROFILE/etc/profile"
 fi
 
+# Sage
+if [ "`command -v guix`" ]; then
+  DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
+fi
+
 TEXINPUTS="$HOME/.local/share/latex:$TEXINPUTS"; export TEXINPUTS
 
 if [ -n "${BASH_VERSINFO+x}" ]; then
