@@ -309,6 +309,13 @@ endif
 let g:vimtex_compiler_latexmk = {
       \ 'aux_dir': 'latexmk',
       \ 'out_dir': 'latexmk',
+      \ 'options': [
+      \   '-shell-escape',
+      \   '-verbose',
+      \   '-file-line-error',
+      \   '-synctex=1',
+      \   '-interaction=nonstopmode',
+      \ ]
       \}
 let g:vimtex_quickfix_ignore_filters = [
       \ '[Oo]verfull',
