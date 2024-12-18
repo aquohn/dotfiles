@@ -35,9 +35,10 @@ hi Identifier cterm=NONE ctermfg=LightMagenta	gui=NONE guifg=LightMagenta
 hi Function   cterm=NONE ctermfg=LightGreen		gui=NONE guifg=LightGreen
 hi Statement  cterm=NONE ctermfg=White				gui=bold guifg=White
 hi PreProc    cterm=NONE ctermfg=Yellow				gui=NONE guifg=Yellow
-hi Type	      cterm=NONE ctermfg=LightGreen		gui=bold guifg=LightGreen
+hi Type       cterm=NONE ctermfg=LightGreen		gui=bold guifg=LightGreen
 hi Special    cterm=NONE ctermfg=LightRed			gui=NONE guifg=LightRed
 hi Delimiter  cterm=NONE ctermfg=Yellow				gui=NONE guifg=Yellow
+hi Conceal    cterm=NONE ctermfg=White ctermbg=Black gui=NONE guifg=White
 
 " In diffs, added lines are green, changed lines are yellow, deleted lines are
 " red, and changed text (within a changed line) is bright yellow and bold.
