@@ -4,7 +4,6 @@ adjoint
 eigenspace
 Riesz
 ket
-th
 eigenbasis
 eigendecomposition
 semidefinite
@@ -112,6 +111,13 @@ S3
 txt
 Verilog
 VHDL
+HDL
+Keccak
+testbenches
+KAT
+FSMs
+WIP
+FIPS
 Wireshark
 QRNG
 Provers

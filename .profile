@@ -92,7 +92,7 @@ if [ "`command -v guix`" ]; then
 fi
 
 # Sage
-if [ "`command -v guix`" ]; then
+if [ "`command -v sage`" ]; then
   DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
 fi
 

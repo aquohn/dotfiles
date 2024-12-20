@@ -2,6 +2,7 @@
 # $media{play,stop,prev,next}, $volume{up,down}, $volinit, $micmute, $mute,
 # bar command and user services
 # Assumptions: cliphist, tmux, fzf, qutebrowser
+exec ~/.config/sway/env
 include ~/.config/sway/local
 
 # Read `man 5 sway` for a complete reference.
