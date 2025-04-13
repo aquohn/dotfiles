@@ -9,6 +9,8 @@ set $floatterm foot -a "floating" -T
 # on the original workspace that the command was run on.
 # Adapted from https://erfur.github.io/2021/11/20/fzf_as_dmenu.html and https://github.com/jarun/nnn/blob/master/plugins/launch
 set $menu $floatterm "launcher" -e sway-launcher-desktop
+set $screenshot grimshot copy area
+set $browser qutebrowser
 
 # Custom commands
 set $lock swaylock -f -c 000000

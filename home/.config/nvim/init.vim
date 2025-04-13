@@ -43,7 +43,11 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'lifepillar/vim-mucomplete'
 if has('nvim')
-  Plug 'neovim/nvim-lspconfig'
+  if has('nvim-0.10')
+    Plug 'neovim/nvim-lspconfig'
+  else
+    Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.8.0' }
+  endif
 else
   Plug 'prabirshrestha/vim-lsp'
 endif
@@ -217,32 +221,32 @@ hi! def link Admon Todo
 " redirect the output of a Vim or external command into a scratch buffer
 " https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
 function! Redir(cmd, rng, start, end)
-	for win in range(1, winnr('$'))
-		if getwinvar(win, 'scratch')
-			execute win . 'windo close'
-		endif
-	endfor
-	if a:cmd =~ '^!'
-		let cmd = a:cmd =~' %'
-			\ ? matchstr(substitute(a:cmd, ' %', ' ' . shellescape(escape(expand('%:p'), '\')), ''), '^!\zs.*')
-			\ : matchstr(a:cmd, '^!\zs.*')
-		if a:rng == 0
-			let output = systemlist(cmd)
-		else
-			let joined_lines = join(getline(a:start, a:end), '\n')
-			let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
-			let output = systemlist(cmd . " <<< $" . cleaned_lines)
-		endif
-	else
-		redir => output
-		execute a:cmd
-		redir END
-		let output = split(output, "\n")
-	endif
-	vnew
-	let w:scratch = 1
-	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-	call setline(1, output)
+  for win in range(1, winnr('$'))
+    if getwinvar(win, 'scratch')
+      execute win . 'windo close'
+    endif
+  endfor
+  if a:cmd =~ '^!'
+    let cmd = a:cmd =~' %'
+          \ ? matchstr(substitute(a:cmd, ' %', ' ' . shellescape(escape(expand('%:p'), '\')), ''), '^!\zs.*')
+          \ : matchstr(a:cmd, '^!\zs.*')
+    if a:rng == 0
+      let output = systemlist(cmd)
+    else
+      let joined_lines = join(getline(a:start, a:end), '\n')
+      let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
+      let output = systemlist(cmd . " <<< $" . cleaned_lines)
+    endif
+  else
+    redir => output
+    execute a:cmd
+    redir END
+    let output = split(output, "\n")
+  endif
+  vnew
+  let w:scratch = 1
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+  call setline(1, output)
 endfunction
 
 " This command definition includes -bar, so that it is possible to "chain" Vim commands.
@@ -263,7 +267,7 @@ let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 100
 set completeopt=menuone,noinsert,noselect
 if has('patch-8.1.1880') || has('nvim-10.2')
-	set completeopt+=popup
+  set completeopt+=popup
 endif
 
 inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
@@ -295,12 +299,12 @@ let g:tex_flavor = "latex"
 " if executable('sioyek')
 "   let g:vimtex_view_method = 'sioyek'
 " else
-  let g:vimtex_view_method = 'general'
-  if executable('zathura')
-    let g:vimtex_view_general_viewer = 'zathura'
-  else
-    let g:vimtex_view_general_viewer = 'mupdf'
-  endif
+let g:vimtex_view_method = 'general'
+if executable('zathura')
+  let g:vimtex_view_general_viewer = 'zathura'
+else
+  let g:vimtex_view_general_viewer = 'mupdf'
+endif
 " endif
 let g:vimtex_view_automatic = 1
 let g:vimtex_fold_enabled = 1
@@ -380,31 +384,31 @@ command Vimrc tabnew $MYVIMRC
 if has('nvim')
   let g:firenvim_config = {
         \ 'localSettings': {
-          \ '.*': {
-            \ 'takeover': 'never',
-            \ }
-            \ },
-            \ }
+        \ '.*': {
+        \ 'takeover': 'never',
+        \ }
+        \ },
+        \ }
 
   " Agda
   let g:cornelis_agda_prefix = "<Bslash>"
   au BufRead,BufNewFile *.agda call AgdaFiletype()
   au QuitPre *.agda :CornelisCloseInfoWindows
   function! AgdaFiletype()
-      nnoremap <buffer> <leader>cl :CornelisLoad<CR>
-      nnoremap <buffer> <leader>cr :CornelisRefine<CR>
-      nnoremap <buffer> <leader>cc :CornelisMakeCase<CR>
-      nnoremap <buffer> <leader>c, :CornelisTypeContext<CR>
-      nnoremap <buffer> <leader>c. :CornelisTypeContextInfer<CR>
-      nnoremap <buffer> <leader>cs :CornelisSolve<CR>
-      nnoremap <buffer> <leader>cn :CornelisNormalize<CR>
-      nnoremap <buffer> <leader>ca :CornelisAuto<CR>
-      nnoremap <buffer> <leader>c<Space> :CornelisGive<CR>
-      nnoremap <buffer> gd        :CornelisGoToDefinition<CR>
-      nnoremap <buffer> [/        :CornelisPrevGoal<CR>
-      nnoremap <buffer> ]/        :CornelisNextGoal<CR>
-      nnoremap <buffer> <C-A>     :CornelisInc<CR>
-      nnoremap <buffer> <C-X>     :CornelisDec<CR>
+    nnoremap <buffer> <leader>cl :CornelisLoad<CR>
+    nnoremap <buffer> <leader>cr :CornelisRefine<CR>
+    nnoremap <buffer> <leader>cc :CornelisMakeCase<CR>
+    nnoremap <buffer> <leader>c, :CornelisTypeContext<CR>
+    nnoremap <buffer> <leader>c. :CornelisTypeContextInfer<CR>
+    nnoremap <buffer> <leader>cs :CornelisSolve<CR>
+    nnoremap <buffer> <leader>cn :CornelisNormalize<CR>
+    nnoremap <buffer> <leader>ca :CornelisAuto<CR>
+    nnoremap <buffer> <leader>c<Space> :CornelisGive<CR>
+    nnoremap <buffer> gd        :CornelisGoToDefinition<CR>
+    nnoremap <buffer> [/        :CornelisPrevGoal<CR>
+    nnoremap <buffer> ]/        :CornelisNextGoal<CR>
+    nnoremap <buffer> <C-A>     :CornelisInc<CR>
+    nnoremap <buffer> <C-X>     :CornelisDec<CR>
   endfunction
 
   au BufWritePost *.agda execute "normal! :CornelisLoad\<CR>"

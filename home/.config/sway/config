@@ -1,7 +1,7 @@
 # local definitions for $term, $floatterm, $menu, $lock, $sleep, $light{up,init,down},
 # $media{play,stop,prev,next}, $volume{up,down}, $volinit, $micmute, $mute,
 # bar command and user services
-# Assumptions: cliphist, tmux, fzf, qutebrowser
+# Assumptions: wl-clipboard, cliphist, tmux, fzf
 exec ~/.config/sway/env
 include ~/.config/sway/local
 
@@ -70,7 +70,7 @@ bindsym $mod+F4 kill
 bindsym $mod+r exec $menu
 
 # Start browser
-bindsym $mod+i exec qutebrowser
+bindsym $mod+i exec $browser
 
 # Audio buttons
 exec $volinit
@@ -84,7 +84,7 @@ exec wl-paste    --watch cliphist store
 exec wl-paste -p --watch cliphist store
 bindsym $mod+v exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist decode | wl-copy"
 bindsym $mod+d exec $floatterm "clipboard" -e sh -c "cliphist list | fzf | cliphist delete"
-bindsym $mod+Shift+s exec grimshot copy area
+bindsym $mod+Shift+s exec $screenshot
 
 # Multimedia
 bindsym --locked XF86AudioPlay exec $mediaplay
@@ -107,6 +107,7 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. 
 #
 # Moving around:
 # TODO use fzf
+# TODO rotate between displays
 #
 # Move your focus around
 bindsym $mod+$left focus left
