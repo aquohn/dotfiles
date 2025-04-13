@@ -99,10 +99,10 @@ fi
 TEXINPUTS="$HOME/.local/share/latex:$TEXINPUTS"; export TEXINPUTS
 
 if [ -n "${BASH_VERSINFO+x}" ]; then
-    checksource "$HOME/.bashrc"
+  checksource "$HOME/.bashrc"
 elif [ -n "${ZSH_VERSION+x}" ]; then
-    checksource "$HOME/.zshrc"
+  checksource "$HOME/.zshrc"
 else
-    checksource "$ENV"
+  checksource "$ENV"
 fi
 

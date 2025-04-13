@@ -1,3 +1,3 @@
 #!/bin/sh
 
-[ -r "$HOME/home/.profile" ] && . "$HOME/home/.profile"
+[ -r "$HOME/dotfiles/.profile" ] && . "$HOME/dotfiles/.profile"
