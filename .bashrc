@@ -56,6 +56,9 @@ if [ "$color_prompt" = yes ]; then
 else
   PS1='┌──[\u@\h]─[\w]\n└──╼`__git_ps1 " (%s) "`\$ '
 fi
+if [ -n "$GUIX_ENVIRONMENT" ]; then
+  PS1="$PS1[guix] "
+fi
 
 # Set 'man' colors
 if [ "$color_prompt" = yes ]; then
