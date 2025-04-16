@@ -1,5 +1,2 @@
 #!/bin/sh
-# Authenticate the repo upon 'git pull' and similar.
-# if [ "`command -v guix`" ]; then
-# 	exec guix git authenticate
-# fi
+.git/hooks/ctags >/dev/null 2>&1 &
