@@ -7,6 +7,15 @@ XDG_DATA_HOME=${XDG_DATA_HOME:-"$HOME/.local/share"}
 mkdir -p "$XDG_DATA_HOME"
 mkdir -p "$HOME/.local/bin"
 
+# Guix Home
+guix home reconfigure "$HOME/.config/guix/home-configuration.scm"
+
+# Nix Home
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
+nix-shell '<home-manager>' -A install
+home-manager switch
+
 # Github: dra
 mkdir /tmp/dra 2>/dev/null
 libc=`ldd /bin/ls | grep 'musl' | head -1 | cut -d ' ' -f1`

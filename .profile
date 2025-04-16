@@ -84,6 +84,13 @@ elif [ "`command -v lesspipe.sh`" ]; then
   eval "`SHELL=/bin/sh lesspipe.sh`"
 fi
 
+# Nix
+if [ "`command -v nix`" ]; then
+  checksource /etc/profile.d/nix.sh
+  checksource $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+  XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.nix-profile/share"; export XDG_DATA_DIRS
+fi
+
 # Guix
 if [ "`command -v guix`" ]; then
   GUIX_PROFILE="$HOME/.guix-profile"; export GUIX_PROFILE
