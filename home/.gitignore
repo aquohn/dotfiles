@@ -1,0 +1,48 @@
+# Ignore object files
+*.class
+*.o
+
+# Ignore executables
+*.elf
+*.exe
+*.msi
+
+# Ignore builds
+bin/
+build/
+obj/
+
+# Ignore Vivado generated
+*.hw/
+*.sims/
+*.runs/
+*.cache/
+
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+*.tags
+# Persistent undo
+[._]*.un~
+
+# Plugins
+.config/nnn/plugins/
+
+# Package data
+__pycache__/
+Manifest.toml
+.CondaPkg/

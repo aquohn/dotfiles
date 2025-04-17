@@ -84,6 +84,13 @@ elif [ "`command -v lesspipe.sh`" ]; then
   eval "`SHELL=/bin/sh lesspipe.sh`"
 fi
 
+# Nix
+if [ "`command -v nix`" ]; then
+  checksource /etc/profile.d/nix.sh
+  checksource $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+  XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.nix-profile/share"; export XDG_DATA_DIRS
+fi
+
 # Guix
 if [ "`command -v guix`" ]; then
   GUIX_PROFILE="$HOME/.guix-profile"; export GUIX_PROFILE
@@ -91,11 +98,18 @@ if [ "`command -v guix`" ]; then
   checksource "$GUIX_PROFILE/etc/profile"
 fi
 
+# Sage
+if [ "`command -v sage`" ]; then
+  DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
+fi
+
+TEXINPUTS="$HOME/.local/share/latex:$TEXINPUTS"; export TEXINPUTS
+
 if [ -n "${BASH_VERSINFO+x}" ]; then
-    checksource "$HOME/.bashrc"
+  checksource "$HOME/.bashrc"
 elif [ -n "${ZSH_VERSION+x}" ]; then
-    checksource "$HOME/.zshrc"
+  checksource "$HOME/.zshrc"
 else
-    checksource "$ENV"
+  checksource "$ENV"
 fi
 

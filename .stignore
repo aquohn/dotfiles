@@ -1,0 +1,8 @@
+conda_env
+.CondaPkg
+node_modules
+bin
+obj
+build
+*.sim
+*.synth
