@@ -98,6 +98,12 @@ if [ "`command -v guix`" ]; then
   checksource "$GUIX_PROFILE/etc/profile"
 fi
 
+# ssh-agent
+if [ "`command -v ssh-agent`" ] && [ -z "$SSH_AUTH_SOCK" ]; then
+  eval `ssh-agent`
+  find "$HOME/.ssh/" -type f -exec grep -Zl "PRIVATE" {} \;  | xargs -0 ssh-add
+fi
+
 # Sage
 if [ "`command -v sage`" ]; then
   DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
