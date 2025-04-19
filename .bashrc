@@ -18,6 +18,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/bash/history"
 HISTSIZE=1000
 HISTFILESIZE=2000
 

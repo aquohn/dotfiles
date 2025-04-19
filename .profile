@@ -74,7 +74,7 @@ EDITOR=ex; export EDITOR
 VISUAL=vim; export VISUAL
 PAGER=less; export PAGER
 
-NVIM_LISTEN_ADDRESS="$HOME/.nvimsocket"; export NVIM_LISTEN_ADDRESS
+NVIM_LISTEN_ADDRESS="$XDG_STATE_HOME/nvim/.nvimsocket"; export NVIM_LISTEN_ADDRESS
 NNN_PLUG='p:preview-tui;o:fzopen;d:fzcd;h:fzhist;v:rsynccp;t:preview-tabbed'; export NNN_PLUG
 
 # make less more friendly for non-text input files
@@ -108,6 +108,9 @@ fi
 if [ "`command -v sage`" ]; then
   DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
 fi
+
+# Wine
+WINEPREFIX="$XDG_DATA_HOME/wine"; export WINEPREFIX
 
 TEXINPUTS="$HOME/.local/share/latex:$TEXINPUTS"; export TEXINPUTS
 
