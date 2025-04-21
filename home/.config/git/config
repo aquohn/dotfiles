@@ -1,6 +1,6 @@
 [user]
 	name = John Khoo
-	email = john_khoo@u.nus.edu
+	email = johnkhootf@gmail.com
 [core]
 	editor = nvim
 	autocrlf = false
@@ -9,3 +9,9 @@
 	rebase = false
 [init]
 	templatedir = ~/.git_template
+[sendemail]
+	smtpServer = /home/aquohn/.guix-profile/bin/sendgmail
+	smtpserveroption = -sender=johnkhootf@gmail.com
+	smtpserverport = 587
+	smtpencryption = tls
+	smtpuser = johnkhootf@gmail.com
