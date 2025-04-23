@@ -287,6 +287,15 @@ let g:ale_linters_ignore = {
       \ 'python': ['pylint']
       \ }
 
+" Lint only on save if linter is slow
+autocmd BufEnter * if &ft ==# 'cpp' |
+   \ let g:ale_lint_on_text_changed='never' |
+   \ let g:ale_lint_on_save=1 |
+   \ else |
+   \ let g:ale_lint_on_text_changed='normal' |
+   \ endif
+
+
 " C
 let g:ale_c_build_dir_names=['build', 'bin', 'Debug', 'debug']
 autocmd FileType c,cpp setlocal equalprg=clang-format
