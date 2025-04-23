@@ -58,15 +58,24 @@ postpath "/usr/local/sbin"
 postpath "/usr/sbin"
 postpath "/sbin"
 
-postpath "$HOME/.local/share/flatpak/exports/bin"
+PLTADDONDIR="$XDG_DATA_HOME/racket"; export PLTADDONDIR
+GOPATH="$XDG_DATA_HOME/go"; export GOPATH
+CARGO_HOME="$XDG_DATA_HOME/cargo"; export CARGO_HOME
+GHCUP_USE_XDG_DIRS=true; export GHCUP_USE_XDG_DIRS
+DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
+WINEPREFIX="$XDG_DATA_HOME/wine"; export WINEPREFIX
+TEXINPUTS="$XDG_DATA_HOME/latex:$TEXINPUTS"; export TEXINPUTS
+
+postpath "$XDG_DATA_HOME/flatpak/exports/bin"
 postpath "/var/lib/flatpak/exports/bin"
 postpath "$HOME/.emacs.d/bin"
 postpath "$HOME/.elan/bin"
-postpath "${GOPATH:-$HOME/go}/bin"
-[ "`command -v racket`" ] && postpath "${PLTADDONDIR:-$XDG_DATA_HOME/racket}/`racket --version | sed 's/.*v\([0-9.]*\).*/\1/'`/bin"
+postpath "$GOPATH/bin"
+
+[ "`command -v racket`" ] && postpath "$PLTADDONDIR/`racket --version | sed 's/.*v\([0-9.]*\).*/\1/'`/bin"
 [ "`command -v npm`" ] && postpath "`npm -g bin 2>/dev/null`"
-checksource "${GHCUP_INSTALL_BASE_PREFIX:-$HOME}/.ghcup/env"
-checksource "${CARGO_HOME:-$HOME/.cargo}/env"
+checksource "$XDG_CACHE_HOME/ghcup/env"
+checksource "$CARGO_HOME/env"
 
 export PATH
 
@@ -103,16 +112,6 @@ if [ "`command -v ssh-agent`" ] && [ -z "$SSH_AUTH_SOCK" ]; then
   eval `ssh-agent`
   find "$HOME/.ssh/" -type f -exec grep -Zl "PRIVATE" {} \;  | xargs -0 ssh-add
 fi
-
-# Sage
-if [ "`command -v sage`" ]; then
-  DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
-fi
-
-# Wine
-WINEPREFIX="$XDG_DATA_HOME/wine"; export WINEPREFIX
-
-TEXINPUTS="$HOME/.local/share/latex:$TEXINPUTS"; export TEXINPUTS
 
 if [ -n "${BASH_VERSINFO+x}" ]; then
   checksource "$HOME/.bashrc"
