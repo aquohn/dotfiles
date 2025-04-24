@@ -10,7 +10,13 @@ This is my personal dotfiles setup, meant to be portable across a wide variety o
 
 This repository contains three directories:
 - `home`, which the home directory is supposed to be a symlink mirror of. The symlink mirror can be created/updated with `cp -as "$PWD/." ~`.
-- `template`, which contains templates for local copies of `.env`, `.profile` and `.bashrc`. These templates source the top-level `.env`, `.profile` etc. in this repo, and are meant to be modified to apply any local configuration which applies specifically to this device.
+- `template`, which contains templates for local copies of `.env`, `.profile` and `.bashrc` to be put in `$HOME`. The local copies should source the top-level `.env`, `.profile` etc. in this repo, and apply any local configuration specific to this device.
 - `software`, for miscellaneous config files which have not been brought in for various reasons.
 
 Amongst the top-level files in this repo, `.profile` sets and exports environment variables, especially `$PATH`, sources various other `profile` files, and starts `ssh-agent`. `.bash` and `.env` implement standard aliases and functions.
+
+## Programs Used
+
+`guix home` is used to manage certain more annoying configuration files (such as `fonts.conf` and `mimeapps.list`). However, it overwrites `$HOME/.profile`, with no ability to change this behaviour. Therefore, `ghomereconf` in `.env` should be used for reconfiguring, which restores `$HOME/.profile`.
+
+`nix` is used to install/run stuff not available on Guix.
