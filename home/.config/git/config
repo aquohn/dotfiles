@@ -4,11 +4,11 @@
 [core]
 	editor = nvim
 	autocrlf = false
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.config/git/ignore
 [pull]
 	rebase = false
 [init]
-	templatedir = ~/.git_template
+	templatedir = ~/.config/git/template
 [sendemail]
 	smtpServer = /home/aquohn/.guix-profile/bin/sendgmail
 	smtpserveroption = -sender=johnkhootf@gmail.com
