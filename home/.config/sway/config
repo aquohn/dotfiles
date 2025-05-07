@@ -1,5 +1,5 @@
 # local definitions for $term, $floatterm, $menu, $lock, $sleep, $light{up,init,down},
-# $media{play,stop,prev,next}, $volume{up,down}, $volinit, $micmute, $mute,
+# $media{play,playpause,stop,prev,next}, $volume{up,down}, $volinit, $micmute, $mute,
 # bar command and user services
 # Assumptions: wl-clipboard, cliphist, tmux, fzf
 exec ~/.config/sway/env
@@ -88,6 +88,8 @@ bindsym $mod+Shift+s exec $screenshot
 
 # Multimedia
 bindsym --locked XF86AudioPlay exec $mediaplay
+# XF86AudioPlayPause not recognised
+bindcode --locked 172 exec $mediaplaypause
 bindsym --locked XF86AudioStop exec $mediastop
 bindsym --locked XF86AudioPrev exec $mediaprev
 bindsym --locked XF86AudioNext exec $medianext
