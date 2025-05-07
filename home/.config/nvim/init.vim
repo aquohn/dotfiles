@@ -46,7 +46,7 @@ if has('nvim')
   if has('nvim-0.10')
     Plug 'neovim/nvim-lspconfig'
   else
-    Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.8.0' }
+    Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.6.0' }
   endif
 else
   Plug 'prabirshrestha/vim-lsp'
