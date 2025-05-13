@@ -1,3 +1,14 @@
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+set $alt Mod1
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
 # local definitions for $term, $floatterm, $menu, $lock, $sleep, $light{up,init,down},
 # $media{play,playpause,stop,prev,next}, $volume{up,down}, $volinit, $micmute, $mute,
 # bar command and user services
@@ -11,27 +22,18 @@ include ~/.config/sway/local
 for_window [app_id="floating"] floating enable
 for_window [instance="floating"] floating enable
 
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
-
 ### Idle configuration
 exec swayidle -w \
        timeout 300 '$lock' \
        timeout 600 'swaymsg "output * dpms off"' \
-       resume 'swaymsg "output * dpms on"'
+       resume 'swaymsg "output * dpms on"' \
+       before-sleep $lock
 
 # $lock may return > 0 if already locked
 bindswitch --reload --locked lid:on exec sh -c '$lock; $sleep'
 for_window [shell=".*"] inhibit_idle fullscreen
 
-bindsym XF86Sleep exec $lock && $sleep
+bindsym XF86Sleep exec sh -c '$lock; $sleep'
 # TODO figure out presentation mode toggle
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -104,18 +106,32 @@ floating_modifier $mod normal
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 
-# Exit sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+# System mode menu
+set $mode_system "What to do? (l) lock, (e) logout, (r) reboot, (s) suspend, (Shift+s) shutdown"
+mode $mode_system {
+	bindsym l exec $lock; mode "default"
+	bindsym e exec swaymsg exit; mode "default"
+	bindsym r exec $reboot; mode "default"
+	bindsym s exec $sleep; mode "default"
+	bindsym Shift+s exec $poweroff; mode "default"
+
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+Shift+e mode $mode_system
+
 #
 # Moving around:
 # TODO use fzf
-# TODO rotate between displays
 #
 # Move your focus around
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
+bindsym $alt+Tab focus next
+bindsym $alt+Shift+Tab focus prev
 
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
@@ -182,8 +198,8 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # Move focus between parent and child containers
-bindsym $mod+a focus parent
-bindsym $mod+Shift+a focus child
+bindsym $mod+p focus parent
+bindsym $mod+o focus child
 
 #
 # Scratchpad:
@@ -206,20 +222,26 @@ mode "resize" {
 # up will shrink the containers height
 # down will grow the containers height
   bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-# Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+  bindsym $down resize grow height 10px
+  bindsym $up resize shrink height 10px
+  bindsym $right resize grow width 10px
 
 # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+z mode "resize"
 
-include /etc/sway/config.d/*
+# Moving containers
+mode "move" {
+  bindsym $left move left 10px
+  bindsym $down move down 10px
+  bindsym $up move up 10px
+  bindsym $right move right 10px
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+m mode "move"
+
+# include /etc/sway/config.d/*
