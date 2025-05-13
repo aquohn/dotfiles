@@ -20,13 +20,13 @@
     (let* ((fc-alias
              (lambda (family fonts)
                `(alias (@ (binding strong))
-                        (family ,family)
-                        (prefer ,@fonts))))
+                       (family ,family)
+                       (prefer ,@fonts))))
 
            (fc-family-cjk
              (let* ((cjk-map
                       '(("ja" . " JP") ("ko" . " KR") ("zh" . " SC") ("zh-hans" . " SC")
-                                      ("zh-hant" . " TC") ("zh-cn" . " SC") ("zh-tw" . " TC")))
+                                       ("zh-hant" . " TC") ("zh-cn" . " SC") ("zh-tw" . " TC")))
                     (cjk-target (lambda (family fontname mapping)
                                   `(match (@ (target pattern))
                                           (test (@ (name lang) (compare contains)) (string ,(car mapping)))
@@ -39,19 +39,30 @@
                          (map (lambda (m) (cjk-target family fontname m)) cjk-map))))))
       (simple-service 'additional-fonts-service
                       home-fontconfig-service-type
-                      (append `(,(fc-alias "serif" '((family "Noto Serif") (family "Latin Modern Roman")))
-                               ,(fc-alias "sans-serif" '((family "Noto Sans") (family "Latin Modern Sans")))
-                               ,(fc-alias "monospace" '((family "Noto Sans Mono") (family "Latin Modern Mono")))
-                               ,(fc-alias "system-ui" '(sans-serif)))
+                      (append
+                        (list (fc-alias "serif" '((family "Noto Serif") (family "Latin Modern Roman")))
+                              (fc-alias "sans-serif" '((family "Noto Sans") (family "Latin Modern Sans")))
+                              (fc-alias "monospace" '((family "Noto Sans Mono") (family "Latin Modern Mono")))
+                              (fc-alias "system-ui" '(sans-serif)))
 
-                              (fc-family-cjk "serif" "Noto Serif")
-                              (fc-family-cjk "sans-serif" "Noto Sans")
-                              (fc-family-cjk "monospace" "Noto Sans Mono"))))
+                        (fc-family-cjk "serif" "Noto Serif")
+                        (fc-family-cjk "sans-serif" "Noto Sans")
+                        (fc-family-cjk "monospace" "Noto Sans Mono"))))
 
+    (let* ((mimetypes-desktop-pairs
+             (lambda (desktop mimetypes)
+               (map (lambda (mt) `(,(string->symbol mt) . ,desktop)) (delete "" (string-split mimetypes #\;)))))
+           (nsxiv-mimetypes "image/bmp;image/gif;image/jpeg;image/jpg;image/png;image/tiff;image/x-bmp;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-tga;image/x-xpixmap;image/webp;image/heic;image/svg+xml;application/postscript;image/jp2;image/jxl;image/avif;image/heif;")
+           (zathura-pdf-mimetypes "application/pdf;application/oxps;application/epub+zip;application/x-fictionbook;")
+           (nvim-mimetypes "text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;")
+           (brave-mimetypes "x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/about;x-scheme-handler/unknown;"))
       (service home-xdg-mime-applications-service-type
                (home-xdg-mime-applications-configuration
-                 (default '((image/jpeg . nsxiv.desktop)
-                            (application/pdf . org.pwmt.zathura-pdf-mupdf.desktop)))
+                 (default
+                   (append
+                     (mimetypes-desktop-pairs 'nsxiv.desktop nsxiv-mimetypes)
+                     (mimetypes-desktop-pairs 'org.pwmt.zathura-pdf-mupdf.desktop zathura-pdf-mimetypes)
+                     (mimetypes-desktop-pairs 'brave-browser.desktop brave-mimetypes)))
                  (desktop-entries
                    (list
 
@@ -67,32 +78,29 @@
                        (config '((exec . "loginctl reboot"))))
 
                      (xdg-desktop-entry
-                       (file "nsxiv")
-                       (name "nsxiv")
+                       (file "vim-terminal")
+                       (name "Open vim in $TERMINAL")
                        (type 'application)
-                       (config '((exec . "nsxiv %F")
-                                 (MimeType . "image/bmp;image/gif;image/jpeg;image/jpg;image/png;image/tiff;image/x-bmp;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-tga;image/x-xpixmap;image/webp;image/heic;image/svg+xml;application/postscript;image/jp2;image/jxl;image/avif;image/heif;")
-                                 (NoDisplay . "true")
-                                 (GenericName . "Image Viewer")
-                                 )))))))))
+                       (config '((exec . "sh -c \"$TERMINAL -e vim %F\"")
+                                 (Terminal . "yes")
+                                 (MimeType . ,nvim-mimetypes)
+                                 (NoDisplay . "true")))))))))))
 
 
-  (define user-apps
-    (list
-      (service home-syncthing-service-type)
-      ))
+(define user-apps
+  (list
+    (service home-syncthing-service-type)))
 
-  (define user-sys
-    (list
-      (service home-dbus-service-type)
-      (service home-pipewire-service-type)
-      (simple-service 'additional-dbus-services home-dbus-service-type
-                      (map specification->package (list "xdg-desktop-portal-wlr" "xdg-desktop-portal" "blueman")))
-      ))
+(define user-sys
+  (list
+    (service home-dbus-service-type)
+    (service home-pipewire-service-type)
+    (simple-service 'additional-dbus-services home-dbus-service-type
+                    (map specification->package (list "xdg-desktop-portal-wlr" "xdg-desktop-portal" "blueman")))))
 
-  (home-environment
-    (services
-      (append user-config
-              user-apps
-              user-sys ;; TODO only if using sway
-              %base-home-services)))
+(home-environment
+  (services
+    (append user-config
+            user-apps
+            user-sys ;; TODO only if using sway
+            %base-home-services)))
