@@ -12,7 +12,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 " Custom language packs
-let g:polyglot_disabled = [ 'pandoc', 'ftdetect' ]
+let g:polyglot_disabled = [ 'pandoc', 'ftdetect', 'rescript' ]
 
 " Nvim vs Vim specific plugins, before load
 if has('nvim')
@@ -42,6 +42,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'lifepillar/vim-mucomplete'
+
+" Languages
 if has('nvim')
   if has('nvim-0.10')
     Plug 'neovim/nvim-lspconfig'
@@ -51,8 +53,6 @@ if has('nvim')
 else
   Plug 'prabirshrestha/vim-lsp'
 endif
-
-" Languages
 Plug 'dense-analysis/ale'
 Plug 'kana/vim-textobj-user'
 Plug 'universal-ctags/ctags'
@@ -72,6 +72,7 @@ Plug 'Konfekt/FastFold'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " Plug 'whonore/Coqtail'
+Plug 'rescript-lang/vim-rescript'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -289,11 +290,11 @@ let g:ale_linters_ignore = {
 
 " Lint only on save if linter is slow
 autocmd BufEnter * if &ft ==# 'cpp' |
-   \ let g:ale_lint_on_text_changed='never' |
-   \ let g:ale_lint_on_save=1 |
-   \ else |
-   \ let g:ale_lint_on_text_changed='normal' |
-   \ endif
+      \ let g:ale_lint_on_text_changed='never' |
+      \ let g:ale_lint_on_save=1 |
+      \ else |
+      \ let g:ale_lint_on_text_changed='normal' |
+      \ endif
 
 
 " C
