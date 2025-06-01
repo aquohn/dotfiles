@@ -107,7 +107,7 @@ floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 
 # System mode menu
-set $mode_system "What to do? (l) lock, (e) logout, (r) reboot, (s) suspend, (Shift+s) shutdown"
+set $mode_system "What to do? (l) lock, (e) exit Sway, (r) reboot, (s) suspend, (Shift+s) shutdown"
 mode $mode_system {
 	bindsym l exec $lock; mode "default"
 	bindsym e exec swaymsg exit; mode "default"
