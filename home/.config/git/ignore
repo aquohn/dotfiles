@@ -12,6 +12,7 @@ bin/
 build/
 obj/
 latexmk/
+release/
 
 # Ignore Vivado generated
 *.hw/
