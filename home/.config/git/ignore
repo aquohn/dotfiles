@@ -46,6 +46,11 @@ tags
 # Plugins
 .config/nnn/plugins/
 
+# Clang
+compile_commands.json
+/.clangd
+*.plist
+
 # Package data
 __pycache__/
 Manifest.toml

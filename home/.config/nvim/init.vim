@@ -12,7 +12,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 " Custom language packs
-let g:polyglot_disabled = [ 'pandoc', 'ftdetect' ]
+let g:polyglot_disabled = [ 'pandoc', 'ftdetect', 'ada' ]
 
 " Nvim vs Vim specific plugins, before load
 if has('nvim')
@@ -179,8 +179,9 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 if has('wsl')
   vnoremap <C-c> y:!echo <C-r>=escape(substitute(shellescape(getreg('"')), '\n', '\r', 'g'), '%!')<CR> <Bar> clip.exe<CR><CR>
 endif
+let g:remws_on_write = 0
 function Remws()
-  let remws = 1
+  let remws = g:remws_on_write
   " filetypes where trailing whitespace cannot be nuked
   for t in ["vim"]
     if &ft ==? t | let remws = 0 | endif
@@ -280,21 +281,10 @@ let g:mucomplete#chains = {
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
-let g:ale_fixers = {
-      \ 'python': ['black']
-      \ }
 let g:ale_linters_ignore = {
-      \ 'python': ['pylint']
+      \ 'python': ['pylint'],
+      \ 'cpp': ['cc', 'ccls', 'clangcheck', 'clangtidy', 'clazy', 'cppcheck', 'cpplint', 'cquery', 'cspell']
       \ }
-
-" Lint only on save if linter is slow
-autocmd BufEnter * if &ft ==# 'cpp' |
-   \ let g:ale_lint_on_text_changed='never' |
-   \ let g:ale_lint_on_save=1 |
-   \ else |
-   \ let g:ale_lint_on_text_changed='normal' |
-   \ endif
-
 
 " C
 let g:ale_c_build_dir_names=['build', 'bin', 'Debug', 'debug']
