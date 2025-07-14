@@ -12,7 +12,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 " Custom language packs
-let g:polyglot_disabled = [ 'pandoc', 'ftdetect', 'ada' ]
+let g:polyglot_disabled = [ 'pandoc', 'ftdetect', 'ada', 'rescript' ]
 
 " Nvim vs Vim specific plugins, before load
 if has('nvim')
@@ -42,17 +42,18 @@ Plug 'junegunn/fzf.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'lifepillar/vim-mucomplete'
+Plug 'rafamadriz/friendly-snippets'
+
+" Languages
 if has('nvim')
   if has('nvim-0.10')
     Plug 'neovim/nvim-lspconfig'
   else
-    Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.8.0' }
+    Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.6.0' }
   endif
 else
   Plug 'prabirshrestha/vim-lsp'
 endif
-
-" Languages
 Plug 'dense-analysis/ale'
 Plug 'kana/vim-textobj-user'
 Plug 'universal-ctags/ctags'
@@ -72,6 +73,7 @@ Plug 'Konfekt/FastFold'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 " Plug 'whonore/Coqtail'
+Plug 'rescript-lang/vim-rescript'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -156,6 +158,7 @@ catch
     colorscheme industry
   endtry
 endtry
+let g:rainbow_active = 1
 
 " Buffers
 set hidden " editing other files will hide the current buffer
@@ -265,6 +268,7 @@ nnoremap <leader>f :lvimgrep // % \| lwindow<CR>
 
 " Completion
 let g:mucomplete#no_mappings = 1
+let g:mucomplete#no_popup_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 100
 set completeopt=menuone,noinsert,noselect
@@ -272,12 +276,17 @@ if has('patch-8.1.1880') || has('nvim-10.2')
   set completeopt+=popup
 endif
 
-inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
-imap <C-b> <plug>(MUcompleteCycFwd)
+inoremap <silent> <plug>(MUcompleteBwdKey) <C-b>
+imap <C-b> <plug>(MUcompleteCycBwd)
 let g:mucomplete#chains = {
       \ 'vim': ['path', 'cmd', 'keyn'],
-      \ 'default': ['path', 'keyn', 'dict', 'uspl', 'omni']
+      \ 'default': ['path', 'omni', 'user', 'keyp', 'dict', 'uspl']
       \ }
+set completefunc=syntaxcomplete#Complete
+autocmd Filetype *
+      \	if &omnifunc == "" |
+      \		setlocal omnifunc=ale#completion#OmniFunc |
+      \	endif
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
