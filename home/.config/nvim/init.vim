@@ -183,15 +183,15 @@ if has('wsl')
   vnoremap <C-c> y:!echo <C-r>=escape(substitute(shellescape(getreg('"')), '\n', '\r', 'g'), '%!')<CR> <Bar> clip.exe<CR><CR>
 endif
 let g:remws_on_write = 0
-function Remws()
-  let remws = g:remws_on_write
+function Remws(do_remws)
+  let remws = get(a:, 1, 1)
   " filetypes where trailing whitespace cannot be nuked
   for t in ["vim"]
     if &ft ==? t | let remws = 0 | endif
   endfor
   if remws | :%s/\s\+$//e | endif
 endfunction
-autocmd BufWrite * call Remws()
+autocmd BufWrite * call Remws(g:remws_on_write)
 
 " Folding
 set foldmethod=syntax
@@ -283,10 +283,10 @@ let g:mucomplete#chains = {
       \ 'default': ['path', 'omni', 'user', 'keyp', 'dict', 'uspl']
       \ }
 set completefunc=syntaxcomplete#Complete
-autocmd Filetype *
-      \	if &omnifunc == "" |
-      \		setlocal omnifunc=ale#completion#OmniFunc |
-      \	endif
+" autocmd Filetype *
+"       \	if &omnifunc == "" |
+"       \		setlocal omnifunc=ale#completion#OmniFunc |
+"       \	endif
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
@@ -363,6 +363,9 @@ set tabstop=2
 set shiftwidth=2
 
 " Shortcuts
+" :qa
+nnoremap ZA :qa<CR>
+
 " Clearing highlighting and refereshing
 nnoremap <esc> :noh<return><esc>
 nnoremap <F5> <Esc>:e<CR>
