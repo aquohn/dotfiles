@@ -62,7 +62,8 @@
                    (append
                      (mimetypes-desktop-pairs 'nsxiv.desktop nsxiv-mimetypes)
                      (mimetypes-desktop-pairs 'org.pwmt.zathura-pdf-mupdf.desktop zathura-pdf-mimetypes)
-                     (mimetypes-desktop-pairs 'brave-browser.desktop brave-mimetypes)))
+                     (mimetypes-desktop-pairs 'brave-browser.desktop brave-mimetypes)
+                     ('zotero.desktop "application/x-xpinstall")))
                  (desktop-entries
                    (list
 
@@ -96,7 +97,7 @@
     (service home-dbus-service-type)
     (service home-pipewire-service-type)
     (simple-service 'additional-dbus-services home-dbus-service-type
-                    (map specification->package (list "xdg-desktop-portal-wlr" "xdg-desktop-portal" "blueman")))))
+                    (map specification->package (list "xdg-desktop-portal-wlr" "xdg-desktop-portal-gtk" "xdg-desktop-portal" "blueman")))))
 
 (home-environment
   (services
