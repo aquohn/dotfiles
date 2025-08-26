@@ -283,10 +283,10 @@ let g:mucomplete#chains = {
       \ 'default': ['path', 'omni', 'user', 'keyp', 'dict', 'uspl']
       \ }
 set completefunc=syntaxcomplete#Complete
-" autocmd Filetype *
-"       \	if &omnifunc == "" |
-"       \		setlocal omnifunc=ale#completion#OmniFunc |
-"       \	endif
+autocmd User ALELSPStarted
+      \	if &omnifunc == "" |
+      \		setlocal omnifunc=ale#completion#OmniFunc |
+      \	endif
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
