@@ -44,7 +44,7 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'lifepillar/vim-mucomplete'
 Plug 'rafamadriz/friendly-snippets'
 
-" Languages
+" Code
 if has('nvim')
   if has('nvim-0.10')
     Plug 'neovim/nvim-lspconfig'
@@ -62,6 +62,9 @@ Plug 'preservim/tagbar'
 Plug 'inkarkat/vim-SyntaxRange'
 Plug 'luochen1990/rainbow'
 Plug 'vim-scripts/utl.vim'
+Plug 'jpalardy/vim-slime'
+
+" Languages
 Plug 'sheerun/vim-polyglot'
 Plug 'lervag/vimtex'
 " Plug 'jceb/vim-orgmode'
@@ -192,6 +195,14 @@ function Remws(do_remws)
   if remws | :%s/\s\+$//e | endif
 endfunction
 autocmd BufWrite * call Remws(g:remws_on_write)
+
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
+let g:slime_no_mappings = 1
+xmap <leader>s <Plug>SlimeRegionSend
+nmap <leader>s <Plug>SlimeMotionSend
+nmap <leader>ss <Plug>SlimeLineSend
+let g:slime_python_ipython = 1
 
 " Folding
 set foldmethod=syntax
