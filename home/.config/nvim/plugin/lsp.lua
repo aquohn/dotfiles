@@ -5,8 +5,3 @@ require('nvim-lightbulb').setup({
 })
 
 require("mason").setup()
-
-local lspconfig = require('lspconfig')
-
-lspconfig.rescriptls.setup{}
-lspconfig.clangd.setup{}

@@ -39,21 +39,29 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 " Completion
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'lifepillar/vim-mucomplete'
-Plug 'rafamadriz/friendly-snippets'
-
-" Code
 if has('nvim')
   if has('nvim-0.10')
     Plug 'neovim/nvim-lspconfig'
   else
     Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.6.0' }
   endif
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-git'
+  Plug 'hrsh7th/cmp-vsnip'
 else
   Plug 'prabirshrestha/vim-lsp'
+  Plug 'lifepillar/vim-mucomplete'
 endif
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
+
+" Code
 Plug 'dense-analysis/ale'
 Plug 'kana/vim-textobj-user'
 Plug 'universal-ctags/ctags'
@@ -278,26 +286,26 @@ nnoremap <leader>f :lvimgrep // % \| lwindow<CR>
 " Use :cw/:lw to open and close qf/loclist
 
 " Completion
-let g:mucomplete#no_mappings = 1
-let g:mucomplete#no_popup_mappings = 1
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay = 100
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noselect
 if has('patch-8.1.1880') || has('nvim-10.2')
   set completeopt+=popup
 endif
-
-inoremap <silent> <plug>(MUcompleteBwdKey) <C-b>
-imap <C-b> <plug>(MUcompleteCycBwd)
-let g:mucomplete#chains = {
-      \ 'vim': ['path', 'cmd', 'keyn'],
-      \ 'default': ['path', 'omni', 'user', 'keyp', 'dict', 'uspl']
-      \ }
 set completefunc=syntaxcomplete#Complete
-autocmd User ALELSPStarted
-      \	if &omnifunc == "" |
-      \		setlocal omnifunc=ale#completion#OmniFunc |
-      \	endif
+
+if !has('nvim')
+  let g:mucomplete#no_mappings = 1
+  let g:mucomplete#no_popup_mappings = 1
+  let g:mucomplete#enable_auto_at_startup = 1
+  let g:mucomplete#completion_delay = 100
+  inoremap <silent> <plug>(MUcompleteBwdKey) <C-b>
+  imap <C-b> <plug>(MUcompleteCycBwd)
+  let g:mucomplete#chains = {
+        \ 'vim': ['path', 'cmd', 'c-n'],
+        \ 'default': ['path', 'omni', 'user', 'c-p', 'dict', 'uspl']
+        \ }
+endif
+" mucomplete of nvim lsp broken by https://github.com/lifepillar/vim-mucomplete/issues/180
+" upstream: https://github.com/neovim/neovim/issues/12390
 
 let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
@@ -407,10 +415,10 @@ command Vimrc tabnew $MYVIMRC
 if has('nvim')
   let g:firenvim_config = {
         \ 'localSettings': {
-        \ '.*': {
-        \ 'takeover': 'never',
-        \ }
-        \ },
+        \     '.*': {
+        \       'takeover': 'never',
+        \     }
+        \   },
         \ }
 
   " Agda
