@@ -2,7 +2,7 @@
 (list (channel
         (name 'guix)
         (branch "master")
-        (url "https://codeberg.org/guix/guix-mirror.git")
+        (url "https://codeberg.org/guix/guix.git")
         (introduction
           (make-channel-introduction
             "9edb3f66fd807b096b48283debdcddccfea34bad"
@@ -16,14 +16,14 @@
             "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
             (openpgp-fingerprint
               "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
-      (channel
-        (name 'pantherx)
-        (url "https://channels.pantherx.org/git/panther.git")
-        (introduction
-          (make-channel-introduction
-            "54b4056ac571611892c743b65f4c47dc298c49da"
-            (openpgp-fingerprint
-              "A36A D41E ECC7 A871 1003  5D24 524F EB1A 9D33 C9CB"))))
+      ;; (channel
+      ;;   (name 'pantherx)
+      ;;   (url "https://channels.pantherx.org/git/panther.git")
+      ;;   (introduction
+      ;;     (make-channel-introduction
+      ;;       "54b4056ac571611892c743b65f4c47dc298c49da"
+      ;;       (openpgp-fingerprint
+      ;;         "A36A D41E ECC7 A871 1003  5D24 524F EB1A 9D33 C9CB"))))
       (channel
         (name 'guix-science)
         (url "https://codeberg.org/guix-science/guix-science.git")
@@ -32,21 +32,31 @@
             "b1fe5aaff3ab48e798a4cce02f0212bc91f423dc"
             (openpgp-fingerprint
               "CA4F 8CF4 37D7 478F DA05  5FD4 4213 7701 1A37 8446"))))
-      (channel
-        (name 'guix-science-nonfree)
-        (branch "master")
-        (url "https://codeberg.org/guix-science/guix-science-nonfree.git")
-        (introduction
-          (make-channel-introduction
-            "58661b110325fd5d9b40e6f0177cc486a615817e"
-            (openpgp-fingerprint
-              "CA4F 8CF4 37D7 478F DA05  5FD4 4213 7701 1A37 8446"))))
+      ;; (channel
+      ;;   (name 'guix-science-nonfree)
+      ;;   (branch "master")
+      ;;   (url "https://codeberg.org/guix-science/guix-science-nonfree.git")
+      ;;   (introduction
+      ;;     (make-channel-introduction
+      ;;       "58661b110325fd5d9b40e6f0177cc486a615817e"
+      ;;       (openpgp-fingerprint
+      ;;         "CA4F 8CF4 37D7 478F DA05  5FD4 4213 7701 1A37 8446"))))
       (channel
         (name 'guix-hpc)
         (branch "master")
         (url "https://gitlab.inria.fr/guix-hpc/guix-hpc.git"))
+      ;; (channel
+      ;;   (name 'guix-hpc-non-free)
+      ;;   (branch "master")
+      ;;   (url "https://gitlab.inria.fr/guix-hpc/guix-hpc-non-free"))
+
       (channel
-        (name 'guix-hpc-non-free)
-        (branch "master")
-        (url "https://gitlab.inria.fr/guix-hpc/guix-hpc-non-free")))
+        (name 'guix-rust-past-crates)
+        (url "https://codeberg.org/guix/guix-rust-past-crates.git")
+        (branch "trunk")
+        (introduction
+          (make-channel-introduction
+            "1db24ca92c28255b28076792b93d533eabb3dc6a"
+            (openpgp-fingerprint
+              "F4C2D1DF3FDEEA63D1D30776ACC66D09CA528292")))))
 ;; %default-channels)
