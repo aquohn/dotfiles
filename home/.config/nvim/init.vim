@@ -311,12 +311,16 @@ let g:load_doxygen_syntax = 1
 let g:ale_echo_msg_format = '%linter%: %s'"
 let g:ale_linters_ignore = {
       \ 'python': ['pylint'],
-      \ 'cpp': ['cc', 'ccls', 'clangcheck', 'clangtidy', 'clazy', 'cppcheck', 'cpplint', 'cquery', 'cspell']
+      \ 'cpp': ['ccls', 'clangcheck', 'clangtidy', 'clazy', 'cppcheck', 'cpplint', 'cquery', 'cspell']
       \ }
 
 " C
 let g:ale_c_build_dir_names=['build', 'bin', 'Debug', 'debug']
 autocmd FileType c,cpp setlocal equalprg=clang-format
+
+" C++
+let g:ale_cpp_cc_executable = 'g++'
+let g:ale_cpp_cc_options = '-std=c++20 -Wall'
 
 " Verilog/SystemVerilog
 autocmd FileType verilog let g:ale_verilog_verilator_options='--default-language "1364-2005"'
