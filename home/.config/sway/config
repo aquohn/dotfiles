@@ -25,6 +25,7 @@ for_window [instance="floating"] floating enable
 exec swayidle -w \
        timeout 300 '$lock' \
        timeout 600 'swaymsg "output * dpms off"' \
+       timeout 900 '$sleep' \
        resume 'swaymsg "output * dpms on"' \
        before-sleep '$lock'
 
