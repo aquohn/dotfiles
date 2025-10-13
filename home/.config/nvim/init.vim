@@ -75,7 +75,7 @@ Plug 'jpalardy/vim-slime'
 " Languages
 Plug 'sheerun/vim-polyglot'
 Plug 'lervag/vimtex'
-" Plug 'jceb/vim-orgmode'
+Plug 'jceb/vim-orgmode'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'petRUShka/vim-sage'
 " Plug 'https://gitlab.com/HiPhish/guile.vim.git'
@@ -189,6 +189,7 @@ nnoremap <Leader>o :TagbarToggle
 nnoremap <Leader>d :diff
 
 " Editing
+set virtualedit=block
 nnoremap <Leader>u :UndotreeToggle<CR>
 if has('wsl')
   vnoremap <C-c> y:!echo <C-r>=escape(substitute(shellescape(getreg('"')), '\n', '\r', 'g'), '%!')<CR> <Bar> clip.exe<CR><CR>
