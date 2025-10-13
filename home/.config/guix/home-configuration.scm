@@ -11,6 +11,7 @@
              (gnu home services desktop)
              (gnu home services xdg)
              (gnu home services syncthing)
+             (gnu home services pm)
              (gnu home services sound)
              (gnu home services fontutils))
 
@@ -62,8 +63,8 @@
                    (append
                      (mimetypes-desktop-pairs 'nsxiv.desktop nsxiv-mimetypes)
                      (mimetypes-desktop-pairs 'org.pwmt.zathura-pdf-mupdf.desktop zathura-pdf-mimetypes)
-                     (mimetypes-desktop-pairs 'brave-browser.desktop brave-mimetypes)
-                     ('zotero.desktop "application/x-xpinstall")))
+                     (mimetypes-desktop-pairs 'com.brave.Browser.desktop brave-mimetypes)
+                     (mimetypes-desktop-pairs 'zotero.desktop "application/x-xpinstall")))
                  (desktop-entries
                    (list
 
@@ -87,7 +88,6 @@
                                  (MimeType . ,nvim-mimetypes)
                                  (NoDisplay . "true")))))))))))
 
-
 (define user-apps
   (list
     (service home-syncthing-service-type)))
@@ -96,6 +96,11 @@
   (list
     (service home-dbus-service-type)
     (service home-pipewire-service-type)
+    (service home-batsignal-service-type
+        (home-batsignal-configuration
+          (danger-level 20) ; Or whatever fitting
+          (danger-command "loginctl suspend")
+          (poll-delay 60)))
     (simple-service 'additional-dbus-services home-dbus-service-type
                     (map specification->package (list "xdg-desktop-portal-wlr" "xdg-desktop-portal-gtk" "xdg-desktop-portal" "blueman")))))
 
