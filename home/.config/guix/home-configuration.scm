@@ -63,7 +63,7 @@
                    (append
                      (mimetypes-desktop-pairs 'nsxiv.desktop nsxiv-mimetypes)
                      (mimetypes-desktop-pairs 'org.pwmt.zathura-pdf-mupdf.desktop zathura-pdf-mimetypes)
-                     (mimetypes-desktop-pairs 'com.brave.Browser.desktop brave-mimetypes)
+                     (mimetypes-desktop-pairs 'brave-browser.desktop brave-mimetypes)
                      (mimetypes-desktop-pairs 'zotero.desktop "application/x-xpinstall")))
                  (desktop-entries
                    (list
