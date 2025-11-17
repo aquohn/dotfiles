@@ -39,21 +39,18 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 " Completion
-if has('nvim')
-  if has('nvim-0.10')
-    Plug 'neovim/nvim-lspconfig'
-  else
-    Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.6.0' }
-  endif
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-git'
-  Plug 'hrsh7th/cmp-vsnip'
+let s:using_mucomplete = 0
+if has('nvim-0.10')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'saghen/blink.cmp', { 'tag': '*' }
 else
-  Plug 'prabirshrestha/vim-lsp'
+  if has('nvim')
+    Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.6.0' }
+  else
+    Plug 'prabirshrestha/vim-lsp'
+  endif
   Plug 'lifepillar/vim-mucomplete'
+  let s:using_mucomplete = 1
 endif
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -73,16 +70,16 @@ Plug 'jpalardy/vim-slime'
 " Languages
 Plug 'sheerun/vim-polyglot'
 Plug 'lervag/vimtex'
-" Plug 'jceb/vim-orgmode'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'petRUShka/vim-sage'
-" Plug 'https://gitlab.com/HiPhish/guile.vim.git'
 Plug 'pseewald/vim-anyfold'
 Plug 'Konfekt/FastFold'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-" Plug 'whonore/Coqtail'
 Plug 'rescript-lang/vim-rescript'
+" Plug 'jceb/vim-orgmode'
+" Plug 'https://gitlab.com/HiPhish/guile.vim.git'
+" Plug 'whonore/Coqtail'
 
 " Colours
 Plug 'gerw/vim-HiLinkTrace'
@@ -100,6 +97,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'AndrewRadev/switch.vim'
+Plug 'kana/vim-textobj-user' " needed for Agda
 
 " Purely for Nvim
 if has('nvim')
@@ -122,7 +120,7 @@ if has('nvim')
 
   " Agda support
   Plug 'neovimhaskell/nvim-hs.vim'
-  Plug 'isovector/cornelis', { 'do': 'stack build' }
+  Plug 'isovector/cornelis', { 'do': 'stack build', 'tag': '*' }
 
   Plug 'nvim-treesitter/nvim-treesitter'
 endif
@@ -288,15 +286,15 @@ set completeopt=menuone,noselect
 if has('patch-8.1.1880') || has('nvim-10.2')
   set completeopt+=popup
 endif
-set completefunc=syntaxcomplete#Complete
+" set completefunc=syntaxcomplete#Complete
 
-if !has('nvim')
+if s:using_mucomplete
   let g:mucomplete#no_mappings = 1
   let g:mucomplete#no_popup_mappings = 1
   let g:mucomplete#enable_auto_at_startup = 1
   let g:mucomplete#completion_delay = 100
-  inoremap <silent> <plug>(MUcompleteBwdKey) <C-b>
-  imap <C-b> <plug>(MUcompleteCycBwd)
+  inoremap <silent> <plug>(MUcompleteFwdKey) <C-b>
+  imap <C-b> <plug>(MUcompleteCycFwd)
   let g:mucomplete#chains = {
         \ 'vim': ['path', 'cmd', 'c-n'],
         \ 'default': ['path', 'omni', 'user', 'c-p', 'dict', 'uspl']
@@ -360,6 +358,7 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'punctuation in front of quotes',
       \ 'Missing character: There is no .* in font nullfont!',
       \]
+autocmd FileType tex let b:ale_enabled = 0
 
 " OCaml config
 if executable('opam')
