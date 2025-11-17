@@ -13,7 +13,6 @@ set $right l
 # $media{play,playpause,stop,prev,next}, $volume{up,down}, $volinit, $micmute, $mute,
 # bar command and user services
 # Assumptions: wl-clipboard, cliphist, tmux, fzf
-exec ~/.config/sway/env
 include ~/.config/sway/local
 
 # Read `man 5 sway` for a complete reference.
@@ -21,13 +20,16 @@ include ~/.config/sway/local
 # Enable apps to be launched as floating
 for_window [app_id="floating"] floating enable
 for_window [instance="floating"] floating enable
+# float Zotero progress window
+for_window [app_id="Zotero" title="Progress"] floating enable
 
 ### Idle configuration
 exec swayidle -w \
        timeout 300 '$lock' \
        timeout 600 'swaymsg "output * dpms off"' \
+       timeout 900 '$sleep' \
        resume 'swaymsg "output * dpms on"' \
-       before-sleep $lock
+       before-sleep '$lock'
 
 # $lock may return > 0 if already locked
 bindswitch --reload --locked lid:on exec sh -c '$lock; $sleep'
@@ -214,20 +216,14 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
-mode "resize" {
-# left will shrink the containers width
-# right will grow the containers width
-# up will shrink the containers height
-# down will grow the containers height
-  bindsym $left resize shrink width 10px
-  bindsym $down resize grow height 10px
-  bindsym $up resize shrink height 10px
-  bindsym $right resize grow width 10px
 
-# Return to default mode
+# Resizing containers:
+mode "resize" {
+  bindsym $left resize shrink width 30 px
+  bindsym $down resize grow height 30 px
+  bindsym $up resize shrink height 30 px
+  bindsym $right resize grow width 30 px
+
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
@@ -235,10 +231,15 @@ bindsym $mod+z mode "resize"
 
 # Moving containers
 mode "move" {
-  bindsym $left move left 10px
-  bindsym $down move down 10px
-  bindsym $up move up 10px
-  bindsym $right move right 10px
+  bindsym $left move left 200 px
+  bindsym $down move down 200 px
+  bindsym $up move up 200 px
+  bindsym $right move right 200 px
+
+  bindsym Shift+$left move left 10 px
+  bindsym Shift+$down move down 10 px
+  bindsym Shift+$up move up 10 px
+  bindsym Shift+$right move right 10 px
 
   bindsym Return mode "default"
   bindsym Escape mode "default"

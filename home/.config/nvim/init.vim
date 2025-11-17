@@ -185,6 +185,7 @@ nnoremap <Leader>o :TagbarToggle
 nnoremap <Leader>d :diff
 
 " Editing
+set virtualedit=block
 nnoremap <Leader>u :UndotreeToggle<CR>
 if has('wsl')
   vnoremap <C-c> y:!echo <C-r>=escape(substitute(shellescape(getreg('"')), '\n', '\r', 'g'), '%!')<CR> <Bar> clip.exe<CR><CR>
