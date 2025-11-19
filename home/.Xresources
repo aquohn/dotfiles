@@ -1,4 +1,3 @@
-! Nsxiv.window.background: white
 Nsxiv.window.background: black
 
 xterm*VT100.Translations: #override \
@@ -6,10 +5,8 @@ xterm*VT100.Translations: #override \
                  Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
 *.vt100.reverseVideo: true
 
-! xterm*font:     *-fixed-*-*-*-20-*
-! XtDefaultFont:  -misc-*-medium-r-*-*-15-*-75-75-c-90-iso10646-1
-! XTerm*font:     -misc-*-medium-r-*-*-15-*-75-75-c-90-iso10646-1
-! XTerm*boldFont: -misc-*-bold-r-*-*-15-*-75-75-c-90-iso10646-1
+XTerm*faceName: Noto Sans Mono
+XTerm*faceSize: 12
 
 XTerm*utf8: always
 XTerm*metaSendsEscape: true
