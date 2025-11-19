@@ -69,6 +69,7 @@ Plug 'jpalardy/vim-slime'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
+Plug 'Konfekt/vim-formatprgs'
 Plug 'lervag/vimtex'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'petRUShka/vim-sage'
@@ -315,10 +316,8 @@ let g:ale_linters_ignore = {
 
 " C
 let g:ale_c_build_dir_names=['build', 'bin', 'Debug', 'debug']
-autocmd FileType c,cpp setlocal equalprg=clang-format
 
 " C++
-let g:ale_cpp_cc_executable = 'g++'
 let g:ale_cpp_cc_options = '-std=c++20 -Wall'
 
 " Verilog/SystemVerilog
