@@ -119,8 +119,10 @@ if has('nvim')
   endif
 
   " Agda support
-  Plug 'neovimhaskell/nvim-hs.vim'
-  Plug 'isovector/cornelis', { 'do': 'stack build', 'tag': '*' }
+  if executable('stack')
+    Plug 'neovimhaskell/nvim-hs.vim'
+    Plug 'isovector/cornelis', { 'do': 'stack build', 'tag': '*' }
+  endif
 
   Plug 'nvim-treesitter/nvim-treesitter'
 endif
