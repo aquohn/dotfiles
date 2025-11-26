@@ -169,7 +169,7 @@ catch
   endtry
 endtry
 if has('nvim-0.11')
-  let winborde = 'single'
+  let winborder = 'single'
 endif
 let g:rainbow_active = 1
 
@@ -182,10 +182,11 @@ command Bunload bp | sp | bn | bun
 command Bwipe bp | sp | bn | bw
 " Open file in buffer and close previous buffer
 command -nargs=1 -complete=file Bopen e <args> | sp | bp | bun
+nnoremap <Leader>o :FZF<CR>
 
 " Navigation
 nnoremap <Leader>t :NERDTree
-nnoremap <Leader>o :TagbarToggle
+nnoremap <Leader>s :TagbarToggle
 
 " Diffs
 nnoremap <Leader>d :diff
