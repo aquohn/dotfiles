@@ -168,6 +168,9 @@ catch
     colorscheme industry
   endtry
 endtry
+if has('nvim-0.11')
+  let winborde = 'single'
+endif
 let g:rainbow_active = 1
 
 " Buffers
@@ -287,7 +290,7 @@ nnoremap <leader>f :lvimgrep // % \| lwindow<CR>
 
 " Completion
 set completeopt=menuone,noselect
-if has('patch-8.1.1880') || has('nvim-10.2')
+if has('patch-8.1.1880') || has('nvim-0.10.2')
   set completeopt+=popup
 endif
 " set completefunc=syntaxcomplete#Complete
