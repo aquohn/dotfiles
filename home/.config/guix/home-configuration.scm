@@ -37,15 +37,25 @@
                  (append `((match (@ (target pattern))
                                   (test (@ (name family) (compare eq)) (string ,family))
                                   (edit (@ (name family) (mode append) (binding strong)) (string ,(string-append fontname " SC")))))
-                         (map (lambda (m) (cjk-target family fontname m)) cjk-map))))))
+                         (map (lambda (m) (cjk-target family fontname m)) cjk-map)))))
+           (fc-substr-family
+             (lambda (substr family)
+               `(match (@ (target font))
+                       (test (@ (name family) (compare contains)) (string substr))
+                       (edit (@ (name family) (mode append)) (string family))))))
       (simple-service 'additional-fonts-service
                       home-fontconfig-service-type
                       (append
-                        (list (fc-alias "serif" '((family "Noto Serif") (family "Latin Modern Roman")))
+                        (list "~/.nix-profile/share/fonts"
+                              "~/.guix-profile/share/texmf-dist/fonts"
+                              (fc-substr-family "Nerd" "monospace")
+                              (fc-substr-family "Awesome" "monospace")
+                              (fc-alias "monospace" '((family "Noto Sans Mono") (family "Latin Modern Mono")
+                                                      (family "Symbols Nerd Font") (family "Noto Color Emoji")
+                                                      (family "FontAwesome") (family "Font Awesome 7 Free") (family "Font Awesome 6 Free")))
+                              (fc-alias "serif" '((family "Noto Serif") (family "Latin Modern Roman")))
                               (fc-alias "sans-serif" '((family "Noto Sans") (family "Latin Modern Sans")))
-                              (fc-alias "monospace" '((family "Noto Sans Mono") (family "Latin Modern Mono")))
                               (fc-alias "system-ui" '(sans-serif)))
-
                         (fc-family-cjk "serif" "Noto Serif")
                         (fc-family-cjk "sans-serif" "Noto Sans")
                         (fc-family-cjk "monospace" "Noto Sans Mono"))))

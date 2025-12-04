@@ -1,6 +1,6 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, monospace;
+    /* ensure that monospace falls back to Nerd Font/Font Awesome */
+    font-family: monospace;
     font-size: 16px;
 }
 
@@ -203,6 +203,8 @@ label:focus {
     background-color: #90b1b1;
     color: #2a5c45;
 }
+
+
 
 #wireplumber {
     background-color: #fff0f5;
