@@ -6,5 +6,5 @@ require('nvim-lightbulb').setup({
 
 require("mason").setup()
 
-vim.lsp.enable({'clangd', 'texlab', 'zuban', 'guile_ls', 'julials',
+vim.lsp.enable({'clangd', 'texlab', 'guile_ls', 'julials', 'ty',
     'rust_analyzer', 'ocamllsp', 'rescriptls', 'vhdl_ls', 'verible'})
