@@ -45,8 +45,6 @@ checksource() {
 }
 
 # add various directories to PATH if they exist
-prepath "$HOME/bin"
-prepath "$HOME/.local/bin"
 postpath "/usr/sandbox"
 postpath "/usr/local/bin"
 postpath "/usr/bin"
@@ -120,4 +118,8 @@ elif [ -n "${ZSH_VERSION+x}" ]; then
 else
   checksource "$ENV"
 fi
+
+# prioritise $HOME binaries
+prepath "$HOME/bin"
+prepath "$HOME/.local/bin"
 
