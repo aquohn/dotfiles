@@ -106,7 +106,10 @@ if has('nvim')
   " Vim in your browser!
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
-  " LSP manager
+  " LSP package management
+  if executable('nix')
+    Plug 'dundalek/lazy-lsp.nvim'
+  endif
   Plug 'williamboman/mason.nvim'
 
   " LSP support

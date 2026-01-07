@@ -6,7 +6,6 @@ blink.setup({
       default = { 'lsp', 'omni', 'path', 'snippets', 'buffer' },
       providers = {
         omni = {
-          enabled = true,
           -- omnifuncs don't define trigger characters
           -- so we have to do it manually
           override = {
