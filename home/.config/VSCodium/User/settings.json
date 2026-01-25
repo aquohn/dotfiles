@@ -1,0 +1,58 @@
+{
+    "workbench.colorTheme": "Default High Contrast",
+    "editor.minimap.enabled": false,
+
+    "vim.leader": "<space>",
+    "vim.hlsearch": true,
+
+    // TODO: fix <C-s>
+
+    "vim.normalModeKeyBindingsNonRecursive": [
+        // --- Custom Keymaps ---
+        { "before": ["<leader>", "b"], "commands": ["workbench.action.quickOpen"] },
+        { "before": ["<leader>", "o"], "commands": ["workbench.action.quickOpen"] },
+        { "before": ["<leader>", "g"], "commands": ["workbench.action.findInFiles"] },
+        { "before": ["<Esc>", "<Esc>"], "after": ":nohl" },
+
+        // --- Neovim Default LSP Translations ---
+        { "before": ["g", "r", "n"], "commands": ["editor.action.rename"] },
+        { "before": ["g", "r", "a"], "commands": ["editor.action.quickFix"] },
+        { "before": ["g", "r", "r"], "commands": ["editor.action.goToReferences"] },
+        { "before": ["g", "r", "i"], "commands": ["editor.action.goToImplementation"] },
+        { "before": ["g", "r", "t"], "commands": ["editor.action.goToTypeDefinition"] },
+        { "before": ["g", "O"], "commands": ["workbench.action.gotoSymbol"] },
+
+        // --- Diagnostics ---
+        { "before": ["]", "d"], "commands": ["editor.action.marker.next"] },
+        { "before": ["[", "d"], "commands": ["editor.action.marker.prev"] },
+        { "before": ["]", "D"], "commands": ["editor.action.marker.nextInFiles"] },
+        { "before": ["[", "D"], "commands": ["editor.action.marker.prevInFiles"] },
+        { "before": ["<C-w>", "d"], "commands": ["editor.action.showHover"] }
+    ],
+
+    "vim.visualModeKeyBindingsNonRecursive": [
+        // Indent and maintain selection
+        { "before": [">"], "commands": ["editor.action.indentLines"] },
+        { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+
+        // LSP Code Action in Visual Mode
+        { "before": ["g", "r", "a"], "commands": ["editor.action.quickFix"] },
+
+        // Smart Selection (Selection Range)
+        { "before": ["a", "n"], "commands": ["editor.action.smartSelect.expand"] },
+        { "before": ["i", "n"], "commands": ["editor.action.smartSelect.shrink"] }
+    ],
+
+    "vim.insertModeKeyBindings": [
+        // Signature Help
+        {
+        "before": ["<C-s>"],
+        "commands": ["editor.action.triggerParameterHints"]
+        }
+    ],
+
+    "vim.handleKeys": {
+        "<C-s>": true,
+        "<C-j>": false,
+    },
+}
