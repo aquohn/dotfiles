@@ -30,6 +30,7 @@ if has('nvim')
 else
   Plug 'Iron-E/vim-libmodal'
 endif
+Plug 'liuchengxu/vim-which-key'
 
 " Files
 Plug 'tpope/vim-fugitive'
@@ -103,6 +104,8 @@ Plug 'kana/vim-textobj-user' " needed for Agda
 
 " Purely for Nvim
 if has('nvim')
+  Plug 'nvim-lua/plenary.nvim'
+
   " Vim in your browser!
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
@@ -116,7 +119,6 @@ if has('nvim')
   Plug 'kosayoda/nvim-lightbulb'
 
   " Lean support
-  Plug 'nvim-lua/plenary.nvim'
   if has('nvim-0.10')
     Plug 'Julian/lean.nvim'
   else
@@ -149,11 +151,11 @@ set nottimeout
 " Appearance
 set ruler
 set number relativenumber
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 set showmatch incsearch
 if has('nvim')
   set inccommand=nosplit
@@ -464,25 +466,5 @@ if has('nvim')
   au BufReadPre *.lagda* call CornelisLoadWrapper()
 
   " LSP
-  nnoremap <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-  nnoremap <leader>h <cmd>lua vim.lsp.buf.hover()<CR>
   nnoremap <leader>? <cmd>lua vim.diagnostic.open_float()<CR>
-
-  function! LSPGoto()
-    echo "Go to d:defn/t:type/i:impl/D:decl/r:ref "
-    let inkey = getcharstr()
-    if inkey ==? "d"
-      lua vim.lsp.buf.definition()
-    elseif inkey ==? "t"
-      lua vim.lsp.buf.type_definition()
-    elseif inkey ==? "i"
-      lua vim.lsp.buf.implementation()
-    elseif inkey ==? "D"
-      lua vim.lsp.buf.declaration()
-    elseif inkey ==? "r"
-      lua vim.lsp.buf.references()
-    endif
-    messages clear
-  endfunction
-  nnoremap gp :call LSPGoto()<CR>
 endif
