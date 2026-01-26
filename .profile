@@ -76,21 +76,6 @@ postpath "$GOPATH/bin"
 checksource "$XDG_CACHE_HOME/ghcup/env"
 checksource "$CARGO_HOME/env"
 
-export PATH
-
-EDITOR=ex; export EDITOR
-VISUAL=vim; export VISUAL
-PAGER=less; export PAGER
-
-NNN_PLUG='p:preview-tui;o:fzopen;d:fzcd;h:fzhist;v:rsynccp;t:preview-tabbed'; export NNN_PLUG
-
-# make less more friendly for non-text input files
-if [ "`command -v lesspipe`" ]; then
-  eval "`SHELL=/bin/sh lesspipe`"
-elif [ "`command -v lesspipe.sh`" ]; then
-  eval "`SHELL=/bin/sh lesspipe.sh`"
-fi
-
 # Nix
 if [ "`command -v nix`" ]; then
   checksource /etc/profile.d/nix.sh
@@ -105,10 +90,29 @@ if [ "`command -v guix`" ]; then
   checksource "$GUIX_PROFILE/etc/profile"
 fi
 
+# prioritise $HOME binaries
+prepath "$HOME/bin"
+prepath "$HOME/.local/bin"
+
+export PATH
+
 # ssh-agent
 if [ "`command -v ssh-agent`" ] && [ -z "$SSH_AUTH_SOCK" ]; then
   eval `ssh-agent`
   find "$HOME/.ssh/" -type f -exec grep -Zl "PRIVATE" {} \;  | xargs -0 ssh-add
+fi
+
+EDITOR=ex; export EDITOR
+VISUAL=vim; export VISUAL
+PAGER=less; export PAGER
+
+NNN_PLUG='p:preview-tui;o:fzopen;d:fzcd;h:fzhist;v:rsynccp;t:preview-tabbed'; export NNN_PLUG
+
+# make less more friendly for non-text input files
+if [ "`command -v lesspipe`" ]; then
+  eval "`SHELL=/bin/sh lesspipe`"
+elif [ "`command -v lesspipe.sh`" ]; then
+  eval "`SHELL=/bin/sh lesspipe.sh`"
 fi
 
 if [ -n "${BASH_VERSINFO+x}" ]; then
@@ -118,8 +122,4 @@ elif [ -n "${ZSH_VERSION+x}" ]; then
 else
   checksource "$ENV"
 fi
-
-# prioritise $HOME binaries
-prepath "$HOME/bin"
-prepath "$HOME/.local/bin"
 
