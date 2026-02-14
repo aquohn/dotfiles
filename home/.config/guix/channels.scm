@@ -53,14 +53,14 @@
             (openpgp-fingerprint
               "13E7 6CD6 E649 C28C 3385  4DF5 5E5A A665 6149 17F7"))))
 
-      (channel
-        (name 'pantherx)
-        (url "https://git.pantherx.org/development/panther.git")
-        (introduction
-          (make-channel-introduction
-            "54b4056ac571611892c743b65f4c47dc298c49da"
-            (openpgp-fingerprint
-              "A36A D41E ECC7 A871 1003  5D24 524F EB1A 9D33 C9CB"))))
+      ;; (channel
+      ;;   (name 'pantherx)
+      ;;   (url "https://git.pantherx.org/development/panther.git")
+      ;;   (introduction
+      ;;     (make-channel-introduction
+      ;;       "54b4056ac571611892c743b65f4c47dc298c49da"
+      ;;       (openpgp-fingerprint
+      ;;         "A36A D41E ECC7 A871 1003  5D24 524F EB1A 9D33 C9CB"))))
 
       ;; (channel
       ;;   (name 'guix-rust-past-crates)

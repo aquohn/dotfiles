@@ -6,6 +6,7 @@
 
 (use-modules (gnu home)
              (gnu packages)
+             (gnu packages linux)
              (gnu services)
              (guix gexp)
              (gnu home services desktop)
@@ -114,9 +115,15 @@
     (simple-service 'additional-dbus-services home-dbus-service-type
                     (map specification->package (list "xdg-desktop-portal-wlr" "xdg-desktop-portal-gtk" "xdg-desktop-portal" "blueman")))))
 
+(define user-sys-packages
+  (list
+    pipewire
+    wireplumber))
+
 (home-environment
   (services
     (append user-config
             user-apps
             user-sys ;; TODO only if using sway
-            %base-home-services)))
+            %base-home-services))
+  (packages user-sys-packages))
