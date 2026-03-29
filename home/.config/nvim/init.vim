@@ -105,6 +105,7 @@ Plug 'kana/vim-textobj-user' " needed for Agda
 " Purely for Nvim
 if has('nvim')
   Plug 'nvim-lua/plenary.nvim'
+  Plug 'ibhagwan/fzf-lua'
 
   " Vim in your browser!
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -132,6 +133,9 @@ if has('nvim')
   endif
 
   Plug 'nvim-treesitter/nvim-treesitter'
+
+  " Plug 'carlos-algms/agentic.nvim'
+  Plug 'olimorris/codecompanion.nvim'
 endif
 
 call plug#end()
@@ -188,7 +192,7 @@ command Bunload bp | sp | bn | bun
 command Bwipe bp | sp | bn | bw
 " Open file in buffer and close previous buffer
 command -nargs=1 -complete=file Bopen e <args> | sp | bp | bun
-nnoremap <Leader>o :FZF<CR>
+nnoremap <Leader>o :Files<CR>
 
 " Navigation
 nnoremap <Leader>t :NERDTree
@@ -467,4 +471,10 @@ if has('nvim')
 
   " LSP
   nnoremap <leader>? <cmd>lua vim.diagnostic.open_float()<CR>
+
+  " AI
+  nnoremap <leader>ac :CodeCompanionChat Toggle<CR>
+  nnoremap <leader>aa :CodeCompanionAction<CR>
+  xnoremap <leader>av :CodeCompanion
+  nnoremap <leader>ab :CodeCompanion #{buffer}
 endif

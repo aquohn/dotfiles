@@ -8,8 +8,7 @@ if vim.fn.executable('nix') then
         "flow",                            -- prefer eslint and ts_ls
         "ltex",                            -- grammar tool using too much CPU
         "quick_lint_js",                   -- prefer eslint and ts_ls
-        "scry",                            -- archived on Jun 1, 2023
-        "tailwindcss",                     -- associates with too many filetypes
+        "scry",                            -- archived on Jun 1, 2023 "tailwindcss",                     -- associates with too many filetypes
         "biome",                           -- not mature enough to be default
         "oxlint",                          -- prefer eslint
       },
@@ -19,18 +18,43 @@ if vim.fn.executable('nix') then
       },
   }
 end
-require("mason").setup()
-vim.lsp.enable {"clangd", "texlab", "guile_ls", "julials", "ty", "rust_analyzer", "ocamllsp", "rescriptls", "vhdl_ls", "verible", "basedpyright", "ruff"}
+vim.lsp.enable { 'guile_ls' }
 
 vim.diagnostic.config {
-  virtual_text = false,
-  underline = true
+  virtual_text = {
+    severity = {
+      min = vim.diagnostic.severity.ERROR,
+    },
+  },
+  underline = true,
+  float = {
+    source = 'if_many'
+  }
 }
 
 -- Utilities
 require('nvim-lightbulb').setup {
   autocmd = { enabled = true }
 }
+
+-- Buffers to ignore
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = function(args)
+        local bufnr = args.buf
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+        -- Check if the buffer name starts with 'fugitive://'
+        if bufname:match("^fugitive://") then
+            -- We defer the detachment slightly to ensure the
+            -- attachment process has finished before we sever it.
+            vim.schedule(function()
+                vim.lsp.buf_detach_client(bufnr, args.data.client_id)
+            end)
+        end
+    end,
+})
+
 
 if vim.fn.has('nvim-0.11') == 0 then
   --- Default maps for LSP functions, for older versions of nvim

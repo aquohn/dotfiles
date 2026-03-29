@@ -1,7 +1,14 @@
 local blink = require('blink.cmp')
 blink.setup({
-    cmdline = { enabled = false },
+    enabled = function()
+      for _, value in ipairs{"AgenticInput", "Copilot"} do
+        if string.find(vim.bo.filetype, value, 1, true) then
+          return false
+        end
+      end
+    end,
 
+    cmdline = { enabled = false },
     sources = {
       default = { 'lsp', 'omni', 'path', 'snippets', 'buffer' },
       providers = {
@@ -27,3 +34,5 @@ blink.setup({
       }
     }
   })
+
+require('fzf-lua').register_ui_select()
