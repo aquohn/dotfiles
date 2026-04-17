@@ -9,9 +9,12 @@
 	rebase = false
 [init]
 	templatedir = ~/.config/git/template
+	defaultBranch = master
 [sendemail]
 	smtpServer = /home/aquohn/.guix-profile/bin/sendgmail
 	smtpserveroption = -sender=johnkhootf@gmail.com
 	smtpserverport = 587
 	smtpencryption = tls
 	smtpuser = johnkhootf@gmail.com
+[advice]
+	defaultBranchName = false

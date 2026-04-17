@@ -12,10 +12,13 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=erasedups:ignorespace
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+
+# merge history across windows
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/bash/history"

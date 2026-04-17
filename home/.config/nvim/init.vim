@@ -100,6 +100,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'AndrewRadev/switch.vim'
+Plug 'wsdjeg/vim-fetch'
+Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-textobj-user' " needed for Agda
 
 " Purely for Nvim
@@ -146,6 +148,11 @@ let g:coc_disable_startup_warning = 1
 noremap <Leader>e <Plug>(easymotion-prefix)
 " Open nnn in buffer's dir
 nnoremap <LocalLeader>n :NnnPicker %:p:h<CR>
+let g:nnn#command = 'nnn -droa'
+let g:nnn#action = {
+      \ '<c-t>': 'tab split',
+      \ '<c-s>': 'split',
+      \ '<c-v>': 'vsplit' }
 
 syntax on
 filetype on
@@ -193,6 +200,7 @@ command Bwipe bp | sp | bn | bw
 " Open file in buffer and close previous buffer
 command -nargs=1 -complete=file Bopen e <args> | sp | bp | bun
 nnoremap <Leader>o :Files<CR>
+nnoremap <LocalLeader>yp :let @+ = expand('%:p')<CR>
 
 " Navigation
 nnoremap <Leader>t :NERDTree
@@ -216,12 +224,15 @@ function Remws(do_remws)
   endfor
   if remws | :%s/\s\+$//e | endif
 endfunction
+" easy-align
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 autocmd BufWrite * call Remws(g:remws_on_write)
 
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 let g:slime_no_mappings = 1
-xmap <leader>s <Plug>SlimeRegionSend
+vmap <leader>s <Plug>SlimeRegionSend
 nmap <leader>s <Plug>SlimeMotionSend
 nmap <leader>ss <Plug>SlimeLineSend
 let g:slime_python_ipython = 1

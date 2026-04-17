@@ -10,7 +10,7 @@
               "BBB0 2DDF 2CEA F6A8 0D1D  E643 A2A0 6DF2 A33A 54FA"))))
       (channel
         (name 'nonguix)
-        (url "https://gitlab.com/nonguix/nonguix.git")
+        (url "https://gitlab.com/nonguix/nonguix")
         (introduction
           (make-channel-introduction
             "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
@@ -43,6 +43,9 @@
       ;;   (branch "master")
       ;;   (url "https://gitlab.inria.fr/guix-hpc/guix-hpc-non-free"))
 
+      (channel
+        (name 'aquohn)
+        (url "file:///home/aquohn/Software/guix-channels/guix-aquohn"))
       (channel
         (name 'rosenthal)
         (url "https://codeberg.org/hako/rosenthal.git")

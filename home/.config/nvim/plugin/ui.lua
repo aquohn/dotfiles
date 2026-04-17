@@ -6,6 +6,7 @@ blink.setup({
           return false
         end
       end
+      return true
     end,
 
     cmdline = { enabled = false },
@@ -32,7 +33,7 @@ blink.setup({
       documentation = {
         auto_show = true
       }
-    }
+    },
   })
 
 require('fzf-lua').register_ui_select()

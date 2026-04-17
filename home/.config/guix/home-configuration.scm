@@ -7,6 +7,7 @@
 (use-modules (gnu home)
              (gnu packages)
              (gnu packages linux)
+             (gnu packages qt)
              (gnu services)
              (guix gexp)
              (gnu home services desktop)
@@ -14,7 +15,8 @@
              (gnu home services syncthing)
              (gnu home services pm)
              (gnu home services sound)
-             (gnu home services fontutils))
+             (gnu home services fontutils)
+             (rosenthal services desktop))
 
 
 (define user-config
@@ -107,16 +109,19 @@
   (list
     (service home-dbus-service-type)
     (service home-pipewire-service-type)
+    (service home-bb-auth-service-type)
     (service home-batsignal-service-type
         (home-batsignal-configuration
           (danger-level 20) ; Or whatever fitting
           (danger-command "loginctl suspend")
           (poll-delay 60)))
+    (service home-fcitx5-service-type)
     (simple-service 'additional-dbus-services home-dbus-service-type
                     (map specification->package (list "xdg-desktop-portal-wlr" "xdg-desktop-portal-gtk" "xdg-desktop-portal" "blueman")))))
 
 (define user-sys-packages
   (list
+    qtwayland
     pipewire
     wireplumber))
 

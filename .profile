@@ -64,6 +64,8 @@ OPAMROOT="$XDG_DATA_HOME/opam"; export OPAMROOT
 DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
 WINEPREFIX="$XDG_DATA_HOME/wine"; export WINEPREFIX
 TEXINPUTS="$XDG_DATA_HOME/latex:$TEXINPUTS"; export TEXINPUTS
+JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia;"; export JULIA_DEPOT_PATH
+GNUPGHOME="$XDG_DATA_HOME/gnupg"; export GNUPGHOME
 
 postpath "$XDG_DATA_HOME/flatpak/exports/bin"
 postpath "/var/lib/flatpak/exports/bin"
@@ -102,10 +104,19 @@ if [ "`command -v ssh-agent`" ] && [ -z "$SSH_AUTH_SOCK" ]; then
   find "$HOME/.ssh/" -type f -exec grep -Zl "PRIVATE" {} \;  | xargs -0 ssh-add
 fi
 
-EDITOR=ex; export EDITOR
-VISUAL=vim; export VISUAL
+# EDITOR="ex"; export EDITOR
+if [ "`command -v nvim`" ]; then
+  EDITOR=nvim
+  VISUAL=nvim
+else
+  EDITOR=vim
+  VISUAL=vim
+fi
+export EDITOR
+export VISUAL
 PAGER=less; export PAGER
 
+PYTHONBREAKPOINT='ipdb.set_trace'; export PYTHONBREAKPOINT
 NNN_PLUG='p:preview-tui;o:fzopen;d:fzcd;h:fzhist;v:rsynccp;t:preview-tabbed'; export NNN_PLUG
 
 # make less more friendly for non-text input files
