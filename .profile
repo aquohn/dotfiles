@@ -66,6 +66,9 @@ WINEPREFIX="$XDG_DATA_HOME/wine"; export WINEPREFIX
 TEXINPUTS="$XDG_DATA_HOME/latex:$TEXINPUTS"; export TEXINPUTS
 JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia;"; export JULIA_DEPOT_PATH
 GNUPGHOME="$XDG_DATA_HOME/gnupg"; export GNUPGHOME
+if [ "`command -v img2sixel`" ] && tmux display -p '#{client_termfeatures}' | grep -q 'sixel'; then
+  NNN_PREVIEWIMGPROG="img2sixel"; export NNN_PREVIEWIMGPROG
+fi
 
 postpath "$XDG_DATA_HOME/flatpak/exports/bin"
 postpath "/var/lib/flatpak/exports/bin"
