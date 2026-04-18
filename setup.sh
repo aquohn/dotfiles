@@ -41,8 +41,8 @@ opam install coq coq-vst merlin ocp-indent utop
 # Rust: rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# Julia: jill
-conda install jill
+# Julia: juliaup
+curl -fsSL https://install.julialang.org | sh
 # cp Project.toml .julia/environments/<version>
 # Pkg.update
 # cp -r ~/.local/share/jupyter/kernels/julia-<version> ~/.conda/envs/aquohn/share/jupyter/kernels

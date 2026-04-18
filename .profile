@@ -64,9 +64,10 @@ OPAMROOT="$XDG_DATA_HOME/opam"; export OPAMROOT
 DOT_SAGE="$XDG_CONFIG_HOME/sage"; export DOT_SAGE
 WINEPREFIX="$XDG_DATA_HOME/wine"; export WINEPREFIX
 TEXINPUTS="$XDG_DATA_HOME/latex:$TEXINPUTS"; export TEXINPUTS
-JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia;"; export JULIA_DEPOT_PATH
+JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia"; export JULIA_DEPOT_PATH
+JULIAUP_DEPOT_PATH="$XDG_DATA_HOME/juliaup"; export JULIAUP_DEPOT_PATH
 GNUPGHOME="$XDG_DATA_HOME/gnupg"; export GNUPGHOME
-if [ "`command -v img2sixel`" ] && tmux display -p '#{client_termfeatures}' | grep -q 'sixel'; then
+if [ "`command -v img2sixel`" ]; then
   NNN_PREVIEWIMGPROG="img2sixel"; export NNN_PREVIEWIMGPROG
 fi
 
@@ -75,6 +76,7 @@ postpath "/var/lib/flatpak/exports/bin"
 postpath "$HOME/.emacs.d/bin"
 postpath "$HOME/.elan/bin"
 postpath "$GOPATH/bin"
+# postpath "$JULIAUP_DEPOT_PATH/bin"
 
 [ "`command -v racket`" ] && postpath "$PLTADDONDIR/`racket --version | sed 's/.*v\([0-9.]*\).*/\1/'`/bin"
 [ "`command -v npm`" ] && postpath "`npm -g bin 2>/dev/null`"

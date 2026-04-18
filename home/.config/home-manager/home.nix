@@ -29,7 +29,7 @@
   # environment.
   home.packages = with pkgs; [
     opencode
-    julia-bin
+    # julia-bin
     brave
     spotify
     vectorcode

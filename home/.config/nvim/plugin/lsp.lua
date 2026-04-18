@@ -8,7 +8,8 @@ if vim.fn.executable('nix') then
         "flow",                            -- prefer eslint and ts_ls
         "ltex",                            -- grammar tool using too much CPU
         "quick_lint_js",                   -- prefer eslint and ts_ls
-        "scry",                            -- archived on Jun 1, 2023 "tailwindcss",                     -- associates with too many filetypes
+        "scry",                            -- archived on Jun 1, 2023
+        "tailwindcss",                     -- associates with too many filetypes
         "biome",                           -- not mature enough to be default
         "oxlint",                          -- prefer eslint
         "scheme_langserver",               -- broken?
@@ -20,6 +21,13 @@ if vim.fn.executable('nix') then
   }
 end
 vim.lsp.enable { 'guile_ls' }
+
+if vim.fn.executable('guix') then
+  local julials = vim.lsp.config.julials
+  julials.cmd[1] = "gjulia"
+  vim.lsp.config ( 'julials', {cmd = julials.cmd} )
+  vim.lsp.enable { 'julials' }
+end
 
 vim.diagnostic.config {
   virtual_text = {
@@ -55,6 +63,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end,
 })
+
+
 
 
 if vim.fn.has('nvim-0.11') == 0 then

@@ -148,7 +148,7 @@ let g:coc_disable_startup_warning = 1
 noremap <Leader>e <Plug>(easymotion-prefix)
 " Open nnn in buffer's dir
 nnoremap <LocalLeader>n :NnnPicker %:p:h<CR>
-let g:nnn#command = 'nnn -droa'
+let g:nnn#command = 'nnn -doa'
 let g:nnn#action = {
       \ '<c-t>': 'tab split',
       \ '<c-s>': 'split',
