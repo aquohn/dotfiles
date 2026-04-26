@@ -14,6 +14,7 @@
     ],
     "modules-right": [
         "mpd",
+        "custom/audio_idle_inhibitor",
         "idle_inhibitor",
         "pulseaudio",
         "bluetooth",
@@ -75,6 +76,18 @@
         },
         "tooltip-format": "MPD (connected)",
         "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "custom/audio_idle_inhibitor": {
+        "format": "{icon}",
+        "exec": "sway-audio-idle-inhibit --dry-print-both-waybar",
+        "exec-if": "which sway-audio-idle-inhibit",
+        "return-type": "json",
+        "format-icons": {
+          "output": "",
+          "input": "",
+          "output-input": "  ",
+          "none": ""
+        }
     },
     "idle_inhibitor": {
         "format": "{icon}",

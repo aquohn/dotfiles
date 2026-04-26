@@ -92,6 +92,7 @@ button:hover {
 #tray,
 #mode,
 #idle_inhibitor,
+#custom-audio_idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
 #mpd {
@@ -204,8 +205,6 @@ label:focus {
     color: #2a5c45;
 }
 
-
-
 #wireplumber {
     background-color: #fff0f5;
     color: #000000;
@@ -254,7 +253,7 @@ label:focus {
     background-color: #2d3436;
 }
 
-#idle_inhibitor.activated {
+#idle_inhibitor.activated, #custom-audio_idle_inhibitor {
     background-color: #ecf0f1;
     color: #2d3436;
 }
