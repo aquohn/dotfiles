@@ -102,6 +102,7 @@ Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'AndrewRadev/switch.vim'
 Plug 'wsdjeg/vim-fetch'
 Plug 'junegunn/vim-easy-align'
+Plug 'AndrewRadev/linediff.vim'
 Plug 'kana/vim-textobj-user' " needed for Agda
 
 " Purely for Nvim
@@ -148,7 +149,7 @@ let g:coc_disable_startup_warning = 1
 noremap <Leader>e <Plug>(easymotion-prefix)
 " Open nnn in buffer's dir
 nnoremap <LocalLeader>n :NnnPicker %:p:h<CR>
-let g:nnn#command = 'nnn -doa'
+let g:nnn#command = 'nnn -dAa'
 let g:nnn#action = {
       \ '<c-t>': 'tab split',
       \ '<c-s>': 'split',
@@ -224,9 +225,10 @@ function Remws(do_remws)
   endfor
   if remws | :%s/\s\+$//e | endif
 endfunction
-" easy-align
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+vmap <leader>d :Linediff<CR>
+nmap <localleader>p :let @* = expand("%:p")<CR>
 autocmd BufWrite * call Remws(g:remws_on_write)
 
 let g:slime_target = "tmux"
