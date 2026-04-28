@@ -27,12 +27,13 @@ for_window [app_id="Zotero" title="Progress"] floating enable
 exec swayidle -w \
        timeout 300 '$lock' \
        timeout 600 'swaymsg "output * dpms off"' \
+       resume 'swaymsg "output * dpms on"' \
        timeout 900 '$sleep' \
        resume 'swaymsg "output * dpms on"' \
        before-sleep '$lock'
 
 # $lock may return > 0 if already locked
-bindswitch --reload --locked lid:on exec sh -c '$lock; $sleep'
+bindswitch --reload --locked lid:on exec sh -c '$lock; $check_poweroff || $sleep'
 for_window [shell=".*"] inhibit_idle fullscreen
 
 bindsym XF86Sleep exec sh -c '$lock; $sleep'
