@@ -44,9 +44,11 @@ vim.diagnostic.config {
 }
 
 -- Utilities
-require('nvim-lightbulb').setup {
-  autocmd = { enabled = true }
-}
+if vim.fn.has('nvim-0.11') == 1 then
+  require('nvim-lightbulb').setup {
+    autocmd = { enabled = true }
+  }
+end
 
 -- Buffers to ignore
 vim.api.nvim_create_autocmd("LspAttach", {

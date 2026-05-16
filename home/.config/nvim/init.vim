@@ -42,15 +42,18 @@ Plug 'junegunn/fzf.vim'
 
 " Completion
 let s:using_mucomplete = 0
-if has('nvim-0.10')
+if has('nvim-0.11')
   Plug 'neovim/nvim-lspconfig'
-  Plug 'saghen/blink.cmp', { 'tag': '*' }
 else
   if has('nvim')
     Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.6.0' }
   else
     Plug 'prabirshrestha/vim-lsp'
   endif
+endif
+if has('nvim-0.10')
+  Plug 'saghen/blink.cmp', { 'tag': '*' }
+else
   Plug 'lifepillar/vim-mucomplete'
   let s:using_mucomplete = 1
 endif
