@@ -1,32 +1,34 @@
-if vim.fn.executable('nix') then
-  require("lazy-lsp").setup {
-      use_vim_lsp_config = true,
-      excluded_servers = {
-        "ccls",                            -- prefer clangd
-        "denols",                          -- prefer eslint and ts_ls
-        "docker_compose_language_service", -- yamlls should be enough?
-        "flow",                            -- prefer eslint and ts_ls
-        "ltex",                            -- grammar tool using too much CPU
-        "quick_lint_js",                   -- prefer eslint and ts_ls
-        "scry",                            -- archived on Jun 1, 2023
-        "tailwindcss",                     -- associates with too many filetypes
-        "biome",                           -- not mature enough to be default
-        "oxlint",                          -- prefer eslint
-        "scheme_langserver",               -- broken?
-      },
-      preferred_servers = {
-        markdown = {},
-        python = { "ty", "basedpyright", "ruff" },
-      },
-  }
-end
-vim.lsp.enable { 'guile_ls' }
+if vim.fn.has('nvim-0.11') == 1 then
+  if vim.fn.executable('nix') ~= 0 then
+    require("lazy-lsp").setup {
+        use_vim_lsp_config = true,
+        excluded_servers = {
+          "ccls",                            -- prefer clangd
+          "denols",                          -- prefer eslint and ts_ls
+          "docker_compose_language_service", -- yamlls should be enough?
+          "flow",                            -- prefer eslint and ts_ls
+          "ltex",                            -- grammar tool using too much CPU
+          "quick_lint_js",                   -- prefer eslint and ts_ls
+          "scry",                            -- archived on Jun 1, 2023
+          "tailwindcss",                     -- associates with too many filetypes
+          "biome",                           -- not mature enough to be default
+          "oxlint",                          -- prefer eslint
+          "scheme_langserver",               -- broken?
+        },
+        preferred_servers = {
+          markdown = {},
+          python = { "ty", "basedpyright", "ruff" },
+        },
+    }
+  end
+  vim.lsp.enable { 'guile_ls' }
 
-if vim.fn.executable('guix') then
-  local julials = vim.lsp.config.julials
-  julials.cmd[1] = "gjulia"
-  vim.lsp.config ( 'julials', {cmd = julials.cmd} )
-  vim.lsp.enable { 'julials' }
+  if vim.fn.executable('guix') ~= 0 then
+    local julials = vim.lsp.config.julials
+    julials.cmd[1] = "gjulia"
+    vim.lsp.config ( 'julials', {cmd = julials.cmd} )
+    vim.lsp.enable { 'julials' }
+  end
 end
 
 vim.diagnostic.config {

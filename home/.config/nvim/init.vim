@@ -138,7 +138,9 @@ if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter'
 
   " Plug 'carlos-algms/agentic.nvim'
-  Plug 'olimorris/codecompanion.nvim'
+  if has('nvim-0.11')
+    Plug 'olimorris/codecompanion.nvim'
+  endif
 endif
 
 call plug#end()
