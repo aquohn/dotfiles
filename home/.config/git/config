@@ -18,3 +18,5 @@
 	smtpuser = johnkhootf@gmail.com
 [advice]
 	defaultBranchName = false
+[push]
+	autoSetupRemote = true

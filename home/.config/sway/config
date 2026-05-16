@@ -22,6 +22,11 @@ for_window [app_id="floating"] floating enable
 for_window [instance="floating"] floating enable
 # float Zotero progress window
 for_window [app_id="Zotero" title="Progress"] floating enable
+# float Zotero progress window
+for_window [app_id="Zotero" title="Progress"] floating enable
+# inhibit shortcuts when freerdp is active
+for_window [app_id=".*freerdp"] shortcuts_inhibitor enable
+for_window [class=".*freerdp"] shortcuts_inhibitor enable
 
 ### Idle configuration
 exec swayidle -w \

@@ -96,3 +96,7 @@ fi
 [ "`command -v fzf`" ] && eval "`fzf --bash`"
 checksource "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/fzf-git.sh"
 
+monitor () {
+  bash -lc "shopt -s expand_aliases; eval '$*'"
+  printf '\a'
+}
